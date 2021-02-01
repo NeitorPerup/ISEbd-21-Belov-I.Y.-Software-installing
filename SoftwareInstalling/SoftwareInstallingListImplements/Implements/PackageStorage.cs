@@ -1,12 +1,12 @@
 ﻿using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
-using SoftwareInstallingListImplement.Models;
+using SoftwareInstallingListImplements.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SoftwareInstallingListImplement.Implements
+namespace SoftwareInstallingListImplements.Implements
 {
     public class PackageStorage : IPackageStorage
     {

@@ -1,56 +1,59 @@
 ﻿using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
-using SoftwareInstallingListImplement.Models;
+using SoftwareInstallingListImplements.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
-namespace SoftwareInstallingListImplement.Implements
+namespace SoftwareInstallingListImplements.Implements
 {
-    public class ComponentStorage : IComponentStorage
+    public class OrderStorage : IOrderStorage
     {
         private readonly DataListSingleton source;
 
-        public ComponentStorage()
+        public OrderStorage()
         {
             source = DataListSingleton.GetInstance();
         }
 
-        public List<ComponentViewModel> GetFullList()
+        public List<OrderViewModel> GetFullList()
         {
-            List<ComponentViewModel> result = new List<ComponentViewModel>();
-            foreach (var component in source.Components)
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var component in source.Orders)
             {
                 result.Add(CreateModel(component));
             }
             return result;
         }
-        public List<ComponentViewModel> GetFilteredList(ComponentBindingModel model)
+
+        public List<OrderViewModel> GetFilteredList(OrderBindingModel model)
         {
             if (model == null)
             {
                 return null;
             }
-            List<ComponentViewModel> result = new List<ComponentViewModel>();
-            foreach (var component in source.Components)
+            List<OrderViewModel> result = new List<OrderViewModel>();
+            foreach (var component in source.Orders)
             {
-                if (component.ComponentName.Contains(model.ComponentName))
+                if (component.ProductId.ToString().Contains(model.ProductId.ToString()))
                 {
                     result.Add(CreateModel(component));
                 }
             }
             return result;
         }
-        public ComponentViewModel GetElement(ComponentBindingModel model)
+
+        public OrderViewModel GetElement(OrderBindingModel model)
         {
             if (model == null)
             {
                 return null;
             }
-            foreach (var component in source.Components)
+            foreach (var component in source.Orders)
             {
-                if (component.Id == model.Id || component.ComponentName ==
-                model.ComponentName)
+                if (component.Id == model.Id || component.ProductId ==
+               model.ProductId)
                 {
                     return CreateModel(component);
                 }
@@ -58,23 +61,23 @@ namespace SoftwareInstallingListImplement.Implements
             return null;
         }
 
-        public void Insert(ComponentBindingModel model)
+        public void Insert(OrderBindingModel model)
         {
-            Component tempComponent = new Component { Id = 1 };
-            foreach (var component in source.Components)
+            Order tempComponent = new Order { Id = 1 };
+            foreach (var component in source.Orders)
             {
                 if (component.Id >= tempComponent.Id)
                 {
                     tempComponent.Id = component.Id + 1;
                 }
             }
-            source.Components.Add(CreateModel(model, tempComponent));
+            source.Orders.Add(CreateModel(model, tempComponent));
         }
 
-        public void Update(ComponentBindingModel model)
+        public void Update(OrderBindingModel model)
         {
-            Component tempComponent = null;
-            foreach (var component in source.Components)
+            Order tempComponent = null;
+            foreach (var component in source.Orders)
             {
                 if (component.Id == model.Id)
                 {
@@ -88,7 +91,7 @@ namespace SoftwareInstallingListImplement.Implements
             CreateModel(model, tempComponent);
         }
 
-        public void Delete(ComponentBindingModel model)
+        public void Delete(OrderBindingModel model)
         {
             for (int i = 0; i < source.Components.Count; ++i)
             {
@@ -100,17 +103,19 @@ namespace SoftwareInstallingListImplement.Implements
             }
             throw new Exception("Элемент не найден");
         }
-        private Component CreateModel(ComponentBindingModel model, Component component)
+
+        private Order CreateModel(OrderBindingModel model, Order component)
         {
-            component.ComponentName = model.ComponentName;
+            component.ProductId = model.ProductId;
             return component;
         }
-        private ComponentViewModel CreateModel(Component component)
+
+        private OrderViewModel CreateModel(Order component)
         {
-            return new ComponentViewModel
+            return new OrderViewModel
             {
                 Id = component.Id,
-                ComponentName = component.ComponentName
+                ProductId = component.ProductId
             };
         }
     }

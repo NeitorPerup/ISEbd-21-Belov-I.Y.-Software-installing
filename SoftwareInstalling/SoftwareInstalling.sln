@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareInstallingView", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareInstallingBuisnessLogic", "SoftwareInstallingBuisnessLogic\SoftwareInstallingBuisnessLogic.csproj", "{E133C2AE-4A82-4822-91EF-405D4E74CF3B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareInstallingListImplement", "SoftwareInstallingListImplement\SoftwareInstallingListImplement.csproj", "{6FE23BFC-4DA8-4B35-883D-E1E04AF74F78}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoftwareInstallingListImplements", "SoftwareInstallingListImplements\SoftwareInstallingListImplements.csproj", "{D0F1B581-4147-4EBD-9A9D-2A9AC174319E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +23,10 @@ Global
 		{E133C2AE-4A82-4822-91EF-405D4E74CF3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E133C2AE-4A82-4822-91EF-405D4E74CF3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E133C2AE-4A82-4822-91EF-405D4E74CF3B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FE23BFC-4DA8-4B35-883D-E1E04AF74F78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FE23BFC-4DA8-4B35-883D-E1E04AF74F78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FE23BFC-4DA8-4B35-883D-E1E04AF74F78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FE23BFC-4DA8-4B35-883D-E1E04AF74F78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0F1B581-4147-4EBD-9A9D-2A9AC174319E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0F1B581-4147-4EBD-9A9D-2A9AC174319E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0F1B581-4147-4EBD-9A9D-2A9AC174319E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0F1B581-4147-4EBD-9A9D-2A9AC174319E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -46,13 +46,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataListSingleton.cs" />
-    <Compile Include="Implements\ComponentStorage.cs" />
-    <Compile Include="Implements\OrderStorage.cs" />
-    <Compile Include="Implements\PackageStorage.cs" />
-    <Compile Include="Models\Component.cs" />
-    <Compile Include="Models\Order.cs" />
-    <Compile Include="Models\Package.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

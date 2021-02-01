@@ -1,6 +1,6 @@
 ﻿using SoftwareInstallingBuisnessLogic.BuisnessLogics;
 using SoftwareInstallingBuisnessLogic.Interfaces;
-using SoftwareInstallingListImplement.Implements;
+using SoftwareInstallingListImplements.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;

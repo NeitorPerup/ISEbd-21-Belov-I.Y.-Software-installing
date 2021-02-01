@@ -1,7 +1,7 @@
-﻿using SoftwareInstallingListImplement.Models;
+﻿using SoftwareInstallingListImplements.Models;
 using System.Collections.Generic;
 
-namespace SoftwareInstallingListImplement
+namespace SoftwareInstallingListImplements
 {
     public class DataListSingleton
     {
