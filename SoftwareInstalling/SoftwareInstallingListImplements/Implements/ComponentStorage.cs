@@ -25,6 +25,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             return result;
         }
+
         public List<ComponentViewModel> GetFilteredList(ComponentBindingModel model)
         {
             if (model == null)
@@ -41,6 +42,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             return result;
         }
+
         public ComponentViewModel GetElement(ComponentBindingModel model)
         {
             if (model == null)
@@ -100,11 +102,13 @@ namespace SoftwareInstallingListImplements.Implements
             }
             throw new Exception("Элемент не найден");
         }
+
         private Component CreateModel(ComponentBindingModel model, Component component)
         {
             component.ComponentName = model.ComponentName;
             return component;
         }
+
         private ComponentViewModel CreateModel(Component component)
         {
             return new ComponentViewModel

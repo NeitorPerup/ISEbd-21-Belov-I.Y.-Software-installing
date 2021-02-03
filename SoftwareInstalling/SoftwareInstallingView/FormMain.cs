@@ -10,29 +10,32 @@ namespace SoftwareInstallingView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
+
         private readonly OrderLogic _orderLogic;
+
         public FormMain(OrderLogic orderLogic)
         {
             InitializeComponent();
             this._orderLogic = orderLogic;
         }
+
         private void FormMain_Load(object sender, EventArgs e)
         {
             LoadData();
         }
+
         private void LoadData()
         {
             try
             {
-                // продумать логику
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var component in list)
-                    {
-                        dataGridView.Rows.Add(new object[] { component.ProductName, component.Count, component.Sum,
-                            component.Status,component.DateCreate, component.DateImplement});
+                    foreach (var order in list)
+                    {        
+                        dataGridView.Rows.Add(new object[] { order.Id, order.ProductId, order.ProductName, order.Count, order.Sum,
+                            order.Status,order.DateCreate, order.DateImplement});
                     }
                 }
 
@@ -43,6 +46,7 @@ namespace SoftwareInstallingView
                 MessageBoxIcon.Error);
             }
         }
+
         private void КомпонентыToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormComponents>();
@@ -51,15 +55,17 @@ namespace SoftwareInstallingView
 
         private void ИзделияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormPackage>();
+            var form = Container.Resolve<FormPackages>();
             form.ShowDialog();
         }
+
         private void ButtonCreateOrder_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormCreateOrder>();
             form.ShowDialog();
             LoadData();
         }
+
         private void ButtonTakeOrderInWork_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -69,8 +75,7 @@ namespace SoftwareInstallingView
                 {
                     _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
                     {
-                        OrderId =
-                    id
+                        OrderId = id
                     });
                     LoadData();
                 }
@@ -81,6 +86,7 @@ namespace SoftwareInstallingView
                 }
             }
         }
+
         private void ButtonOrderReady_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -101,6 +107,7 @@ namespace SoftwareInstallingView
                 }
             }
         }
+
         private void ButtonPayOrder_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -118,6 +125,7 @@ namespace SoftwareInstallingView
                 }
             }
         }
+
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();

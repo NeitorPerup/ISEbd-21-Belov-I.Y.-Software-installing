@@ -12,15 +12,21 @@ namespace SoftwareInstallingView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
+
         public int Id { set { id = value; } }
+
         private readonly PackageLogic logic;
+
         private int? id;
+
         private Dictionary<int, (string, int)> productComponents;
+
         public FormPackage(PackageLogic service)
         {
             InitializeComponent();
             this.logic = service;
         }
+
         private void FormProduct_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
@@ -128,10 +134,12 @@ namespace SoftwareInstallingView
                 }
             }
         }
+
         private void ButtonRef_Click(object sender, EventArgs e)
         {
             LoadData();
         }
+
         private void ButtonSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxName.Text))

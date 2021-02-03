@@ -20,9 +20,9 @@ namespace SoftwareInstallingListImplements.Implements
         public List<OrderViewModel> GetFullList()
         {
             List<OrderViewModel> result = new List<OrderViewModel>();
-            foreach (var component in source.Orders)
+            foreach (var order in source.Orders)
             {
-                result.Add(CreateModel(component));
+                result.Add(CreateModel(order));
             }
             return result;
         }
@@ -34,11 +34,11 @@ namespace SoftwareInstallingListImplements.Implements
                 return null;
             }
             List<OrderViewModel> result = new List<OrderViewModel>();
-            foreach (var component in source.Orders)
+            foreach (var order in source.Orders)
             {
-                if (component.ProductId.ToString().Contains(model.ProductId.ToString()))
+                if (order.ProductId.ToString().Contains(model.ProductId.ToString()))
                 {
-                    result.Add(CreateModel(component));
+                    result.Add(CreateModel(order));
                 }
             }
             return result;
@@ -63,59 +63,75 @@ namespace SoftwareInstallingListImplements.Implements
 
         public void Insert(OrderBindingModel model)
         {
-            Order tempComponent = new Order { Id = 1 };
-            foreach (var component in source.Orders)
+            Order tempOrder = new Order { Id = 1 };
+            foreach (var order in source.Orders)
             {
-                if (component.Id >= tempComponent.Id)
+                if (order.Id >= tempOrder.Id)
                 {
-                    tempComponent.Id = component.Id + 1;
+                    tempOrder.Id = order.Id + 1;
                 }
             }
-            source.Orders.Add(CreateModel(model, tempComponent));
+            source.Orders.Add(CreateModel(model, tempOrder));
         }
 
         public void Update(OrderBindingModel model)
         {
-            Order tempComponent = null;
-            foreach (var component in source.Orders)
+            Order tempOrder = null;
+            foreach (var order in source.Orders)
             {
-                if (component.Id == model.Id)
+                if (order.Id == model.Id)
                 {
-                    tempComponent = component;
+                    tempOrder = order;
                 }
             }
-            if (tempComponent == null)
+            if (tempOrder == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            CreateModel(model, tempComponent);
+            CreateModel(model, tempOrder);
         }
 
         public void Delete(OrderBindingModel model)
         {
-            for (int i = 0; i < source.Components.Count; ++i)
+            for (int i = 0; i < source.Orders.Count; ++i)
             {
-                if (source.Components[i].Id == model.Id.Value)
+                if (source.Orders[i].Id == model.Id.Value)
                 {
-                    source.Components.RemoveAt(i);
+                    source.Orders.RemoveAt(i);
                     return;
                 }
             }
             throw new Exception("Элемент не найден");
         }
 
-        private Order CreateModel(OrderBindingModel model, Order component)
+        private Order CreateModel(OrderBindingModel model, Order order)
         {
-            component.ProductId = model.ProductId;
-            return component;
+            order.ProductId = model.ProductId;
+            order.Count = model.Count;
+            order.Sum = model.Sum;
+            order.Status = model.Status;
+            return order;
         }
 
-        private OrderViewModel CreateModel(Order component)
+        private OrderViewModel CreateModel(Order order)
         {
+            string productName = null;
+            foreach(var product in source.Products)
+            {
+                if (product.Id == order.ProductId)
+                {
+                    productName = product.ProductName;
+                }
+            }
+
             return new OrderViewModel
             {
-                Id = component.Id,
-                ProductId = component.ProductId
+                Id = order.Id,
+                ProductId = order.ProductId,
+                Sum = order.Sum,
+                Count = order.Count,
+                Status = order.Status,
+                ProductName = productName
             };
         }
     }

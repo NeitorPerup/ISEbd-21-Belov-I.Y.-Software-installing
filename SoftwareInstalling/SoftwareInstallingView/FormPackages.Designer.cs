@@ -1,7 +1,7 @@
 ﻿
 namespace SoftwareInstallingView
 {
-    partial class FormComponents
+    partial class FormPackages
     {
         /// <summary>
         /// Required designer variable.
@@ -41,14 +41,14 @@ namespace SoftwareInstallingView
             // 
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(1, 1);
+            this.dataGridView.Location = new System.Drawing.Point(0, -1);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(569, 451);
+            this.dataGridView.Size = new System.Drawing.Size(594, 449);
             this.dataGridView.TabIndex = 0;
             // 
             // buttonAdd
             // 
-            this.buttonAdd.Location = new System.Drawing.Point(665, 66);
+            this.buttonAdd.Location = new System.Drawing.Point(647, 81);
             this.buttonAdd.Name = "buttonAdd";
             this.buttonAdd.Size = new System.Drawing.Size(75, 23);
             this.buttonAdd.TabIndex = 1;
@@ -58,7 +58,7 @@ namespace SoftwareInstallingView
             // 
             // buttonUpd
             // 
-            this.buttonUpd.Location = new System.Drawing.Point(665, 123);
+            this.buttonUpd.Location = new System.Drawing.Point(647, 140);
             this.buttonUpd.Name = "buttonUpd";
             this.buttonUpd.Size = new System.Drawing.Size(75, 23);
             this.buttonUpd.TabIndex = 2;
@@ -68,7 +68,7 @@ namespace SoftwareInstallingView
             // 
             // buttonDel
             // 
-            this.buttonDel.Location = new System.Drawing.Point(665, 175);
+            this.buttonDel.Location = new System.Drawing.Point(647, 198);
             this.buttonDel.Name = "buttonDel";
             this.buttonDel.Size = new System.Drawing.Size(75, 23);
             this.buttonDel.TabIndex = 3;
@@ -78,7 +78,7 @@ namespace SoftwareInstallingView
             // 
             // buttonRef
             // 
-            this.buttonRef.Location = new System.Drawing.Point(665, 230);
+            this.buttonRef.Location = new System.Drawing.Point(647, 250);
             this.buttonRef.Name = "buttonRef";
             this.buttonRef.Size = new System.Drawing.Size(75, 23);
             this.buttonRef.TabIndex = 4;
@@ -86,19 +86,19 @@ namespace SoftwareInstallingView
             this.buttonRef.UseVisualStyleBackColor = true;
             this.buttonRef.Click += new System.EventHandler(this.ButtonRef_Click);
             // 
-            // FormComponents
+            // FormPackages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 461);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.buttonRef);
             this.Controls.Add(this.buttonDel);
             this.Controls.Add(this.buttonUpd);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
-            this.Name = "FormComponents";
-            this.Text = "Компоненты";
-            this.Load += new System.EventHandler(this.FormComponents_Load);
+            this.Name = "FormPackages";
+            this.Text = "FormPackages";
+            this.Load += new System.EventHandler(this.FormPackage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

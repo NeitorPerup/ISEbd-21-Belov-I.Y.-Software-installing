@@ -28,6 +28,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             }
             return _orderStorage.GetFilteredList(model);
         }
+
         public void CreateOrder(CreateOrderBindingModel model)
         {
             _orderStorage.Insert(new OrderBindingModel
@@ -93,7 +94,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         }
         public void PayOrder(ChangeStatusBindingModel model)
         {
-            // продумать логику
             var order = _orderStorage.GetElement(new OrderBindingModel
             {
                 Id = model.OrderId

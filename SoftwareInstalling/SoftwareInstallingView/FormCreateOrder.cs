@@ -11,19 +11,22 @@ namespace SoftwareInstallingView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
+
         private readonly PackageLogic _logicP;
+
         private readonly OrderLogic _logicO;
+
         public FormCreateOrder(PackageLogic logicP, OrderLogic logicO)
         {
             InitializeComponent();
             _logicP = logicP;
             _logicO = logicO;
         }
+
         private void FormCreateOrder_Load(object sender, EventArgs e)
         {
             try
             {
-                // продумать логику
                 var list = _logicP.Read(null);
                 foreach (var component in list)
                 {
@@ -40,6 +43,7 @@ namespace SoftwareInstallingView
                 MessageBoxIcon.Error);
             }
         }
+
         private void CalcSum()
         {
             if (comboBoxProduct.SelectedValue != null &&
@@ -59,10 +63,12 @@ namespace SoftwareInstallingView
                 }
             }
         }
+
         private void TextBoxCount_TextChanged(object sender, EventArgs e)
         {
             CalcSum();
         }
+
         private void ComboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcSum();
@@ -101,6 +107,7 @@ namespace SoftwareInstallingView
                 MessageBoxIcon.Error);
             }
         }
+
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

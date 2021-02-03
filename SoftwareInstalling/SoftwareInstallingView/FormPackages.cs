@@ -1,25 +1,26 @@
-﻿using SoftwareInstallingBuisnessLogic.BindingModels;
+﻿using System;
+using System.Collections.Generic;
+using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
-using System;
 using System.Windows.Forms;
 using Unity;
 
 namespace SoftwareInstallingView
 {
-    public partial class FormComponents : Form
+    public partial class FormPackages : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
-        private readonly ComponentLogic logic;
+        private readonly PackageLogic logic;
 
-        public FormComponents(ComponentLogic logic)
+        public FormPackages(PackageLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
 
-        private void FormComponents_Load(object sender, EventArgs e)
+        private void FormPackage_Load(object sender, EventArgs e)
         {
             LoadData();
         }
@@ -29,14 +30,17 @@ namespace SoftwareInstallingView
             try
             {
                 var list = logic.Read(null);
+
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[3].Visible = false;
                     dataGridView.Columns[1].AutoSizeMode =
                     DataGridViewAutoSizeColumnMode.Fill;
                 }
             }
+                           
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
@@ -46,7 +50,7 @@ namespace SoftwareInstallingView
 
         private void ButtonAdd_Click(object sender, EventArgs e)
         {
-            var form = Container.Resolve<FormComponent>();
+            var form = Container.Resolve<FormPackage>();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData();
@@ -57,7 +61,7 @@ namespace SoftwareInstallingView
         {
             if (dataGridView.SelectedRows.Count == 1)
             {
-                var form = Container.Resolve<FormComponent>();
+                var form = Container.Resolve<FormPackage>();
                 form.Id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
@@ -65,7 +69,6 @@ namespace SoftwareInstallingView
                 }
             }
         }
-
         private void ButtonDel_Click(object sender, EventArgs e)
         {
             if (dataGridView.SelectedRows.Count == 1)
@@ -77,7 +80,7 @@ namespace SoftwareInstallingView
                     Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                     try
                     {
-                        logic.Delete(new ComponentBindingModel { Id = id });
+                        logic.Delete(new PackageBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {

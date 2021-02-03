@@ -13,14 +13,19 @@ namespace SoftwareInstallingView
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
+
         public int Id { set { id = value; } }
+
         private readonly ComponentLogic logic;
+
         private int? id;
+
         public FormComponent(ComponentLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
+
         private void FormComponent_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
@@ -40,6 +45,7 @@ namespace SoftwareInstallingView
                 }
             }
         }
+
         private void ButtonSave_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxName.Text))
@@ -66,6 +72,7 @@ namespace SoftwareInstallingView
                 MessageBoxIcon.Error);
             }
         }
+
         private void ButtonCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;

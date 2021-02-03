@@ -9,6 +9,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
     public class ComponentLogic
     {
         private readonly IComponentStorage _componentStorage;
+
         public ComponentLogic(IComponentStorage componentStorage)
         {
             _componentStorage = componentStorage;
@@ -46,6 +47,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 _componentStorage.Insert(model);
             }
         }
+
         public void Delete(ComponentBindingModel model)
         {
             var element = _componentStorage.GetElement(new ComponentBindingModel
