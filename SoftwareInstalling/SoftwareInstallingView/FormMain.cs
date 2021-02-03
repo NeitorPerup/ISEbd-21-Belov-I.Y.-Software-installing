@@ -25,6 +25,17 @@ namespace SoftwareInstallingView
             try
             {
                 // продумать логику
+                var list = _orderLogic.Read(null);
+                if (list != null)
+                {
+                    dataGridView.Rows.Clear();
+                    foreach (var component in list)
+                    {
+                        dataGridView.Rows.Add(new object[] { component.ProductName, component.Count, component.Sum,
+                            component.Status,component.DateCreate, component.DateImplement});
+                    }
+                }
+
             }
             catch (Exception ex)
             {

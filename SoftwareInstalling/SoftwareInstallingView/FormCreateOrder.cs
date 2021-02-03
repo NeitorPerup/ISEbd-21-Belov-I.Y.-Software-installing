@@ -24,6 +24,15 @@ namespace SoftwareInstallingView
             try
             {
                 // продумать логику
+                var list = _logicP.Read(null);
+                foreach (var component in list)
+                {
+                    comboBoxProduct.DisplayMember = "ProductName";
+                    comboBoxProduct.ValueMember = "Id";
+                    comboBoxProduct.DataSource = list;
+                    comboBoxProduct.SelectedItem = null;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -41,7 +50,7 @@ namespace SoftwareInstallingView
                     int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
                     PackageViewModel product = _logicP.Read(new PackageBindingModel {Id = id})?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * product?.Price ?? 0).ToString();
+                    textBoxSum.Text = (count * product?.Price ?? 0).ToString();                    
                 }
                 catch (Exception ex)
                 {
