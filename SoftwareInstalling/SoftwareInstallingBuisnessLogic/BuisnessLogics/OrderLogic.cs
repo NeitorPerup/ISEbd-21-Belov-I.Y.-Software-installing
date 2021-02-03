@@ -10,10 +10,12 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
     public class OrderLogic
     {
         private readonly IOrderStorage _orderStorage;
+
         public OrderLogic(IOrderStorage orderStorage)
         {
             _orderStorage = orderStorage;
         }
+
         public List<OrderViewModel> Read(OrderBindingModel model)
         {
             if (model == null)
