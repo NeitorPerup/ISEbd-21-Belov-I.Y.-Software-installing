@@ -127,7 +127,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "FormCreateOrder";
-            this.Text = "FormCreateOrder";
+            this.Text = "Создать изделия";
             this.Load += new System.EventHandler(this.FormCreateOrder_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -110,6 +110,8 @@ namespace SoftwareInstallingListImplements.Implements
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
+            order.DateImplement = model.DateImplement;
+            order.DateCreate = model.DateCreate;
             return order;
         }
 
@@ -131,7 +133,9 @@ namespace SoftwareInstallingListImplements.Implements
                 Sum = order.Sum,
                 Count = order.Count,
                 Status = order.Status,
-                ProductName = productName
+                ProductName = productName,
+                DateCreate = order.DateCreate,
+                DateImplement = order.DateImplement
             };
         }
     }

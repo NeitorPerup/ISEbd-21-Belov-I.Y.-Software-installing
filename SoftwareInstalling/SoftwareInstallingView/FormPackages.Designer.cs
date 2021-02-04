@@ -97,7 +97,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormPackages";
-            this.Text = "FormPackages";
+            this.Text = "Пакеты";
             this.Load += new System.EventHandler(this.FormPackage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

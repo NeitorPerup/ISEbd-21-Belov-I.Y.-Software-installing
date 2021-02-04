@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
-using System;
 using System.Windows.Forms;
 using Unity;
 

@@ -144,8 +144,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoftwareInstallingBuisnessLogic\SoftwareInstallingBuisnessLogic.csproj">
-      <Project>{e133c2ae-4a82-4822-91ef-405d4e74cf3b}</Project>
+    <ProjectReference Include="..\SoftwareInstallingBuisnessLogics\SoftwareInstallingBuisnessLogic.csproj">
+      <Project>{9b6ad6f0-0c55-404b-807b-d5f892e2b24c}</Project>
       <Name>SoftwareInstallingBuisnessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\SoftwareInstallingListImplements\SoftwareInstallingListImplements.csproj">

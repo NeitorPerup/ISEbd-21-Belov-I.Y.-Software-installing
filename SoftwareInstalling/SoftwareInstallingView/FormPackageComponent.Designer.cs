@@ -102,7 +102,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Name = "FormPackageComponent";
-            this.Text = "FormPackageComponent";
+            this.Text = "Компонент пакета";
             this.ResumeLayout(false);
             this.PerformLayout();
 
