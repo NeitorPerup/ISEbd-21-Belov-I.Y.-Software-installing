@@ -78,16 +78,33 @@ namespace SoftwareInstallingFileImplement
 
                 foreach (var elem in xElements)
                 {
+                    OrderStatus status = 0;
+                    switch (elem.Element("Status").Value)
+                    {
+                        case "Принят":
+                            status = OrderStatus.Принят;
+                            break;
+                        case "Выполняется":
+                            status = OrderStatus.Выполняется;
+                            break;
+                        case "Готов":
+                            status = OrderStatus.Готов;
+                            break;
+                        case "Оплачен":
+                            status = OrderStatus.Оплачен;
+                            break;
+                    }
+
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         ProductId = Convert.ToInt32(elem.Element("ProductId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
-                        //Status = (OrderStatus)elem.Element("Status").Value,
+                        Status = status,
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
                         DateImplement = Convert.ToDateTime(elem.Element("DateImplement").Value)
-                    }) ;
+                }) ;
                 }
             }
             return list;
