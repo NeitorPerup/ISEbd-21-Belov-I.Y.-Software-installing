@@ -1,6 +1,6 @@
 ﻿using SoftwareInstallingBuisnessLogic.BuisnessLogics;
 using SoftwareInstallingBuisnessLogic.Interfaces;
-using SoftwareInstallingListImplements.Implements;
+using SoftwareInstallingFileImplement.Implements;
 using System;
 using System.Windows.Forms;
 using Unity;
@@ -19,6 +19,7 @@ namespace SoftwareInstallingView
             var container = BuildUnityContainer();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            new UnityContainer().AddExtension(new Diagnostic());
             Application.Run(container.Resolve<FormMain>());
         }
 

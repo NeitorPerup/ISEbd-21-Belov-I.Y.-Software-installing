@@ -148,9 +148,9 @@
       <Project>{9b6ad6f0-0c55-404b-807b-d5f892e2b24c}</Project>
       <Name>SoftwareInstallingBuisnessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SoftwareInstallingListImplements\SoftwareInstallingListImplements.csproj">
-      <Project>{d0f1b581-4147-4ebd-9a9d-2a9ac174319e}</Project>
-      <Name>SoftwareInstallingListImplements</Name>
+    <ProjectReference Include="..\SoftwareInstallingFileImplement\SoftwareInstallingFileImplement.csproj">
+      <Project>{961dee46-d6eb-4fe9-ab06-88d26af73164}</Project>
+      <Name>SoftwareInstallingFileImplement</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
