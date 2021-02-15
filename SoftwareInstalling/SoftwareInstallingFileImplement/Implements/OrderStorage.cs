@@ -87,15 +87,7 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string productName = null;
-
-            foreach (var product in source.Products)
-            {
-                if (product.Id == order.ProductId)
-                {
-                    productName = product.ProductName;
-                }
-            }
+            Package package = source.Products.FirstOrDefault(rec => rec.Id == order.ProductId);
 
             return new OrderViewModel
             {
@@ -106,7 +98,7 @@ namespace SoftwareInstallingFileImplement.Implements
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Count = order.Count,
-                ProductName = productName
+                ProductName = package.ProductName             
             };
         }
     }

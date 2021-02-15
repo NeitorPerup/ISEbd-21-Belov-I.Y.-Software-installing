@@ -95,6 +95,11 @@ namespace SoftwareInstallingFileImplement
                             break;
                     }
 
+                    DateTime date = Convert.ToDateTime(null);
+                    if (elem.Element("DateImplement").Value != "")
+                    {
+                        date = Convert.ToDateTime(elem.Element("DateImplement").Value);
+                    }
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
@@ -103,7 +108,7 @@ namespace SoftwareInstallingFileImplement
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = status,
                         DateCreate = Convert.ToDateTime(elem.Element("DateCreate").Value),
-                        DateImplement = Convert.ToDateTime(elem.Element("DateImplement").Value)
+                        DateImplement = date
                 }) ;
                 }
             }
