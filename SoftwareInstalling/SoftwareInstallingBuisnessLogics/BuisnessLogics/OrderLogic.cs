@@ -33,7 +33,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         {
             _orderStorage.Insert(new OrderBindingModel
             {
-                ProductId = model.ProductId,
+                PackageId = model.PackageId,
                 Count = model.Count,
                 Sum = model.Sum,
                 DateCreate = DateTime.Now,
@@ -58,7 +58,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ProductId = order.ProductId,
+                PackageId = order.PackageId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -84,7 +84,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ProductId = order.ProductId,
+                PackageId = order.PackageId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
@@ -109,7 +109,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
-                ProductId = order.ProductId,
+                PackageId = order.PackageId,
                 Count = order.Count,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,

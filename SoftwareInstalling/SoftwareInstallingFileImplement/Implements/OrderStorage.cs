@@ -29,7 +29,7 @@ namespace SoftwareInstallingFileImplement.Implements
                 return null;
             }
             return source.Orders
-                .Where(rec => rec.ProductId.ToString().Contains(model.ProductId.ToString()))
+                .Where(rec => rec.ProductId.ToString().Contains(model.PackageId.ToString()))
                 .Select(CreateModel).ToList();
         }
 
@@ -40,7 +40,7 @@ namespace SoftwareInstallingFileImplement.Implements
                 return null;
             }
             var order = source.Orders
-                .FirstOrDefault(rec => rec.ProductId == model.ProductId || rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.ProductId == model.PackageId || rec.Id == model.Id);
             return order != null ? CreateModel(order) : null;
         }
 
@@ -76,7 +76,7 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private Order CreateModel(OrderBindingModel model, Order order)
         {
-            order.ProductId = model.ProductId;
+            order.ProductId = model.PackageId;
             order.Status = model.Status;
             order.Sum = model.Sum;
             order.DateCreate = model.DateCreate;
@@ -92,13 +92,13 @@ namespace SoftwareInstallingFileImplement.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
-                ProductId = order.ProductId,
+                PackageId = order.ProductId,
                 Status = order.Status,
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Count = order.Count,
-                ProductName = package.ProductName             
+                PackageName = package.ProductName             
             };
         }
     }

@@ -19,7 +19,7 @@ namespace SoftwareInstallingView
 
         private int? id;
 
-        private Dictionary<int, (string, int)> productComponents;
+        private Dictionary<int, (string, int)> packageComponents;
 
         public FormPackage(PackageLogic service)
         {
@@ -27,7 +27,7 @@ namespace SoftwareInstallingView
             this.logic = service;
         }
 
-        private void FormProduct_Load(object sender, EventArgs e)
+        private void FormPackage_Load(object sender, EventArgs e)
         {
             if (id.HasValue)
             {
@@ -41,9 +41,9 @@ namespace SoftwareInstallingView
 
                     if (view != null)
                     {
-                        textBoxName.Text = view.ProductName;
+                        textBoxName.Text = view.PackageName;
                         textBoxPrice.Text = view.Price.ToString();
-                        productComponents = view.ProductComponents;
+                        packageComponents = view.PackageComponents;
                         LoadData();
                     }
                 }
@@ -57,7 +57,7 @@ namespace SoftwareInstallingView
 
             else
             {
-                productComponents = new Dictionary<int, (string, int)>();
+                packageComponents = new Dictionary<int, (string, int)>();
             }
         }
 
@@ -65,10 +65,10 @@ namespace SoftwareInstallingView
         {
             try
             {
-                if (productComponents != null)
+                if (packageComponents != null)
                 {
                     dataGridView.Rows.Clear();
-                    foreach (var pc in productComponents)
+                    foreach (var pc in packageComponents)
                     {
                         dataGridView.Rows.Add(new object[] { pc.Value.Item1, pc.Value.Item2 });
                     }
@@ -86,13 +86,13 @@ namespace SoftwareInstallingView
             var form = Container.Resolve<FormPackageComponent>();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                if (productComponents.ContainsKey(form.Id))
+                if (packageComponents.ContainsKey(form.Id))
                 {
-                    productComponents[form.Id] = (form.ComponentName, form.Count);
+                    packageComponents[form.Id] = (form.ComponentName, form.Count);
                 }
                 else
                 {
-                    productComponents.Add(form.Id, (form.ComponentName, form.Count));
+                    packageComponents.Add(form.Id, (form.ComponentName, form.Count));
                 }
                 LoadData();
             }
@@ -105,10 +105,10 @@ namespace SoftwareInstallingView
                 var form = Container.Resolve<FormPackageComponent>();
                 int id = Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value);
                 form.Id = id;
-                form.Count = productComponents[id].Item2;
+                form.Count = packageComponents[id].Item2;
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    productComponents[form.Id] = (form.ComponentName, form.Count);
+                    packageComponents[form.Id] = (form.ComponentName, form.Count);
                     LoadData();
                 }
             }
@@ -123,7 +123,7 @@ namespace SoftwareInstallingView
                 {
                     try
                     {
-                        productComponents.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
+                        packageComponents.Remove(Convert.ToInt32(dataGridView.SelectedRows[0].Cells[0].Value));
                     }
                     catch (Exception ex)
                     {
@@ -154,7 +154,7 @@ namespace SoftwareInstallingView
                 MessageBoxIcon.Error);
                 return;
             }
-            if (productComponents == null || productComponents.Count == 0)
+            if (packageComponents == null || packageComponents.Count == 0)
             {
                 MessageBox.Show("Заполните компоненты", "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
@@ -165,9 +165,9 @@ namespace SoftwareInstallingView
                 logic.CreateOrUpdate(new PackageBindingModel
                 {
                     Id = id,
-                    ProductName = textBoxName.Text,
+                    PackageName = textBoxName.Text,
                     Price = Convert.ToDecimal(textBoxPrice.Text),
-                    ProductComponents = productComponents
+                    PackageComponents = packageComponents
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);

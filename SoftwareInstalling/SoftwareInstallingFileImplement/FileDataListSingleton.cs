@@ -95,7 +95,7 @@ namespace SoftwareInstallingFileImplement
                             break;
                     }
 
-                    DateTime date = Convert.ToDateTime(null);
+                    DateTime? date = null;
                     if (elem.Element("DateImplement").Value != "")
                     {
                         date = Convert.ToDateTime(elem.Element("DateImplement").Value);

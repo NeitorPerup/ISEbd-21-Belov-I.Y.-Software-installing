@@ -28,7 +28,7 @@ namespace SoftwareInstallingFileImplement.Implements
             {
                 return null;
             }
-            return source.Products.Where(rec => rec.ProductName.Contains(model.ProductName))
+            return source.Products.Where(rec => rec.ProductName.Contains(model.PackageName))
                 .Select(CreateModel).ToList();
         }
 
@@ -39,7 +39,7 @@ namespace SoftwareInstallingFileImplement.Implements
                 return null;
             }
             var product = source.Products
-                .FirstOrDefault(rec => rec.ProductName == model.ProductName || rec.Id == model.Id);
+                .FirstOrDefault(rec => rec.ProductName == model.PackageName || rec.Id == model.Id);
             return product != null ? CreateModel(product) : null;
         }
 
@@ -79,28 +79,28 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private Package CreateModel(PackageBindingModel model, Package product)
         {
-            product.ProductName = model.ProductName;
+            product.ProductName = model.PackageName;
             product.Price = model.Price;
             // удаляем убранные
             foreach (var key in product.ProductComponents.Keys.ToList())
             {
-                if (!model.ProductComponents.ContainsKey(key))
+                if (!model.PackageComponents.ContainsKey(key))
                 {
                     product.ProductComponents.Remove(key);
                 }
             }
             // обновляем существуюущие и добавляем новые
-            foreach (var component in model.ProductComponents)
+            foreach (var component in model.PackageComponents)
             {
                 if (product.ProductComponents.ContainsKey(component.Key))
                 {
                     product.ProductComponents[component.Key] =
-                    model.ProductComponents[component.Key].Item2;
+                    model.PackageComponents[component.Key].Item2;
                 }
                 else
                 {
                     product.ProductComponents.Add(component.Key,
-                    model.ProductComponents[component.Key].Item2);
+                    model.PackageComponents[component.Key].Item2);
                 }
             }
             return product;
@@ -111,9 +111,9 @@ namespace SoftwareInstallingFileImplement.Implements
             return new PackageViewModel
             {
                 Id = product.Id,
-                ProductName = product.ProductName,
+                PackageName = product.ProductName,
                 Price = product.Price,
-                ProductComponents = product.ProductComponents
+                PackageComponents = product.ProductComponents
                     .ToDictionary(recPC => recPC.Key, recPC =>
                     (source.Components.FirstOrDefault(recC => recC.Id ==
                     recPC.Key)?.ComponentName, recPC.Value))

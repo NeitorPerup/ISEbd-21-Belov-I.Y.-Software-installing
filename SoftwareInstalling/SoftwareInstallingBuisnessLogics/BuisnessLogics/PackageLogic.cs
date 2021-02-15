@@ -33,7 +33,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         {
             var element = _packageStorage.GetElement(new PackageBindingModel
             {
-               ProductName = model.ProductName
+                PackageName = model.PackageName
             });
             if (element != null && element.Id != model.Id)
             {

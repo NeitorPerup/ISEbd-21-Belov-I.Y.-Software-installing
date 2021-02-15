@@ -40,8 +40,8 @@ namespace SoftwareInstallingView
             this.компонентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.productid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Product = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.packageid = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Package = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,8 +57,8 @@ namespace SoftwareInstallingView
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
-            this.productid,
-            this.Product,
+            this.packageid,
+            this.Package,
             this.Count,
             this.Sum,
             this.Status,
@@ -158,16 +158,16 @@ namespace SoftwareInstallingView
             this.id.Name = "id";
             this.id.Visible = false;
             // 
-            // productid
+            // packageid
             // 
-            this.productid.HeaderText = "productid";
-            this.productid.Name = "productid";
-            this.productid.Visible = false;
+            this.packageid.HeaderText = "packageid";
+            this.packageid.Name = "packageid";
+            this.packageid.Visible = false;
             // 
-            // Product
+            // package
             // 
-            this.Product.HeaderText = "Изделие";
-            this.Product.Name = "Product";
+            this.Package.HeaderText = "Изделие";
+            this.Package.Name = "Package";
             // 
             // Count
             // 
@@ -232,8 +232,8 @@ namespace SoftwareInstallingView
         private System.Windows.Forms.ToolStripMenuItem компонентыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изделияToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn productid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Product;
+        private System.Windows.Forms.DataGridViewTextBoxColumn packageid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Package;
         private System.Windows.Forms.DataGridViewTextBoxColumn Count;
         private System.Windows.Forms.DataGridViewTextBoxColumn Sum;
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;

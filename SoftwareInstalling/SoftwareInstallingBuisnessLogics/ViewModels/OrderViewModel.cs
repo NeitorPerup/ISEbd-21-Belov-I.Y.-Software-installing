@@ -8,10 +8,10 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
     {
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
+        public int PackageId { get; set; }
 
         [DisplayName("Изделие")]
-        public string ProductName { get; set; }
+        public string PackageName { get; set; }
 
         [DisplayName("Количество")]
         public int Count { get; set; }

@@ -36,7 +36,7 @@ namespace SoftwareInstallingListImplements.Implements
             List<OrderViewModel> result = new List<OrderViewModel>();
             foreach (var order in source.Orders)
             {
-                if (order.ProductId.ToString().Contains(model.ProductId.ToString()))
+                if (order.PackageId.ToString().Contains(model.PackageId.ToString()))
                 {
                     result.Add(CreateModel(order));
                 }
@@ -52,8 +52,8 @@ namespace SoftwareInstallingListImplements.Implements
             }
             foreach (var component in source.Orders)
             {
-                if (component.Id == model.Id || component.ProductId ==
-               model.ProductId)
+                if (component.Id == model.Id || component.PackageId ==
+               model.PackageId)
                 {
                     return CreateModel(component);
                 }
@@ -106,7 +106,7 @@ namespace SoftwareInstallingListImplements.Implements
 
         private Order CreateModel(OrderBindingModel model, Order order)
         {
-            order.ProductId = model.ProductId;
+            order.PackageId = model.PackageId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -117,23 +117,23 @@ namespace SoftwareInstallingListImplements.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            string productName = null;
-            foreach(var product in source.Products)
+            string packageName = null;
+            foreach(var package in source.Packages)
             {
-                if (product.Id == order.ProductId)
+                if (package.Id == order.PackageId)
                 {
-                    productName = product.ProductName;
+                    packageName = package.PackageName;
                 }
             }
 
             return new OrderViewModel
             {
                 Id = order.Id,
-                ProductId = order.ProductId,
+                PackageId = order.PackageId,
                 Sum = order.Sum,
                 Count = order.Count,
                 Status = order.Status,
-                ProductName = productName,
+                PackageName = packageName,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement
             };

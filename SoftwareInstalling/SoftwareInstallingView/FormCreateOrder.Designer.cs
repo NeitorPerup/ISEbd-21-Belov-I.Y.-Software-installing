@@ -34,7 +34,7 @@ namespace SoftwareInstallingView
             this.label3 = new System.Windows.Forms.Label();
             this.textBoxCount = new System.Windows.Forms.TextBox();
             this.textBoxSum = new System.Windows.Forms.TextBox();
-            this.comboBoxProduct = new System.Windows.Forms.ComboBox();
+            this.comboBoxPackage = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -83,15 +83,15 @@ namespace SoftwareInstallingView
             this.textBoxSum.Size = new System.Drawing.Size(218, 20);
             this.textBoxSum.TabIndex = 4;
             // 
-            // comboBoxProduct
+            // comboBoxPackage
             // 
-            this.comboBoxProduct.BackColor = System.Drawing.Color.White;
-            this.comboBoxProduct.FormattingEnabled = true;
-            this.comboBoxProduct.Location = new System.Drawing.Point(134, 27);
-            this.comboBoxProduct.Name = "comboBoxProduct";
-            this.comboBoxProduct.Size = new System.Drawing.Size(218, 21);
-            this.comboBoxProduct.TabIndex = 5;
-            this.comboBoxProduct.SelectedIndexChanged += new System.EventHandler(this.ComboBoxProduct_SelectedIndexChanged);
+            this.comboBoxPackage.BackColor = System.Drawing.Color.White;
+            this.comboBoxPackage.FormattingEnabled = true;
+            this.comboBoxPackage.Location = new System.Drawing.Point(134, 27);
+            this.comboBoxPackage.Name = "comboBoxPackage";
+            this.comboBoxPackage.Size = new System.Drawing.Size(218, 21);
+            this.comboBoxPackage.TabIndex = 5;
+            this.comboBoxPackage.SelectedIndexChanged += new System.EventHandler(this.ComboBoxPackage_SelectedIndexChanged);
             // 
             // buttonSave
             // 
@@ -120,7 +120,7 @@ namespace SoftwareInstallingView
             this.ClientSize = new System.Drawing.Size(540, 330);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.comboBoxProduct);
+            this.Controls.Add(this.comboBoxPackage);
             this.Controls.Add(this.textBoxSum);
             this.Controls.Add(this.textBoxCount);
             this.Controls.Add(this.label3);
@@ -141,7 +141,7 @@ namespace SoftwareInstallingView
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBoxCount;
         private System.Windows.Forms.TextBox textBoxSum;
-        private System.Windows.Forms.ComboBox comboBoxProduct;
+        private System.Windows.Forms.ComboBox comboBoxPackage;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
     }
