@@ -17,19 +17,19 @@ namespace SoftwareInstallingFileImplement
 
         private readonly string OrderFileName = "Order.xml";
 
-        private readonly string ProductFileName = "Product.xml";
+        private readonly string PackageFileName = "Package.xml";
 
         public List<Component> Components { get; set; }
 
         public List<Order> Orders { get; set; }
 
-        public List<Package> Products { get; set; }
+        public List<Package> Packages { get; set; }
 
         private FileDataListSingleton()
         {
             Components = LoadComponents();
             Orders = LoadOrders();
-            Products = LoadProducts();
+            Packages = LoadPackages();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -45,7 +45,7 @@ namespace SoftwareInstallingFileImplement
         {
             SaveComponents();
             SaveOrders();
-            SaveProducts();
+            SavePackages();
         }
 
         private List<Component> LoadComponents()
@@ -103,7 +103,7 @@ namespace SoftwareInstallingFileImplement
                     list.Add(new Order
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        ProductId = Convert.ToInt32(elem.Element("ProductId").Value),
+                        PackageId = Convert.ToInt32(elem.Element("PackageId").Value),
                         Count = Convert.ToInt32(elem.Element("Count").Value),
                         Sum = Convert.ToDecimal(elem.Element("Sum").Value),
                         Status = status,
@@ -115,18 +115,18 @@ namespace SoftwareInstallingFileImplement
             return list;
         }
 
-        private List<Package> LoadProducts()
+        private List<Package> LoadPackages()
         {
             var list = new List<Package>();
-            if (File.Exists(ProductFileName))
+            if (File.Exists(PackageFileName))
             {
-                XDocument xDocument = XDocument.Load(ProductFileName);
-                var xElements = xDocument.Root.Elements("Product").ToList();
+                XDocument xDocument = XDocument.Load(PackageFileName);
+                var xElements = xDocument.Root.Elements("Package").ToList();
                 foreach (var elem in xElements)
                 {
                     var prodComp = new Dictionary<int, int>();
                     foreach (var component in
-                    elem.Element("ProductComponents").Elements("ProductComponent").ToList())
+                    elem.Element("PackageComponents").Elements("PackageComponent").ToList())
                     {
                         prodComp.Add(Convert.ToInt32(component.Element("Key").Value),
                         Convert.ToInt32(component.Element("Value").Value));
@@ -134,9 +134,9 @@ namespace SoftwareInstallingFileImplement
                     list.Add(new Package
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
-                        ProductName = elem.Element("ProductName").Value,
+                        PackageName = elem.Element("PackageName").Value,
                         Price = Convert.ToDecimal(elem.Element("Price").Value),
-                        ProductComponents = prodComp
+                        PackageComponents = prodComp
                     });
                 }
             }
@@ -168,7 +168,7 @@ namespace SoftwareInstallingFileImplement
                 {
                     xElement.Add(new XElement("Order",
                     new XAttribute("Id", order.Id),
-                    new XElement("ProductId", order.ProductId),
+                    new XElement("PackageId", order.PackageId),
                     new XElement("Count", order.Count),
                     new XElement("Sum", order.Sum),
                     new XElement("Status", order.Status),
@@ -181,28 +181,28 @@ namespace SoftwareInstallingFileImplement
             }
         }
 
-        private void SaveProducts()
+        private void SavePackages()
         {
-            if (Products != null)
+            if (Packages != null)
             {
-                var xElement = new XElement("Products");
-                foreach (var product in Products)
+                var xElement = new XElement("Packages");
+                foreach (var package in Packages)
                 {
-                    var compElement = new XElement("ProductComponents");
-                    foreach (var component in product.ProductComponents)
+                    var compElement = new XElement("PackageComponents");
+                    foreach (var component in package.PackageComponents)
                     {
-                        compElement.Add(new XElement("ProductComponent",
+                        compElement.Add(new XElement("PackageComponent",
                         new XElement("Key", component.Key),
                         new XElement("Value", component.Value)));
                     }
-                    xElement.Add(new XElement("Product",
-                    new XAttribute("Id", product.Id),
-                    new XElement("ProductName", product.ProductName),
-                    new XElement("Price", product.Price),
+                    xElement.Add(new XElement("Package",
+                    new XAttribute("Id", package.Id),
+                    new XElement("PackageName", package.PackageName),
+                    new XElement("Price", package.Price),
                     compElement));
                 }
                 XDocument xDocument = new XDocument(xElement);
-                xDocument.Save(ProductFileName);
+                xDocument.Save(PackageFileName);
             }
         }
     }

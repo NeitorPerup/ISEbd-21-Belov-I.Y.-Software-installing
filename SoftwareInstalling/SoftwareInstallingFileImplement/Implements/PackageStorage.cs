@@ -19,7 +19,7 @@ namespace SoftwareInstallingFileImplement.Implements
 
         public List<PackageViewModel> GetFullList()
         {
-            return source.Products.Select(CreateModel).ToList();
+            return source.Packages.Select(CreateModel).ToList();
         }
 
         public List<PackageViewModel> GetFilteredList(PackageBindingModel model)
@@ -28,7 +28,7 @@ namespace SoftwareInstallingFileImplement.Implements
             {
                 return null;
             }
-            return source.Products.Where(rec => rec.ProductName.Contains(model.PackageName))
+            return source.Packages.Where(rec => rec.PackageName.Contains(model.PackageName))
                 .Select(CreateModel).ToList();
         }
 
@@ -38,25 +38,25 @@ namespace SoftwareInstallingFileImplement.Implements
             {
                 return null;
             }
-            var product = source.Products
-                .FirstOrDefault(rec => rec.ProductName == model.PackageName || rec.Id == model.Id);
-            return product != null ? CreateModel(product) : null;
+            var package = source.Packages
+                .FirstOrDefault(rec => rec.PackageName == model.PackageName || rec.Id == model.Id);
+            return package != null ? CreateModel(package) : null;
         }
 
         public void Insert(PackageBindingModel model)
         {
-            int maxId = source.Products.Count > 0 ? source.Components.Max(rec => rec.Id) : 0;
+            int maxId = source.Packages.Count > 0 ? source.Components.Max(rec => rec.Id) : 0;
             var element = new Package
             {
                 Id = maxId + 1,
-                ProductComponents = new Dictionary<int, int>()
+                PackageComponents = new Dictionary<int, int>()
             };
-            source.Products.Add(CreateModel(model, element));
+            source.Packages.Add(CreateModel(model, element));
         }
 
         public void Update(PackageBindingModel model)
         {
-            var element = source.Products.FirstOrDefault(rec => rec.Id == model.Id);
+            var element = source.Packages.FirstOrDefault(rec => rec.Id == model.Id);
             if (element == null)
             {
                 throw new Exception("Элемент не найден");
@@ -66,10 +66,10 @@ namespace SoftwareInstallingFileImplement.Implements
 
         public void Delete(PackageBindingModel model)
         {
-            Package element = source.Products.FirstOrDefault(rec => rec.Id == model.Id);
+            Package element = source.Packages.FirstOrDefault(rec => rec.Id == model.Id);
             if (element != null)
             {
-                source.Products.Remove(element);
+                source.Packages.Remove(element);
             }
             else
             {
@@ -77,43 +77,43 @@ namespace SoftwareInstallingFileImplement.Implements
             }
         }
 
-        private Package CreateModel(PackageBindingModel model, Package product)
+        private Package CreateModel(PackageBindingModel model, Package package)
         {
-            product.ProductName = model.PackageName;
-            product.Price = model.Price;
+            package.PackageName = model.PackageName;
+            package.Price = model.Price;
             // удаляем убранные
-            foreach (var key in product.ProductComponents.Keys.ToList())
+            foreach (var key in package.PackageComponents.Keys.ToList())
             {
                 if (!model.PackageComponents.ContainsKey(key))
                 {
-                    product.ProductComponents.Remove(key);
+                    package.PackageComponents.Remove(key);
                 }
             }
             // обновляем существуюущие и добавляем новые
             foreach (var component in model.PackageComponents)
             {
-                if (product.ProductComponents.ContainsKey(component.Key))
+                if (package.PackageComponents.ContainsKey(component.Key))
                 {
-                    product.ProductComponents[component.Key] =
+                    package.PackageComponents[component.Key] =
                     model.PackageComponents[component.Key].Item2;
                 }
                 else
                 {
-                    product.ProductComponents.Add(component.Key,
+                    package.PackageComponents.Add(component.Key,
                     model.PackageComponents[component.Key].Item2);
                 }
             }
-            return product;
+            return package;
         }
 
-        private PackageViewModel CreateModel(Package product)
+        private PackageViewModel CreateModel(Package package)
         {
             return new PackageViewModel
             {
-                Id = product.Id,
-                PackageName = product.ProductName,
-                Price = product.Price,
-                PackageComponents = product.ProductComponents
+                Id = package.Id,
+                PackageName = package.PackageName,
+                Price = package.Price,
+                PackageComponents = package.PackageComponents
                     .ToDictionary(recPC => recPC.Key, recPC =>
                     (source.Components.FirstOrDefault(recC => recC.Id ==
                     recPC.Key)?.ComponentName, recPC.Value))

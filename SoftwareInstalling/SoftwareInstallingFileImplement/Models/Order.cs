@@ -7,7 +7,7 @@ namespace SoftwareInstallingFileImplements.Models
     {
         public int Id { get; set; }
 
-        public int ProductId { get; set; }
+        public int PackageId { get; set; }
 
         public int Count { get; set; }
 
