@@ -164,7 +164,7 @@ namespace SoftwareInstallingView
             this.packageid.Name = "packageid";
             this.packageid.Visible = false;
             // 
-            // package
+            // Package
             // 
             this.Package.HeaderText = "Изделие";
             this.Package.Name = "Package";
