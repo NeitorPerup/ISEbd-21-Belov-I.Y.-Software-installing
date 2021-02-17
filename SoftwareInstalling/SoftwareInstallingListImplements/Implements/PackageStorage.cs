@@ -18,7 +18,7 @@ namespace SoftwareInstallingListImplements.Implements
         public List<PackageViewModel> GetFullList()
         {
             List<PackageViewModel> result = new List<PackageViewModel>();
-            foreach (var component in source.Products)
+            foreach (var component in source.Packages)
             {
                 result.Add(CreateModel(component));
             }
@@ -31,11 +31,11 @@ namespace SoftwareInstallingListImplements.Implements
                 return null;
             }
             List<PackageViewModel> result = new List<PackageViewModel>();
-            foreach (var product in source.Products)
+            foreach (var package in source.Packages)
             {
-                if (product.ProductName.Contains(model.ProductName))
+                if (package.PackageName.Contains(model.PackageName))
                 {
-                    result.Add(CreateModel(product));
+                    result.Add(CreateModel(package));
                 }
             }
             return result;
@@ -46,12 +46,12 @@ namespace SoftwareInstallingListImplements.Implements
             {
                 return null;
             }
-            foreach (var product in source.Products)
+            foreach (var package in source.Packages)
             {
-                if (product.Id == model.Id || product.ProductName ==
-                model.ProductName)
+                if (package.Id == model.Id || package.PackageName ==
+                model.PackageName)
                 {
-                    return CreateModel(product);
+                    return CreateModel(package);
                 }
             }
             return null;
@@ -59,84 +59,84 @@ namespace SoftwareInstallingListImplements.Implements
 
         public void Insert(PackageBindingModel model)
         {
-            Package tempProduct = new Package
+            Package tempPackage = new Package
             {
                 Id = 1,
-                ProductComponents = new
+                PackageComponents = new
             Dictionary<int, int>()
             };
-            foreach (var product in source.Products)
+            foreach (var package in source.Packages)
             {
-                if (product.Id >= tempProduct.Id)
+                if (package.Id >= tempPackage.Id)
                 {
-                    tempProduct.Id = product.Id + 1;
+                    tempPackage.Id = package.Id + 1;
                 }
             }
-            source.Products.Add(CreateModel(model, tempProduct));
+            source.Packages.Add(CreateModel(model, tempPackage));
         }
         public void Update(PackageBindingModel model)
         {
-            Package tempProduct = null;
-            foreach (var product in source.Products)
+            Package tempPackage = null;
+            foreach (var package in source.Packages)
             {
-                if (product.Id == model.Id)
+                if (package.Id == model.Id)
                 {
-                    tempProduct = product;
+                    tempPackage = package;
                 }
             }
-            if (tempProduct == null)
+            if (tempPackage == null)
             {
                 throw new Exception("Элемент не найден");
             }
-            CreateModel(model, tempProduct);
+            CreateModel(model, tempPackage);
         }
         public void Delete(PackageBindingModel model)
         {
-            for (int i = 0; i < source.Products.Count; ++i)
+            for (int i = 0; i < source.Packages.Count; ++i)
             {
-                if (source.Products[i].Id == model.Id)
+                if (source.Packages[i].Id == model.Id)
                 {
-                    source.Products.RemoveAt(i);
+                    source.Packages.RemoveAt(i);
                     return;
                 }
             }
             throw new Exception("Элемент не найден");
         }
-        private Package CreateModel(PackageBindingModel model, Package product)
+        private Package CreateModel(PackageBindingModel model, Package package)
         {
-            product.ProductName = model.ProductName;
-            product.Price = model.Price;
+            package.PackageName = model.PackageName;
+            package.Price = model.Price;
             // удаляем убранные
-            foreach (var key in product.ProductComponents.Keys.ToList())
+            foreach (var key in package.PackageComponents.Keys.ToList())
             {
-                if (!model.ProductComponents.ContainsKey(key))
+                if (!model.PackageComponents.ContainsKey(key))
                 {
-                    product.ProductComponents.Remove(key);
+                    package.PackageComponents.Remove(key);
                 }
             }
             // обновляем существуюущие и добавляем новые
-            foreach (var component in model.ProductComponents)
+            foreach (var component in model.PackageComponents)
             {
-                if (product.ProductComponents.ContainsKey(component.Key))
+                if (package.PackageComponents.ContainsKey(component.Key))
                 {
-                    product.ProductComponents[component.Key] =
-                    model.ProductComponents[component.Key].Item2;
+                    package.PackageComponents[component.Key] =
+                    model.PackageComponents[component.Key].Item2;
                 }
                 else
                 {
-                    product.ProductComponents.Add(component.Key,
-                    model.ProductComponents[component.Key].Item2);
+                    package.PackageComponents.Add(component.Key,
+                    model.PackageComponents[component.Key].Item2);
                 }
             }
-            return product;
+            return package;
         }
-        private PackageViewModel CreateModel(Package product)
+        private PackageViewModel CreateModel(Package package)
         {
             // требуется дополнительно получить список компонентов для изделия с
             //названиями и их количество
-            Dictionary<int, (string, int)> productComponents = new
+            Dictionary<int, (string, int)> packageComponents = new
             Dictionary<int, (string, int)>();
-            foreach (var pc in product.ProductComponents)
+            foreach (var pc in package.PackageComponents)
             {
                 string componentName = string.Empty;
                 foreach (var component in source.Components)
@@ -147,14 +147,14 @@ namespace SoftwareInstallingListImplements.Implements
                         break;
                     }
                 }
-                productComponents.Add(pc.Key, (componentName, pc.Value));
+                packageComponents.Add(pc.Key, (componentName, pc.Value));
             }
             return new PackageViewModel
             {
-                Id = product.Id,
-                ProductName = product.ProductName,
-                Price = product.Price,
-                ProductComponents = productComponents
+                Id = package.Id,
+                PackageName = package.PackageName,
+                Price = package.Price,
+                PackageComponents = packageComponents
             };
 
         }

@@ -30,10 +30,10 @@ namespace SoftwareInstallingView
                 var list = _logicP.Read(null);
                 foreach (var component in list)
                 {
-                    comboBoxProduct.DisplayMember = "ProductName";
-                    comboBoxProduct.ValueMember = "Id";
-                    comboBoxProduct.DataSource = list;
-                    comboBoxProduct.SelectedItem = null;
+                    comboBoxPackage.DisplayMember = "PackageName";
+                    comboBoxPackage.ValueMember = "Id";
+                    comboBoxPackage.DataSource = list;
+                    comboBoxPackage.SelectedItem = null;
                 }
                 
             }
@@ -46,15 +46,15 @@ namespace SoftwareInstallingView
 
         private void CalcSum()
         {
-            if (comboBoxProduct.SelectedValue != null &&
+            if (comboBoxPackage.SelectedValue != null &&
             !string.IsNullOrEmpty(textBoxCount.Text))
             {
                 try
                 {
-                    int id = Convert.ToInt32(comboBoxProduct.SelectedValue);
-                    PackageViewModel product = _logicP.Read(new PackageBindingModel {Id = id})?[0];
+                    int id = Convert.ToInt32(comboBoxPackage.SelectedValue);
+                    PackageViewModel package = _logicP.Read(new PackageBindingModel {Id = id})?[0];
                     int count = Convert.ToInt32(textBoxCount.Text);
-                    textBoxSum.Text = (count * product?.Price ?? 0).ToString();                    
+                    textBoxSum.Text = (count * package?.Price ?? 0).ToString();                    
                 }
                 catch (Exception ex)
                 {
@@ -69,7 +69,7 @@ namespace SoftwareInstallingView
             CalcSum();
         }
 
-        private void ComboBoxProduct_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboBoxPackage_SelectedIndexChanged(object sender, EventArgs e)
         {
             CalcSum();
         }
@@ -82,7 +82,7 @@ namespace SoftwareInstallingView
                 MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            if (comboBoxProduct.SelectedValue == null)
+            if (comboBoxPackage.SelectedValue == null)
             {
                 MessageBox.Show("Выберите изделие", "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
@@ -92,7 +92,7 @@ namespace SoftwareInstallingView
             {
                 _logicO.CreateOrder(new CreateOrderBindingModel
                 {
-                    ProductId = Convert.ToInt32(comboBoxProduct.SelectedValue),
+                    PackageId = Convert.ToInt32(comboBoxPackage.SelectedValue),
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });

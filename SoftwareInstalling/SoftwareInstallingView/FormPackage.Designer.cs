@@ -201,8 +201,8 @@ namespace SoftwareInstallingView
 			this.Controls.Add(this.LabelName);
 			this.Name = "FormPackage";
 			this.Text = "Пакет";
-			this.Load += new System.EventHandler(this.FormProduct_Load);
-			this.Click += new System.EventHandler(this.FormProduct_Load);
+			this.Load += new System.EventHandler(this.FormPackage_Load);
+			this.Click += new System.EventHandler(this.FormPackage_Load);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
 			this.groupBox.ResumeLayout(false);
 			this.ResumeLayout(false);

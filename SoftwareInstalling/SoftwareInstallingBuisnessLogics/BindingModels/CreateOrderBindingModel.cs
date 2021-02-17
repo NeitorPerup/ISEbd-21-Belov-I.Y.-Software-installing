@@ -8,7 +8,7 @@ namespace SoftwareInstallingBuisnessLogic.BindingModels
 {
     public class CreateOrderBindingModel
     {
-        public int ProductId { get; set; }
+        public int PackageId { get; set; }
 
         public int Count { get; set; }
 
