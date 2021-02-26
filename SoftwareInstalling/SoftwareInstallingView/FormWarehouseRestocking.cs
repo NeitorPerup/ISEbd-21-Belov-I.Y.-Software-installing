@@ -15,9 +15,9 @@ namespace SoftwareInstallingView
     {
         WarehouseLogic logic;
 
-        private readonly DataListSingleton source;
-
         WarehouseBindingModel bm = new WarehouseBindingModel();
+
+        public string ComponentName { get { return comboBoxComponent.Text; } }
 
         public int ComponentId
         {
@@ -44,7 +44,6 @@ namespace SoftwareInstallingView
         {
             InitializeComponent();
             logic = warehouseLogic;
-            source = DataListSingleton.GetInstance();
             List <ComponentViewModel> listComponent = componentlogic.Read(null);
             if (listComponent != null)
             {
@@ -101,11 +100,12 @@ namespace SoftwareInstallingView
 
             if (bm.WarehouseComponents.ContainsKey(ComponentId))
             {
-                bm.WarehouseComponents[ComponentId] = (source.Components.FirstOrDefault(rec => rec.Id == ComponentId).ComponentName, Count);
+                int count = bm.WarehouseComponents[ComponentId].Item2; 
+                bm.WarehouseComponents[ComponentId] = (ComponentName, count + Count);
             }
             else
             {
-                bm.WarehouseComponents.Add(ComponentId, (source.Components.FirstOrDefault(rec => rec.Id == ComponentId).ComponentName, Count));
+                bm.WarehouseComponents.Add(ComponentId, (ComponentName, Count));
             }
             logic.CreateOrUpdate(bm);
 
