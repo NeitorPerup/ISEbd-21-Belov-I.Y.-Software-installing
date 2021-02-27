@@ -96,7 +96,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                         Package package = CreateModel(model, new Package());
                         context.Packages.Add(package);
                         context.SaveChanges();
-                        CreateModel(model, package, context);
+                        package = CreateModel(model, package, context);
 
                         transaction.Commit();
                     }
@@ -163,7 +163,9 @@ namespace SoftwareInstallingDatabaseImplement.Implements
 
         private Package CreateModel(PackageBindingModel model, Package package,
         SoftwareInstallingDatabase context)
-        {           
+        {
+            package.PackageName = model.PackageName;
+            package.Price = model.Price;
             if (model.Id.HasValue)
             {
                 var productComponents = context.PackageComponents.Where(rec =>
