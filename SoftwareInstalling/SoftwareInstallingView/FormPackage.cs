@@ -70,7 +70,7 @@ namespace SoftwareInstallingView
                     dataGridView.Rows.Clear();
                     foreach (var pc in packageComponents)
                     {
-                        dataGridView.Rows.Add(new object[] { pc.Value.Item1, pc.Value.Item2 });
+                        dataGridView.Rows.Add(new object[] { pc.Key, pc.Value.Item1, pc.Value.Item2 });
                     }
                 }
             }
@@ -179,7 +179,7 @@ namespace SoftwareInstallingView
             {
                 MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
-            }         
+            }
         }
 
         private void buttonCancel_Click(object sender, EventArgs e)
