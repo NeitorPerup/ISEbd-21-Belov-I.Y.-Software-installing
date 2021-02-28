@@ -5,17 +5,14 @@ using System;
 using System.Windows.Forms;
 using Unity;
 using SoftwareInstallingBuisnessLogic.BindingModels;
-using SoftwareInstallingListImplements;
-using SoftwareInstallingListImplements.Models;
 using System.Linq;
+using SoftwareInstallingFileImplement.Implements;
 
 namespace SoftwareInstallingView
 {
     public partial class FormWarehouseRestocking : Form
     {
-        WarehouseLogic logic;
-
-        WarehouseBindingModel bm = new WarehouseBindingModel();
+        private WarehouseStorage _warehouseStorage;
 
         public string ComponentName { get { return comboBoxComponent.Text; } }
 
@@ -40,10 +37,10 @@ namespace SoftwareInstallingView
             }
         }
 
-        public FormWarehouseRestocking(ComponentLogic componentlogic, WarehouseLogic warehouseLogic)
+        public FormWarehouseRestocking(ComponentLogic componentlogic, WarehouseStorage warehouseStorage)
         {
             InitializeComponent();
-            logic = warehouseLogic;
+            _warehouseStorage = warehouseStorage;
             List <ComponentViewModel> listComponent = componentlogic.Read(null);
             if (listComponent != null)
             {
@@ -53,7 +50,7 @@ namespace SoftwareInstallingView
                 comboBoxComponent.SelectedItem = null;
             }
 
-            List<WarehouseViewModel> listWarehouse = warehouseLogic.Read(null);
+            List<WarehouseViewModel> listWarehouse = warehouseStorage.GetFullList();
             if (listWarehouse != null)
             {
                 comboBoxWarehouse.DisplayMember = "WarehouseName";
@@ -84,30 +81,10 @@ namespace SoftwareInstallingView
                 return;
             }
 
-            WarehouseViewModel view = logic.Read(new WarehouseBindingModel
+            _warehouseStorage.Restocking(new WarehouseBindingModel
             {
                 Id = WarehouseId
-            })?[0];
-
-            if (view != null)
-            {
-                bm.WarehouseComponents = view.WarehouseComponents;
-                bm.DateCreate = view.DateCreate;
-                bm.Id = view.Id;
-                bm.Responsible = view.Responsible;
-                bm.WarehouseName = view.WarehouseName;
-            }
-
-            if (bm.WarehouseComponents.ContainsKey(ComponentId))
-            {
-                int count = bm.WarehouseComponents[ComponentId].Item2; 
-                bm.WarehouseComponents[ComponentId] = (ComponentName, count + Count);
-            }
-            else
-            {
-                bm.WarehouseComponents.Add(ComponentId, (ComponentName, Count));
-            }
-            logic.CreateOrUpdate(bm);
+            }, WarehouseId, ComponentId, Count, ComponentName);
 
             DialogResult = DialogResult.OK;
             Close();

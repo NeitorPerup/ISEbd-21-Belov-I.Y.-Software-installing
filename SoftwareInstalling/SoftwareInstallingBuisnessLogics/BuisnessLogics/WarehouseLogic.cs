@@ -4,6 +4,7 @@ using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 {
@@ -60,6 +61,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 throw new Exception("Элемент не найден");
             }
             _warehouseStorage.Delete(model);
-        }
+        }       
+
     }
 }
