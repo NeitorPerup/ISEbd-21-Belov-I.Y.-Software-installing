@@ -16,8 +16,6 @@ namespace SoftwareInstallingView
     {
         WarehouseStorage _warehouseStorage;
 
-        WarehouseBindingModel bm = new WarehouseBindingModel();
-
         public string ComponentName { get { return comboBoxComponent.Text; } }
 
         public int ComponentId
@@ -85,7 +83,10 @@ namespace SoftwareInstallingView
                 return;
             }
 
-            _warehouseStorage.Restocking(bm, WarehouseId, ComponentId, Count, ComponentName);
+            _warehouseStorage.Restocking(new WarehouseBindingModel
+            {
+                Id = WarehouseId
+            }, WarehouseId, ComponentId, Count, ComponentName);
 
             DialogResult = DialogResult.OK;
             Close();
