@@ -11,10 +11,12 @@ namespace SoftwareInstallingListImplements.Implements
     public class WarehouseStorage : IWarehouseStorage
     {
         private readonly DataListSingleton source;
+
         public WarehouseStorage()
         {
             source = DataListSingleton.GetInstance();
         }
+
         public List<WarehouseViewModel> GetFullList()
         {
             List<WarehouseViewModel> result = new List<WarehouseViewModel>();
@@ -24,6 +26,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             return result;
         }
+
         public List<WarehouseViewModel> GetFilteredList(WarehouseBindingModel model)
         {
             if (model == null)
@@ -40,6 +43,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             return result;
         }
+
         public WarehouseViewModel GetElement(WarehouseBindingModel model)
         {
             if (model == null)
@@ -72,6 +76,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             source.Warehouses.Add(CreateModel(model, tempWarehouse));
         }
+
         public void Update(WarehouseBindingModel model)
         {
             Warehouse tempWarehouse = null;
@@ -88,6 +93,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             CreateModel(model, tempWarehouse);
         }
+
         public void Delete(WarehouseBindingModel model)
         {
             for (int i = 0; i < source.Warehouses.Count; ++i)
@@ -100,6 +106,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             throw new Exception("Элемент не найден");
         }
+
         private Warehouse CreateModel(WarehouseBindingModel model, Warehouse warehouse)
         {
             warehouse.WarehouseName = model.WarehouseName;
@@ -129,6 +136,7 @@ namespace SoftwareInstallingListImplements.Implements
             }
             return warehouse;
         }
+
         private WarehouseViewModel CreateModel(Warehouse warehouse)
         {
             Dictionary<int, (string, int)> warehouseComponents = new
@@ -154,34 +162,6 @@ namespace SoftwareInstallingListImplements.Implements
                 DateCreate = warehouse.DateCreate,
                 WarehouseComponents = warehouseComponents
             };
-        }
-
-        public void Restocking(WarehouseBindingModel model, int WarehouseId, int ComponentId, int Count, string ComponentName)
-        {
-            WarehouseViewModel view = GetElement(new WarehouseBindingModel
-            {
-                Id = WarehouseId
-            });
-
-            if (view != null)
-            {
-                model.WarehouseComponents = view.WarehouseComponents;
-                model.DateCreate = view.DateCreate;
-                model.Id = view.Id;
-                model.Responsible = view.Responsible;
-                model.WarehouseName = view.WarehouseName;
-            }
-
-            if (model.WarehouseComponents.ContainsKey(ComponentId))
-            {
-                int count = model.WarehouseComponents[ComponentId].Item2;
-                model.WarehouseComponents[ComponentId] = (ComponentName, count + Count);
-            }
-            else
-            {
-                model.WarehouseComponents.Add(ComponentId, (ComponentName, Count));
-            }
-            Update(model);
-        }
+        }      
     }
 }
