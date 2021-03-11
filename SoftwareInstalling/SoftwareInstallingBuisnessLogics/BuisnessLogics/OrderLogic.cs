@@ -33,11 +33,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         }
 
         public void CreateOrder(CreateOrderBindingModel model)
-        {
-            if (!_warehouseStorage.Unrestocking(model.Count, model.PackageId))
-            {
-                throw new Exception("Не хватает компонентов");
-            }
+        {           
             _orderStorage.Insert(new OrderBindingModel
             {
                 PackageId = model.PackageId,
@@ -50,6 +46,11 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
+            if (!_warehouseStorage.Unrestocking(model.OrderId))
+            {
+                throw new Exception("Не хватает компонентов");
+            }
+
             var order = _orderStorage.GetElement(new OrderBindingModel
             {
                 Id = model.OrderId

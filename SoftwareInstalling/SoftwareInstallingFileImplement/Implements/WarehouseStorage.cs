@@ -122,39 +122,12 @@ namespace SoftwareInstallingFileImplement.Implements
             };
         }
 
-        public void Restocking(WarehouseBindingModel model, int WarehouseId, int ComponentId, int Count, string ComponentName)
-        {
-            WarehouseViewModel view = GetElement(new WarehouseBindingModel
-            {
-                Id = WarehouseId
-            });
-
-            if (view != null)
-            {
-                model.WarehouseComponents = view.WarehouseComponents;
-                model.DateCreate = view.DateCreate;
-                model.Id = view.Id;
-                model.Responsible = view.Responsible;
-                model.WarehouseName = view.WarehouseName;
-            }
-
-            if (model.WarehouseComponents.ContainsKey(ComponentId))
-            {
-                int count = model.WarehouseComponents[ComponentId].Item2;
-                model.WarehouseComponents[ComponentId] = (ComponentName, count + Count);
-            }
-            else
-            {
-                model.WarehouseComponents.Add(ComponentId, (ComponentName, Count));
-            }
-            Update(model);
-        }
-
-        public bool Unrestocking(int PackageCount, int PackageId)
+        public bool Unrestocking(int OrderId)
         {
             var list = GetFullList();
-            var DCount = source.Packages.FirstOrDefault(rec => rec.Id == PackageId).PackageComponents;
-            DCount = DCount.ToDictionary(rec => rec.Key, rec => rec.Value * PackageCount);
+            Order order = source.Orders.FirstOrDefault(rec => rec.Id == OrderId);
+            var DCount = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId).PackageComponents;
+            DCount = DCount.ToDictionary(rec => rec.Key, rec => rec.Value * order.Count);
             Dictionary<int, int> Have = new Dictionary<int, int>();
 
             // считаем сколько у нас всего нужных компонентов

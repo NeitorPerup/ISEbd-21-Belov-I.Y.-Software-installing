@@ -123,7 +123,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.comboBoxComponent);
             this.Controls.Add(this.comboBoxWarehouse);
             this.Name = "FormWarehouseRestocking";
-            this.Text = "FormWarehouseRestocking";
+            this.Text = "Пополнение склада";
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -12,9 +12,7 @@ namespace SoftwareInstallingView
 {
     public partial class FormWarehouseRestocking : Form
     {
-        private WarehouseStorage _warehouseStorage;
-
-        public string ComponentName { get { return comboBoxComponent.Text; } }
+        private WarehouseLogic _warehouseLogic;
 
         public int ComponentId
         {
@@ -37,10 +35,10 @@ namespace SoftwareInstallingView
             }
         }
 
-        public FormWarehouseRestocking(ComponentLogic componentlogic, WarehouseStorage warehouseStorage)
+        public FormWarehouseRestocking(ComponentLogic componentlogic, WarehouseLogic warehouseLogic)
         {
             InitializeComponent();
-            _warehouseStorage = warehouseStorage;
+            _warehouseLogic = warehouseLogic;
             List <ComponentViewModel> listComponent = componentlogic.Read(null);
             if (listComponent != null)
             {
@@ -50,7 +48,7 @@ namespace SoftwareInstallingView
                 comboBoxComponent.SelectedItem = null;
             }
 
-            List<WarehouseViewModel> listWarehouse = warehouseStorage.GetFullList();
+            List<WarehouseViewModel> listWarehouse = _warehouseLogic.Read(null);
             if (listWarehouse != null)
             {
                 comboBoxWarehouse.DisplayMember = "WarehouseName";
@@ -81,10 +79,10 @@ namespace SoftwareInstallingView
                 return;
             }
 
-            _warehouseStorage.Restocking(new WarehouseBindingModel
+            _warehouseLogic.Restocking(new WarehouseBindingModel
             {
                 Id = WarehouseId
-            }, WarehouseId, ComponentId, Count, ComponentName);
+            }, WarehouseId, ComponentId, Count);
 
             DialogResult = DialogResult.OK;
             Close();

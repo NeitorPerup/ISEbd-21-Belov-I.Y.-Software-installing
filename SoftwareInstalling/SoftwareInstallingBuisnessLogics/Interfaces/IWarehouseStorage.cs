@@ -20,6 +20,6 @@ namespace SoftwareInstallingBuisnessLogic.Interfaces
 
         void Delete(WarehouseBindingModel model);
 
-        bool Unrestocking(int Count, int PackageId);
+        bool Unrestocking(int OrderId);
     }
 }

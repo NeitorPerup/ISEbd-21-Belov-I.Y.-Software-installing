@@ -12,9 +12,12 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
     {
         private readonly IWarehouseStorage _warehouseStorage;
 
-        public WarehouseLogic(IWarehouseStorage warehouseStorage)
+        private readonly IComponentStorage _componentStorage;
+
+        public WarehouseLogic(IWarehouseStorage warehouseStorage, IComponentStorage componentStorage)
         {
             _warehouseStorage = warehouseStorage;
+            _componentStorage = componentStorage;
         }
 
         public List<WarehouseViewModel> Read(WarehouseBindingModel model)
@@ -61,7 +64,50 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 throw new Exception("Элемент не найден");
             }
             _warehouseStorage.Delete(model);
-        }       
+        }
 
+        public void Restocking(WarehouseBindingModel model, int WarehouseId, int ComponentId, int Count)
+        {
+            WarehouseViewModel warehouse = _warehouseStorage.GetElement(new WarehouseBindingModel
+            {
+                Id = WarehouseId
+            });
+
+            ComponentViewModel component = _componentStorage.GetElement(new ComponentBindingModel
+            {
+                Id = ComponentId
+            });
+
+            if (warehouse == null)
+            {
+                throw new Exception("Склад не найден");
+            }
+
+            if (component == null)
+            {
+                throw new Exception("Компонент не найден");
+            }
+
+            Dictionary<int, (string, int)> warehouseComponents = warehouse.WarehouseComponents;
+
+            if (warehouseComponents.ContainsKey(ComponentId))
+            {
+                int count = warehouseComponents[ComponentId].Item2;
+                warehouseComponents[ComponentId] = (component.ComponentName, count + Count);
+            }
+            else
+            {
+                warehouseComponents.Add(ComponentId, (component.ComponentName, Count));
+            }
+
+            _warehouseStorage.Update(new WarehouseBindingModel
+            {
+                Id = warehouse.Id,
+                WarehouseName = warehouse.WarehouseName,
+                Responsible = warehouse.Responsible,
+                DateCreate = warehouse.DateCreate,
+                WarehouseComponents = warehouseComponents
+            });
+        }
     }
 }
