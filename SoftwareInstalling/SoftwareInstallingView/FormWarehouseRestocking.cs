@@ -8,6 +8,7 @@ using SoftwareInstallingBuisnessLogic.BindingModels;
 using System.Linq;
 using SoftwareInstallingFileImplement.Implements;
 
+
 namespace SoftwareInstallingView
 {
     public partial class FormWarehouseRestocking : Form
