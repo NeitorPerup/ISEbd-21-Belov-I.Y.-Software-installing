@@ -14,8 +14,11 @@ namespace SoftwareInstallingDatabaseImplement
             base.OnConfiguring(optionsBuilder);
         }
         public virtual DbSet<Component> Components { set; get; }
+
         public virtual DbSet<Package> Packages { set; get; }
+
         public virtual DbSet<PackageComponent> PackageComponents { set; get; }
+
         public virtual DbSet<Order> Orders { set; get; }
     }
 }

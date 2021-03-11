@@ -96,7 +96,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                         Package package = CreateModel(model, new Package());
                         context.Packages.Add(package);
                         context.SaveChanges();
-                        package = CreateModel(model, package, context);
+                        CreateModel(model, package, context);
 
                         transaction.Commit();
                     }
