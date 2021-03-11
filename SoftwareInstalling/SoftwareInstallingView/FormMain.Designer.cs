@@ -39,14 +39,6 @@ namespace SoftwareInstallingView
             this.справочникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.компонентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.изделияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.packageid = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Package = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Sum = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateCreate = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.DateEnd = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).BeginInit();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -55,15 +47,6 @@ namespace SoftwareInstallingView
             // 
             this.dataGridView.BackgroundColor = System.Drawing.SystemColors.ControlLightLight;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.id,
-            this.packageid,
-            this.Package,
-            this.Count,
-            this.Sum,
-            this.Status,
-            this.DateCreate,
-            this.DateEnd});
             this.dataGridView.Location = new System.Drawing.Point(10, 27);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.Size = new System.Drawing.Size(630, 297);
@@ -152,48 +135,6 @@ namespace SoftwareInstallingView
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.ИзделияToolStripMenuItem_Click);
             // 
-            // id
-            // 
-            this.id.HeaderText = "id";
-            this.id.Name = "id";
-            this.id.Visible = false;
-            // 
-            // packageid
-            // 
-            this.packageid.HeaderText = "packageid";
-            this.packageid.Name = "packageid";
-            this.packageid.Visible = false;
-            // 
-            // package
-            // 
-            this.Package.HeaderText = "Изделие";
-            this.Package.Name = "Package";
-            // 
-            // Count
-            // 
-            this.Count.HeaderText = "количество";
-            this.Count.Name = "Count";
-            // 
-            // Sum
-            // 
-            this.Sum.HeaderText = "Сумма";
-            this.Sum.Name = "Sum";
-            // 
-            // Status
-            // 
-            this.Status.HeaderText = "Статус";
-            this.Status.Name = "Status";
-            // 
-            // DateCreate
-            // 
-            this.DateCreate.HeaderText = "Дата создания";
-            this.DateCreate.Name = "DateCreate";
-            // 
-            // DateEnd
-            // 
-            this.DateEnd.HeaderText = "Дата Завершения";
-            this.DateEnd.Name = "DateEnd";
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -231,13 +172,5 @@ namespace SoftwareInstallingView
         private System.Windows.Forms.ToolStripMenuItem справочникиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem компонентыToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem изделияToolStripMenuItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn packageid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Package;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Count;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Sum;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateCreate;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DateEnd;
     }
 }
