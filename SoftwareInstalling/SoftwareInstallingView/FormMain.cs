@@ -31,12 +31,10 @@ namespace SoftwareInstallingView
                 var list = _orderLogic.Read(null);
                 if (list != null)
                 {
-                    dataGridView.Rows.Clear();
-                    foreach (var order in list)
-                    {        
-                        dataGridView.Rows.Add(new object[] { order.Id, order.PackageId, order.PackageName, order.Count, order.Sum,
-                            order.Status,order.DateCreate, order.DateImplement});
-                    }
+                    dataGridView.DataSource = list;
+                    dataGridView.Columns[0].Visible = false;
+                    dataGridView.Columns[1].Visible = false;
+                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
             }
