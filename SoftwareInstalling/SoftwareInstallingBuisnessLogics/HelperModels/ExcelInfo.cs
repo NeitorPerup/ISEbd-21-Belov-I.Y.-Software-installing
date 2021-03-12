@@ -12,5 +12,7 @@ namespace SoftwareInstallingBuisnessLogic.HelperModels
         public string Title { get; set; }
 
         public List<ReportPackageComponentViewModel> PackageComponents { get; set; }
+
+        public List<ReportComponentPackageViewModel> ComponentPackages { get; set; }
     }
 }

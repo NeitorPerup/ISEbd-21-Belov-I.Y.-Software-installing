@@ -42,7 +42,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 {
                     Table = table,
                     Texts = new List<string> { order.DateCreate.ToShortDateString(),
-                        order.ProductName, order.Count.ToString(), order.Sum.ToString(), order.Status.ToString()
+                        order.PackageName, order.Count.ToString(), order.Sum.ToString(), order.Status.ToString()
                         },
                     Style = "Normal",
                     ParagraphAlignment = ParagraphAlignment.Left

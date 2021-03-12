@@ -9,7 +9,7 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
     {
         public DateTime DateCreate { get; set; }
 
-        public string ProductName { get; set; }
+        public string PackageName { get; set; }
 
         public int Count { get; set; }
 

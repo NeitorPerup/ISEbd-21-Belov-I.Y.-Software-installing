@@ -67,18 +67,18 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                var product = context.Packages
+                var package = context.Packages
                 .Include(rec => rec.PackageComponent)
                 .ThenInclude(rec => rec.Component)
                 .FirstOrDefault(rec => rec.PackageName.Equals(model.PackageName) || rec.Id
                 == model.Id);
-                return product != null ?
+                return package != null ?
                 new PackageViewModel
                 {
-                    Id = product.Id,
-                    PackageName = product.PackageName,
-                    Price = product.Price,
-                    PackageComponents = product.PackageComponent
+                    Id = package.Id,
+                    PackageName = package.PackageName,
+                    Price = package.Price,
+                    PackageComponents = package.PackageComponent
                 .ToDictionary(recPC => recPC.ComponentId, recPC =>
                 (recPC.Component?.ComponentName, recPC.Count))
                 } : null;
@@ -168,14 +168,14 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             package.Price = model.Price;
             if (model.Id.HasValue)
             {
-                var productComponents = context.PackageComponents.Where(rec =>
+                var packageComponents = context.PackageComponents.Where(rec =>
                 rec.PackageId == model.Id.Value).ToList();
                 // удалили те, которых нет в модели
-                context.PackageComponents.RemoveRange(productComponents.Where(rec =>
+                context.PackageComponents.RemoveRange(packageComponents.Where(rec =>
                 !model.PackageComponents.ContainsKey(rec.ComponentId)).ToList());
                 context.SaveChanges();
                 // обновили количество у существующих записей
-                foreach (var updateComponent in productComponents)
+                foreach (var updateComponent in packageComponents)
                 {
                     updateComponent.Count =
                     model.PackageComponents[updateComponent.ComponentId].Item2;

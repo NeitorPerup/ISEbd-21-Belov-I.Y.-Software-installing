@@ -28,7 +28,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         /// Получение списка компонент с указанием, в каких изделиях используются
         /// </summary>
         /// <returns></returns>
-        public List<ReportPackageComponentViewModel> GetProductComponent()
+        public List<ReportPackageComponentViewModel> GetPackageComponent()
         {
             var components = _componentStorage.GetFullList();
             var packages = _packageStorage.GetFullList();
@@ -99,7 +99,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             .Select(x => new ReportOrdersViewModel
             {
                 DateCreate = x.DateCreate,
-                ProductName = x.PackageName,
+                PackageName = x.PackageName,
                 Count = x.Count,
                 Sum = x.Sum,
                 Status = x.Status
@@ -136,13 +136,26 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         /// Сохранение компонент с указаеним продуктов в файл-Excel
         /// </summary>
         /// <param name="model"></param>
-        public void SaveProductComponentToExcelFile(ReportBindingModel model)
+        public void SavePackageComponentToExcelFile(ReportBindingModel model)
         {
             SaveToExcel.CreateDoc(new ExcelInfo
             {
                 FileName = model.FileName,
                 Title = "Список компонент",
-                PackageComponents = GetProductComponent()
+                PackageComponents = GetPackageComponent()
+            });
+        }
+        /// <summary>
+        /// Сохранение компонент с указаеним продуктов в файл-Excel
+        /// </summary>
+        /// <param name="model"></param>
+        public void SaveComponentPackageToExcelFile(ReportBindingModel model)
+        {
+            SaveToExcel.CreateDoc(new ExcelInfo
+            {
+                FileName = model.FileName,
+                Title = "Список изделий",
+                ComponentPackages = GetComponentPackage()
             });
         }
         /// <summary>

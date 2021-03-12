@@ -19,7 +19,7 @@ namespace SoftwareInstallingView
             this.logic = logic;
         }
 
-        private void FormReportProductComponents_Load(object sender, EventArgs e)
+        private void FormReportPackageComponents_Load(object sender, EventArgs e)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace SoftwareInstallingView
                 {
                     try
                     {
-                        logic.SaveProductComponentToExcelFile(new ReportBindingModel
+                        logic.SaveComponentPackageToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName
                         });

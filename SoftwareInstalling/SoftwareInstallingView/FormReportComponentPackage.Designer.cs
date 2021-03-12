@@ -87,7 +87,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.buttonSave);
             this.Name = "FormReportComponentPackage";
             this.Text = "Изделия по компонентам";
-            this.Load += new System.EventHandler(this.FormReportProductComponents_Load);
+            this.Load += new System.EventHandler(this.FormReportPackageComponents_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
 

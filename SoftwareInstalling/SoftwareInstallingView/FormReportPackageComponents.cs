@@ -30,7 +30,7 @@ namespace SoftwareInstallingView
         {
             try
             {
-                var dict = logic.GetProductComponent();
+                var dict = logic.GetPackageComponent();
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -61,7 +61,7 @@ namespace SoftwareInstallingView
                 {
                     try
                     {
-                        logic.SaveProductComponentToExcelFile(new ReportBindingModel
+                        logic.SavePackageComponentToExcelFile(new ReportBindingModel
                         {
                             FileName = dialog.FileName
                         });
