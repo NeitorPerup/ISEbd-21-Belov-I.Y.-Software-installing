@@ -36,6 +36,24 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             {
                 return null;
             }
+            if (model.DateFrom != null && model.DateTo != null)
+            {
+                using (var context = new SoftwareInstallingDatabase())
+                {
+                    return context.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateImplement <= model.DateTo)
+                        .Select(rec => new OrderViewModel
+                        {
+                            Id = rec.Id,
+                            PackageName = context.Packages.FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                            PackageId = rec.PackageId,
+                            Count = rec.Count,
+                            Sum = rec.Sum,
+                            Status = rec.Status,
+                            DateCreate = rec.DateCreate,
+                            DateImplement = rec.DateImplement
+                        }).ToList();
+                }
+            }
             using (var context = new SoftwareInstallingDatabase())
             {
                 return context.Orders

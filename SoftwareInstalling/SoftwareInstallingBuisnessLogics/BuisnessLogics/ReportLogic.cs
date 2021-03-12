@@ -12,12 +12,15 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
     public class ReportLogic
     {
         private readonly IComponentStorage _componentStorage;
-        private readonly IPackageStorage _productStorage;
+
+        private readonly IPackageStorage _packageStorage;
+
         private readonly IOrderStorage _orderStorage;
-        public ReportLogic(IPackageStorage productStorage, IComponentStorage
+
+        public ReportLogic(IPackageStorage packageStorage, IComponentStorage
         componentStorage, IOrderStorage orderStorage)
         {
-            _productStorage = productStorage;
+            _packageStorage = packageStorage;
             _componentStorage = componentStorage;
             _orderStorage = orderStorage;
         }
@@ -25,28 +28,56 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         /// Получение списка компонент с указанием, в каких изделиях используются
         /// </summary>
         /// <returns></returns>
-
         public List<ReportPackageComponentViewModel> GetProductComponent()
         {
             var components = _componentStorage.GetFullList();
-            var products = _productStorage.GetFullList();
+            var packages = _packageStorage.GetFullList();
             var list = new List<ReportPackageComponentViewModel>();
             foreach (var component in components)
             {
                 var record = new ReportPackageComponentViewModel
                 {
                     ComponentName = component.ComponentName,
-                    Products = new List<Tuple<string, int>>(),
+                    Packages = new List<Tuple<string, int>>(),
                     TotalCount = 0
                 };
-                foreach (var product in products)
+                foreach (var package in packages)
                 {
-                    if (product.PackageComponents.ContainsKey(component.Id))
+                    if (package.PackageComponents.ContainsKey(component.Id))
                     {
-                        record.Products.Add(new Tuple<string, int>(product.PackageName,
-                        product.PackageComponents[component.Id].Item2));
-                        record.TotalCount +=
-                        product.PackageComponents[component.Id].Item2;
+                        record.Packages.Add(new Tuple<string, int>(package.PackageName,
+                        package.PackageComponents[component.Id].Item2));
+                        record.TotalCount += package.PackageComponents[component.Id].Item2;
+                    }
+                }
+                list.Add(record);
+            }
+            return list;
+        }
+        /// <summary>
+        /// Получение списка компонент с указанием, в каких изделиях используются
+        /// </summary>
+        /// <returns></returns>
+        public List<ReportComponentPackageViewModel> GetComponentPackage()
+        {
+            var components = _componentStorage.GetFullList();
+            var packages = _packageStorage.GetFullList();
+            var list = new List<ReportComponentPackageViewModel>();
+            foreach (var package in packages)
+            {
+                var record = new ReportComponentPackageViewModel
+                {
+                    PackageName = package.PackageName,
+                    Components = new List<Tuple<string, int>>(),
+                    TotalCount = 0
+                };
+                foreach (var component in components)
+                {
+                    if (package.PackageComponents.ContainsKey(component.Id))
+                    {
+                        record.Components.Add(new Tuple<string, int>(component.ComponentName,
+                        package.PackageComponents[component.Id].Item2));
+                        record.TotalCount += package.PackageComponents[component.Id].Item2;
                     }
                 }
                 list.Add(record);
@@ -62,8 +93,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         {
             return _orderStorage.GetFilteredList(new OrderBindingModel
             {
-                DateFrom =
-            model.DateFrom,
+                DateFrom = model.DateFrom,
                 DateTo = model.DateTo
             })
             .Select(x => new ReportOrdersViewModel
@@ -87,6 +117,19 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 FileName = model.FileName,
                 Title = "Список компонент",
                 Components = _componentStorage.GetFullList()
+            });
+        }
+        /// <summary>
+        /// Сохранение изделия в файл-Word
+        /// </summary>
+        /// <param name="model"></param>
+        public void SavePackagesToWordFile(ReportBindingModel model)
+        {
+            SaveToWord.CreateDoc(new WordInfo
+            {
+                FileName = model.FileName,
+                Title = "Список компонент",
+                Packages = _packageStorage.GetFullList()
             });
         }
         /// <summary>

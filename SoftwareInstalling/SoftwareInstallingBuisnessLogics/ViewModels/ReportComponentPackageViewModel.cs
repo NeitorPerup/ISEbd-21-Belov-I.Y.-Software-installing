@@ -4,12 +4,12 @@ using System.Text;
 
 namespace SoftwareInstallingBuisnessLogic.ViewModels
 {
-    public class ReportPackageComponentViewModel
+    public class ReportComponentPackageViewModel
     {
-        public string ComponentName { get; set; }
+        public string PackageName { get; set; }
 
         public int TotalCount { get; set; }
 
-        public List<Tuple<string, int>> Packages { get; set; } // PackageName, Count
+        public List<Tuple<string, int>> Components { get; set; } // ComponentName, Count
     }
 }

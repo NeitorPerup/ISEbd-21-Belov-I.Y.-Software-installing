@@ -28,6 +28,11 @@ namespace SoftwareInstallingFileImplement.Implements
             {
                 return null;
             }
+            if (model.DateTo != null && model.DateFrom != null)
+            {
+                return source.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateImplement <= model.DateTo)
+                    .Select(CreateModel).ToList();
+            }
             return source.Orders
                 .Where(rec => rec.PackageId.ToString().Contains(model.PackageId.ToString()))
                 .Select(CreateModel).ToList();

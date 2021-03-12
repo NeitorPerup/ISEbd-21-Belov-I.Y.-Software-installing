@@ -226,6 +226,18 @@
     <Compile Include="FormCreateOrder.Designer.cs">
       <DependentUpon>FormCreateOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportComponentPackage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportComponentPackage.Designer.cs">
+      <DependentUpon>FormReportComponentPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportOrders.Designer.cs">
+      <DependentUpon>FormReportOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReportPackageComponents.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -268,6 +280,12 @@
     <EmbeddedResource Include="FormCreateOrder.resx">
       <DependentUpon>FormCreateOrder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportComponentPackage.resx">
+      <DependentUpon>FormReportComponentPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportOrders.resx">
+      <DependentUpon>FormReportOrders.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReportPackageComponents.resx">
       <DependentUpon>FormReportPackageComponents.cs</DependentUpon>
     </EmbeddedResource>
@@ -292,7 +310,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Report.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SoftwareInstallingBuisnessLogic.ViewModels.ReportOrdersViewModel.datasource" />
+    <None Include="Properties\DataSources\SoftwareInstallingBuisnessLogic.ViewModels.ReportPackageComponentViewModel.datasource" />
+    <None Include="Properties\DataSources\SoftwareInstallingDatabaseImplement.Models.Order.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

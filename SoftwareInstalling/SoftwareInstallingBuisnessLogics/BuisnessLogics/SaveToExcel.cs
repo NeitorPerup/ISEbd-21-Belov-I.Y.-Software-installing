@@ -75,7 +75,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                         StyleIndex = 0U
                     });
                     rowIndex++;
-                    foreach (var product in pc.Products)
+                    foreach (var package in pc.Packages)
                     {
                         InsertCellInWorksheet(new ExcelCellParameters
                         {
@@ -83,7 +83,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                             ShareStringPart = shareStringPart,
                             ColumnName = "B",
                             RowIndex = rowIndex,
-                            Text = product.Item1,
+                            Text = package.Item1,
                             StyleIndex = 1U
                         });
                         InsertCellInWorksheet(new ExcelCellParameters
@@ -92,7 +92,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                             ShareStringPart = shareStringPart,
                             ColumnName = "C",
                             RowIndex = rowIndex,
-                            Text = product.Item2.ToString(),
+                            Text = package.Item2.ToString(),
                             StyleIndex = 1U
                         });
                         rowIndex++;

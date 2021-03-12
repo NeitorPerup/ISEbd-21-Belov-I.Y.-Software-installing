@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Unity;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
@@ -13,31 +6,31 @@ using SoftwareInstallingBuisnessLogic.BindingModels;
 
 namespace SoftwareInstallingView
 {
-    public partial class FormReportPackageComponents : Form
+    public partial class FormReportComponentPackage : Form
     {
         [Dependency]
         public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
 
-        public FormReportPackageComponents(ReportLogic logic)
+        public FormReportComponentPackage(ReportLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
         }
 
-        private void FormReportPackageComponents_Load(object sender, EventArgs e)
+        private void FormReportProductComponents_Load(object sender, EventArgs e)
         {
             try
             {
-                var dict = logic.GetProductComponent();
+                var dict = logic.GetComponentPackage();
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
                     foreach (var elem in dict)
                     {
-                        dataGridView.Rows.Add(new object[] { elem.ComponentName, "", ""});
-                        foreach (var listElem in elem.Packages)
+                        dataGridView.Rows.Add(new object[] { elem.PackageName, "", "" });
+                        foreach (var listElem in elem.Components)
                         {
                             dataGridView.Rows.Add(new object[] { "", listElem.Item1, listElem.Item2 });
                         }

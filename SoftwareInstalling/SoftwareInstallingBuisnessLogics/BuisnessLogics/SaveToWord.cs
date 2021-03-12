@@ -32,21 +32,61 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                     }
                 }));
 
-                foreach (var component in info.Components)
+                if (info.Components != null)
                 {
-                    docBody.AppendChild(CreateParagraph(new WordParagraph
-                    {
-                        Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
-                        TextProperties = new WordTextProperties
-                        {
-                            Size = "24",
-                            JustificationValues = JustificationValues.Both
-                        }
-                    }));
+                    CreateComponentDocBody(docBody, info);
                 }
+                if (info.Packages != null)
+                {
+                    CreatePackageDocBody(docBody, info);
+                }
+                
 
                 docBody.AppendChild(CreateSectionProperties());
                 wordDocument.MainDocumentPart.Document.Save();
+            }
+        }
+
+        private static void CreateComponentDocBody(Body docBody, WordInfo info)
+        {
+            foreach (var component in info.Components)
+            {
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
+                    TextProperties = new WordTextProperties
+                    {
+                        Size = "24",
+                        JustificationValues = JustificationValues.Both
+                    }
+                }));
+            }
+        }
+
+        private static void CreatePackageDocBody(Body docBody, WordInfo info)
+        {
+            foreach (var package in info.Packages)
+            {
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<(string, WordTextProperties)> {
+                    ("Название: " + package.PackageName, new WordTextProperties {Bold = true, Size = "24", }) },
+                    TextProperties = new WordTextProperties
+                    {
+                        Size = "24",
+                        JustificationValues = JustificationValues.Both
+                    }
+                })); ;
+                docBody.AppendChild(CreateParagraph(new WordParagraph
+                {
+                    Texts = new List<(string, WordTextProperties)> {
+                    ("Цена: " + package.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
+                    TextProperties = new WordTextProperties
+                    {
+                        Size = "24",
+                        JustificationValues = JustificationValues.Both
+                    }
+                })); ;
             }
         }
 
