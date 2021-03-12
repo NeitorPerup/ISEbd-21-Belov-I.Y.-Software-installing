@@ -87,13 +87,6 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            Package package = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId);
-
-            if (package == null)
-            {
-                return null;
-            }
-
             return new OrderViewModel
             {
                 Id = order.Id,
@@ -103,7 +96,7 @@ namespace SoftwareInstallingFileImplement.Implements
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Count = order.Count,
-                PackageName = package.PackageName
+                PackageName = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId)?.PackageName
             };
         }
     }
