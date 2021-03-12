@@ -135,6 +135,48 @@ namespace SoftwareInstallingView
             this.изделияToolStripMenuItem.Text = "Изделия";
             this.изделияToolStripMenuItem.Click += new System.EventHandler(this.ИзделияToolStripMenuItem_Click);
             // 
+            // id
+            // 
+            this.id.HeaderText = "id";
+            this.id.Name = "id";
+            this.id.Visible = false;
+            // 
+            // packageid
+            // 
+            this.packageid.HeaderText = "packageid";
+            this.packageid.Name = "packageid";
+            this.packageid.Visible = false;
+            // 
+            // Package
+            // 
+            this.Package.HeaderText = "Изделие";
+            this.Package.Name = "Package";
+            // 
+            // Count
+            // 
+            this.Count.HeaderText = "количество";
+            this.Count.Name = "Count";
+            // 
+            // Sum
+            // 
+            this.Sum.HeaderText = "Сумма";
+            this.Sum.Name = "Sum";
+            // 
+            // Status
+            // 
+            this.Status.HeaderText = "Статус";
+            this.Status.Name = "Status";
+            // 
+            // DateCreate
+            // 
+            this.DateCreate.HeaderText = "Дата создания";
+            this.DateCreate.Name = "DateCreate";
+            // 
+            // DateEnd
+            // 
+            this.DateEnd.HeaderText = "Дата Завершения";
+            this.DateEnd.Name = "DateEnd";
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
