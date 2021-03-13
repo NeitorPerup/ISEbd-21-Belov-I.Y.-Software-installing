@@ -162,6 +162,11 @@ namespace SoftwareInstallingListImplements.Implements
                 DateCreate = warehouse.DateCreate,
                 WarehouseComponents = warehouseComponents
             };
-        }      
+        }
+
+        public bool Unrestocking(int OrderId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

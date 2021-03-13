@@ -292,10 +292,6 @@
       <Project>{8b9babd3-007a-4b46-94c9-b94090f357ee}</Project>
       <Name>SoftwareInstallingDatabaseImplement</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SoftwareInstallingFileImplement\SoftwareInstallingFileImplement.csproj">
-      <Project>{961dee46-d6eb-4fe9-ab06-88d26af73164}</Project>
-      <Name>SoftwareInstallingFileImplement</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.0\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
