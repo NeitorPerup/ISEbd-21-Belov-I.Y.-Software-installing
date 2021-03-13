@@ -122,12 +122,11 @@ namespace SoftwareInstallingFileImplement.Implements
             };
         }
 
-        public bool Unrestocking(int OrderId)
+        public bool Unrestocking(int PackageId, int Count)
         {
             var list = GetFullList();
-            Order order = source.Orders.FirstOrDefault(rec => rec.Id == OrderId);
-            var DCount = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId).PackageComponents;
-            DCount = DCount.ToDictionary(rec => rec.Key, rec => rec.Value * order.Count);
+            var DCount = source.Packages.FirstOrDefault(rec => rec.Id == PackageId).PackageComponents;
+            DCount = DCount.ToDictionary(rec => rec.Key, rec => rec.Value * Count);
             Dictionary<int, int> Have = new Dictionary<int, int>();
 
             // считаем сколько у нас всего нужных компонентов

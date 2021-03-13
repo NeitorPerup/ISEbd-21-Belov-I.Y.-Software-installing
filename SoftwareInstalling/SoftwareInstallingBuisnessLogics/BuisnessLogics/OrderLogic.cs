@@ -46,11 +46,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
         public void TakeOrderInWork(ChangeStatusBindingModel model)
         {
-            if (!_warehouseStorage.Unrestocking(model.OrderId))
-            {
-                throw new Exception("Не хватает компонентов");
-            }
-
             var order = _orderStorage.GetElement(new OrderBindingModel
             {
                 Id = model.OrderId
@@ -62,6 +57,10 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             if (order.Status != OrderStatus.Принят)
             {
                 throw new Exception("Заказ не в статусе \"Принят\"");
+            }
+            if (!_warehouseStorage.Unrestocking(order.PackageId, order.Count))
+            {
+                throw new Exception("Не хватает компонентов");
             }
             _orderStorage.Update(new OrderBindingModel
             {
