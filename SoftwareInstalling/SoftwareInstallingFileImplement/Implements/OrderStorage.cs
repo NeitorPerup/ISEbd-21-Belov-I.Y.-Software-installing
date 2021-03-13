@@ -1,7 +1,7 @@
 ﻿using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
-using SoftwareInstallingFileImplements.Models;
+using SoftwareInstallingFileImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,8 +87,6 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            Package package = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId);
-
             return new OrderViewModel
             {
                 Id = order.Id,
@@ -98,7 +96,7 @@ namespace SoftwareInstallingFileImplement.Implements
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Count = order.Count,
-                PackageName = package.PackageName             
+                PackageName = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId)?.PackageName
             };
         }
     }

@@ -13,11 +13,14 @@ namespace SoftwareInstallingListImplements
 
         public List<Package> Packages { get; set; }
 
+        public List<Warehouse> Warehouses { get; set; }
+
         private DataListSingleton()
         {
             Components = new List<Component>();
             Orders = new List<Order>();
             Packages = new List<Package>();
+            Warehouses = new List<Warehouse>();
         }
         
         public static DataListSingleton GetInstance()
