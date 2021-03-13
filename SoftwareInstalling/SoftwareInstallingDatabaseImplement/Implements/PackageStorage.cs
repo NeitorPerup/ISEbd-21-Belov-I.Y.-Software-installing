@@ -6,7 +6,6 @@ using System.Linq;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using SoftwareInstallingDatabaseImplement.Models;
-using System.Windows.Forms;
 
 namespace SoftwareInstallingDatabaseImplement.Implements
 {
@@ -198,8 +197,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                 }
                 catch(DbUpdateException e)
                 {
-                    MessageBox.Show(e?.InnerException?.Message, "Ошибка", MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
+                    throw;
                 }
             }
             return package;

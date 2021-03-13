@@ -206,14 +206,13 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             return warehouse;
         }
 
-        public bool Unrestocking(int OrderId)
+        public bool Unrestocking(int PackageId, int Count)
         {
             using (var context = new SoftwareInstallingDatabase())
             {
                 var list = GetFullList();
-                Order order = context.Orders.FirstOrDefault(rec => rec.Id == OrderId);
-                var packageComponent = context.PackageComponents.Where(rec => rec.PackageId == order.PackageId);
-                var DCount = packageComponent.ToDictionary(rec => rec.ComponentId, rec => rec.Count * order.Count);
+                var packageComponent = context.PackageComponents.Where(rec => rec.PackageId == PackageId);
+                var DCount = packageComponent.ToDictionary(rec => rec.ComponentId, rec => rec.Count * Count);
 
                 using (var transaction = context.Database.BeginTransaction())
                 {
@@ -221,8 +220,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     {
                         foreach (var key in DCount.Keys.ToArray())
                         {
-                            var t = context.WarehouseComponents.Where(rec => rec.ComponentId == key);
-                            foreach (var warehouseComponent in t)
+                            foreach (var warehouseComponent in context.WarehouseComponents.Where(rec => rec.ComponentId == key))
                             {
                                 if (warehouseComponent.Count > DCount[key])
                                 {
