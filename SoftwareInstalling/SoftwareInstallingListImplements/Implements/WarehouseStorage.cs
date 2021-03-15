@@ -164,7 +164,7 @@ namespace SoftwareInstallingListImplements.Implements
             };
         }
 
-        public bool Unrestocking(int OrderId)
+        public bool Unrestocking(int PackageId, int Count)
         {
             throw new NotImplementedException();
         }

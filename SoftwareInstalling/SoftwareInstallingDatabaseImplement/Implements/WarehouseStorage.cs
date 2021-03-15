@@ -211,8 +211,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             using (var context = new SoftwareInstallingDatabase())
             {
                 var list = GetFullList();
-                var packageComponent = context.PackageComponents.Where(rec => rec.PackageId == PackageId);
-                var DCount = packageComponent.ToDictionary(rec => rec.ComponentId, rec => rec.Count * Count);
+                var DCount = context.PackageComponents.Where(rec => rec.PackageId == PackageId)
+                    .ToDictionary(rec => rec.ComponentId, rec => rec.Count * Count);
 
                 using (var transaction = context.Database.BeginTransaction())
                 {
