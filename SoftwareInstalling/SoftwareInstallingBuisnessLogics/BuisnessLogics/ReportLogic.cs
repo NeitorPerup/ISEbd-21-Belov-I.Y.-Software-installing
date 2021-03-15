@@ -29,36 +29,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         /// Получение списка компонент с указанием, в каких изделиях используются
         /// </summary>
         /// <returns></returns>
-        public List<ReportPackageComponentViewModel> GetPackageComponent()
-        {
-            var components = _componentStorage.GetFullList();
-            var packages = _packageStorage.GetFullList();
-            var list = new List<ReportPackageComponentViewModel>();
-            foreach (var component in components)
-            {
-                var record = new ReportPackageComponentViewModel
-                {
-                    ComponentName = component.ComponentName,
-                    Packages = new List<Tuple<string, int>>(),
-                    TotalCount = 0
-                };
-                foreach (var package in packages)
-                {
-                    if (package.PackageComponents.ContainsKey(component.Id))
-                    {
-                        record.Packages.Add(new Tuple<string, int>(package.PackageName,
-                        package.PackageComponents[component.Id].Item2));
-                        record.TotalCount += package.PackageComponents[component.Id].Item2;
-                    }
-                }
-                list.Add(record);
-            }
-            return list;
-        }
-        /// <summary>
-        /// Получение списка компонент с указанием, в каких изделиях используются
-        /// </summary>
-        /// <returns></returns>
         public List<ReportComponentPackageViewModel> GetComponentPackage()
         {
             var components = _componentStorage.GetFullList();
@@ -118,19 +88,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 FileName = model.FileName,
                 Title = "Список изделий",
                 Packages = _packageStorage.GetFullList()
-            });
-        }
-        /// <summary>
-        /// Сохранение компонент с указаеним продуктов в файл-Excel
-        /// </summary>
-        /// <param name="model"></param>
-        public void SavePackageComponentToExcelFile(ReportBindingModel model)
-        {
-            SaveToExcel.CreateDoc(new ExcelInfo
-            {
-                FileName = model.FileName,
-                Title = "Список компонент",
-                PackageComponents = GetPackageComponent()
             });
         }
         /// <summary>

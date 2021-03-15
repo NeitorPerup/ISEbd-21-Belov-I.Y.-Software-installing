@@ -64,118 +64,57 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 });
                 uint rowIndex = 2;
 
-                if (info.PackageComponents != null)
+                foreach (var pc in info.ComponentPackages)
                 {
-                    CreateDocComponentBody(info, worksheetPart, shareStringPart, rowIndex);
-                }
-                if (info.ComponentPackages != null)
-                {
-                    CreateDocPackageBody(info, worksheetPart, shareStringPart, rowIndex);
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "A",
+                        RowIndex = rowIndex,
+                        Text = pc.PackageName,
+                        StyleIndex = 0U
+                    });
+                    rowIndex++;
+
+                    foreach (var component in pc.Components)
+                    {
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "B",
+                            RowIndex = rowIndex,
+                            Text = component.Item1,
+                            StyleIndex = 1U
+                        });
+
+                        InsertCellInWorksheet(new ExcelCellParameters
+                        {
+                            Worksheet = worksheetPart.Worksheet,
+                            ShareStringPart = shareStringPart,
+                            ColumnName = "C",
+                            RowIndex = rowIndex,
+                            Text = component.Item2.ToString(),
+                            StyleIndex = 1U
+                        });
+
+                        rowIndex++;
+                    }
+
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "C",
+                        RowIndex = rowIndex,
+                        Text = pc.TotalCount.ToString(),
+                        StyleIndex = 0U
+                    });
+                    rowIndex++;
                 }
 
                 workbookpart.Workbook.Save();
-            }
-        }
-
-        private static void CreateDocComponentBody(ExcelInfo info, WorksheetPart worksheetPart, SharedStringTablePart shareStringPart, uint rowIndex)
-        {
-            foreach (var pc in info.PackageComponents)
-            {
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "A",
-                    RowIndex = rowIndex,
-                    Text = pc.ComponentName,
-                    StyleIndex = 0U
-                });
-                rowIndex++;
-                foreach (var package in pc.Packages)
-                {
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "B",
-                        RowIndex = rowIndex,
-                        Text = package.Item1,
-                        StyleIndex = 1U
-                    });
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "C",
-                        RowIndex = rowIndex,
-                        Text = package.Item2.ToString(),
-                        StyleIndex = 1U
-                    });
-                    rowIndex++;
-                }
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "C",
-                    RowIndex = rowIndex,
-                    Text = pc.TotalCount.ToString(),
-                    StyleIndex = 0U
-                });
-                rowIndex++;
-            }
-        }
-
-        private static void CreateDocPackageBody(ExcelInfo info, WorksheetPart worksheetPart, SharedStringTablePart shareStringPart, uint rowIndex)
-        {
-            foreach (var pc in info.ComponentPackages)
-            {
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "A",
-                    RowIndex = rowIndex,
-                    Text = pc.PackageName,
-                    StyleIndex = 0U
-                });
-                rowIndex++;
-
-                foreach (var component in pc.Components)
-                {
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "B",
-                        RowIndex = rowIndex,
-                        Text = component.Item1,
-                        StyleIndex = 1U
-                    });
-
-                    InsertCellInWorksheet(new ExcelCellParameters
-                    {
-                        Worksheet = worksheetPart.Worksheet,
-                        ShareStringPart = shareStringPart,
-                        ColumnName = "C",
-                        RowIndex = rowIndex,
-                        Text = component.Item2.ToString(),
-                        StyleIndex = 1U
-                    });
-
-                    rowIndex++;
-                }
-
-                InsertCellInWorksheet(new ExcelCellParameters
-                {
-                    Worksheet = worksheetPart.Worksheet,
-                    ShareStringPart = shareStringPart,
-                    ColumnName = "C",
-                    RowIndex = rowIndex,
-                    Text = pc.TotalCount.ToString(),
-                    StyleIndex = 0U
-                });
-                rowIndex++;
             }
         }
         /// <summary>
