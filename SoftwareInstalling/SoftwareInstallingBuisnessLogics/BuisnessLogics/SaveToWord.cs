@@ -32,64 +32,24 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                     }
                 }));
 
-                if (info.Components != null)
+                foreach (var package in info.Packages)
                 {
-                    CreateComponentDocBody(docBody, info);
+                    docBody.AppendChild(CreateParagraph(new WordParagraph
+                    {
+                        Texts = new List<(string, WordTextProperties)> {
+                    (package.PackageName + " : ", new WordTextProperties {Bold = true, Size = "24", }),
+                        (package.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
+                        TextProperties = new WordTextProperties
+                        {
+                            Size = "24",
+                            JustificationValues = JustificationValues.Both
+                        }
+                    })); ;
                 }
-                if (info.Packages != null)
-                {
-                    CreatePackageDocBody(docBody, info);
-                }
-                
-
                 docBody.AppendChild(CreateSectionProperties());
                 wordDocument.MainDocumentPart.Document.Save();
             }
         }
-
-        private static void CreateComponentDocBody(Body docBody, WordInfo info)
-        {
-            foreach (var component in info.Components)
-            {
-                docBody.AppendChild(CreateParagraph(new WordParagraph
-                {
-                    Texts = new List<(string, WordTextProperties)> { (component.ComponentName, new WordTextProperties { Size = "24", }) },
-                    TextProperties = new WordTextProperties
-                    {
-                        Size = "24",
-                        JustificationValues = JustificationValues.Both
-                    }
-                }));
-            }
-        }
-
-        private static void CreatePackageDocBody(Body docBody, WordInfo info)
-        {
-            foreach (var package in info.Packages)
-            {
-                docBody.AppendChild(CreateParagraph(new WordParagraph
-                {
-                    Texts = new List<(string, WordTextProperties)> {
-                    ("Название: " + package.PackageName, new WordTextProperties {Bold = true, Size = "24", }) },
-                    TextProperties = new WordTextProperties
-                    {
-                        Size = "24",
-                        JustificationValues = JustificationValues.Both
-                    }
-                })); ;
-                docBody.AppendChild(CreateParagraph(new WordParagraph
-                {
-                    Texts = new List<(string, WordTextProperties)> {
-                    ("Цена: " + package.Price.ToString(), new WordTextProperties {Bold = false, Size = "24", }) },
-                    TextProperties = new WordTextProperties
-                    {
-                        Size = "24",
-                        JustificationValues = JustificationValues.Both
-                    }
-                })); ;
-            }
-        }
-
         /// <summary>
         /// Настройки страницы
         /// </summary>

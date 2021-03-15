@@ -38,7 +38,7 @@ namespace SoftwareInstallingListImplements.Implements
             {
                 foreach (var order in source.Orders)
                 {
-                    if (order.DateCreate >= model.DateTo && order.DateImplement <= model.DateFrom)
+                    if (order.DateCreate >= model.DateTo && order.DateCreate <= model.DateFrom)
                     {
                         result.Add(CreateModel(order));
                     }

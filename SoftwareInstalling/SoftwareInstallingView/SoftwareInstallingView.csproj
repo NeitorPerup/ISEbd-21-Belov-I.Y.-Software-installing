@@ -238,12 +238,6 @@
     <Compile Include="FormReportOrders.Designer.cs">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormReportPackageComponents.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="FormReportPackageComponents.Designer.cs">
-      <DependentUpon>FormReportPackageComponents.cs</DependentUpon>
-    </Compile>
     <Compile Include="FormMain.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -285,9 +279,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportOrders.resx">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="FormReportPackageComponents.resx">
-      <DependentUpon>FormReportPackageComponents.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

@@ -15,6 +15,6 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
 
         public decimal Sum { get; set; }
 
-        public OrderStatus Status { get; set; }
+        public string Status { get; set; }
     }
 }

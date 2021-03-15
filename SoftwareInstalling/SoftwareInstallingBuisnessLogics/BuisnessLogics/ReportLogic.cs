@@ -6,6 +6,7 @@ using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.HelperModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
+using SoftwareInstallingBuisnessLogic.Enums;
 
 namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 {
@@ -102,22 +103,9 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 PackageName = x.PackageName,
                 Count = x.Count,
                 Sum = x.Sum,
-                Status = x.Status
+                Status = ((OrderStatus)Enum.Parse(typeof(OrderStatus), x.Status.ToString())).ToString()
             })
             .ToList();
-        }
-        /// <summary>
-        /// Сохранение компонент в файл-Word
-        /// </summary>
-        /// <param name="model"></param>
-        public void SaveComponentsToWordFile(ReportBindingModel model)
-        {
-            SaveToWord.CreateDoc(new WordInfo
-            {
-                FileName = model.FileName,
-                Title = "Список компонент",
-                Components = _componentStorage.GetFullList()
-            });
         }
         /// <summary>
         /// Сохранение изделия в файл-Word
@@ -128,7 +116,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             SaveToWord.CreateDoc(new WordInfo
             {
                 FileName = model.FileName,
-                Title = "Список компонент",
+                Title = "Список изделий",
                 Packages = _packageStorage.GetFullList()
             });
         }

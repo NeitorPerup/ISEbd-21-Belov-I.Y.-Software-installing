@@ -30,7 +30,7 @@ namespace SoftwareInstallingFileImplement.Implements
             }
             if (model.DateTo != null && model.DateFrom != null)
             {
-                return source.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateImplement <= model.DateTo)
+                return source.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
                     .Select(CreateModel).ToList();
             }
             return source.Orders
