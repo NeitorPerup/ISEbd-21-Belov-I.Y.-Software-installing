@@ -6,6 +6,7 @@ using SoftwareInstallingBuisnessLogic.ViewModels;
 using SoftwareInstallingBuisnessLogic.BindingModels;
 using System.Linq;
 using SoftwareInstallingDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SoftwareInstallingDatabaseImplement.Implements
 {
@@ -18,7 +19,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                 return context.Orders.Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    PackageName = context.Packages.FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                    PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
                     PackageId = rec.PackageId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -44,7 +45,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                         .Select(rec => new OrderViewModel
                         {
                             Id = rec.Id,
-                            PackageName = context.Packages.FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                            PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
                             PackageId = rec.PackageId,
                             Count = rec.Count,
                             Sum = rec.Sum,
@@ -57,11 +58,11 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             using (var context = new SoftwareInstallingDatabase())
             {
                 return context.Orders
-                .Where(rec => rec.Id.Equals(model.Id))
+                .Where(rec => rec.Id == model.Id)
                 .Select(rec => new OrderViewModel
                  {
                     Id = rec.Id,
-                    PackageName = context.Packages.FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                    PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
                     PackageId = rec.PackageId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -87,7 +88,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                 new OrderViewModel
                 {
                     Id = order.Id,
-                    PackageName = context.Packages.FirstOrDefault(r => r.Id == order.PackageId).PackageName,
+                    PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == order.PackageId)?.PackageName,
                     PackageId = order.PackageId,
                     Count = order.Count,
                     Sum = order.Sum,
