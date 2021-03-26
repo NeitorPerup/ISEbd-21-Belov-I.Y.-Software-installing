@@ -12,10 +12,10 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
         public int? Id { get; set; }
 
         [DataMember]
-        public string FIO { get; set; }
+        public string ClientFIO { get; set; }
 
         [DataMember]
-        public string Login { get; set; }
+        public string Email { get; set; }
 
         [DataMember]
         public string Password { get; set; }

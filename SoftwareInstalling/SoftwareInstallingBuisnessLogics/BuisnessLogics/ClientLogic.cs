@@ -33,7 +33,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         {
             var element = _clientStorage.GetElement(new ClientBindingModel
             {
-                Login = model.Login
+                Email = model.Email
             });
             if (element != null && element.Id != model.Id)
             {

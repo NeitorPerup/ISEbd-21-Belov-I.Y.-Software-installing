@@ -18,8 +18,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                 return context.Clients.Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,
-                    FIO = rec.FIO,
-                    Login = rec.Login,
+                    ClientFIO = rec.ClientFIO,
+                    Email = rec.Email,
                     Password = rec.Password
                 })
                 .ToList();
@@ -39,8 +39,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                 .Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,
-                    FIO = rec.FIO,
-                    Login = rec.Login,
+                    ClientFIO = rec.ClientFIO,
+                    Email = rec.Email,
                     Password = rec.Password
                 })
                 .ToList();
@@ -56,14 +56,14 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             using (var context = new SoftwareInstallingDatabase())
             {
                 var client = context.Clients
-                .FirstOrDefault(rec => rec.Login == model.Login ||
+                .FirstOrDefault(rec => rec.Email == model.Email ||
                 rec.Id == model.Id);
                 return client != null ?
                 new ClientViewModel
                 {
                     Id = client.Id,
-                    FIO = client.FIO,
-                    Login = client.Login,
+                    ClientFIO = client.ClientFIO,
+                    Email = client.Email,
                     Password = client.Password
                 } :
                 null;
@@ -114,8 +114,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
 
         private Client CreateModel(ClientBindingModel model, Client client)
         {
-            client.FIO = model.FIO;
-            client.Login = model.Login;
+            client.ClientFIO = model.ClientFIO;
+            client.Email = model.Email;
             client.Password = model.Password;
             return client;
         }
