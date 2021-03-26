@@ -25,7 +25,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
+                    DateImplement = rec.DateImplement,
+                    ClientId = rec.ClientId
                 })
                 .ToList();
             }
@@ -37,28 +38,13 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             {
                 return null;
             }
-            if (model.DateFrom != null && model.DateTo != null)
-            {
-                using (var context = new SoftwareInstallingDatabase())
-                {
-                    return context.Orders.Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                        .Select(rec => new OrderViewModel
-                        {
-                            Id = rec.Id,
-                            PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
-                            PackageId = rec.PackageId,
-                            Count = rec.Count,
-                            Sum = rec.Sum,
-                            Status = rec.Status,
-                            DateCreate = rec.DateCreate,
-                            DateImplement = rec.DateImplement
-                        }).ToList();
-                }
-            }
+
             using (var context = new SoftwareInstallingDatabase())
             {
                 return context.Orders
-                .Where(rec => rec.Id == model.Id)
+                .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate == model.DateCreate) ||
+                (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
+                >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))         
                 .Select(rec => new OrderViewModel
                  {
                     Id = rec.Id,
@@ -68,7 +54,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
+                    DateImplement = rec.DateImplement,
+                    ClientId = rec.ClientId
                 })
                 .ToList();
             }
@@ -94,7 +81,8 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Sum = order.Sum,
                     Status = order.Status,
                     DateCreate = order.DateCreate,
-                    DateImplement = order.DateImplement
+                    DateImplement = order.DateImplement,
+                    ClientId = order.ClientId
                 } :
                 null;
             }
@@ -150,6 +138,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             order.Status = model.Status;
             order.DateCreate = model.DateCreate;
             order.DateImplement = model.DateImplement;
+            order.ClientId = (int)model.ClientId;
             return order;
         }
     }
