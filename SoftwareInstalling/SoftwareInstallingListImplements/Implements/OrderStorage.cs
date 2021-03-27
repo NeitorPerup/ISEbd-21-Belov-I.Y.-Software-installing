@@ -107,6 +107,7 @@ namespace SoftwareInstallingListImplements.Implements
         private Order CreateModel(OrderBindingModel model, Order order)
         {
             order.PackageId = model.PackageId;
+            order.ClientId = (int)model.ClientId;
             order.Count = model.Count;
             order.Sum = model.Sum;
             order.Status = model.Status;
@@ -129,6 +130,7 @@ namespace SoftwareInstallingListImplements.Implements
             return new OrderViewModel
             {
                 Id = order.Id,
+                ClientId = order.ClientId,
                 PackageId = order.PackageId,
                 Sum = order.Sum,
                 Count = order.Count,

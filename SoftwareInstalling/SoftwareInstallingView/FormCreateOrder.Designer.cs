@@ -37,12 +37,14 @@ namespace SoftwareInstallingView
             this.comboBoxPackage = new System.Windows.Forms.ComboBox();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonCancel = new System.Windows.Forms.Button();
+            this.labelClient = new System.Windows.Forms.Label();
+            this.comboBoxClient = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 35);
+            this.label1.Location = new System.Drawing.Point(26, 71);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 0;
@@ -51,7 +53,7 @@ namespace SoftwareInstallingView
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 73);
+            this.label2.Location = new System.Drawing.Point(26, 117);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(66, 13);
             this.label2.TabIndex = 1;
@@ -60,7 +62,7 @@ namespace SoftwareInstallingView
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 111);
+            this.label3.Location = new System.Drawing.Point(26, 158);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(41, 13);
             this.label3.TabIndex = 2;
@@ -68,7 +70,7 @@ namespace SoftwareInstallingView
             // 
             // textBoxCount
             // 
-            this.textBoxCount.Location = new System.Drawing.Point(134, 70);
+            this.textBoxCount.Location = new System.Drawing.Point(134, 114);
             this.textBoxCount.Name = "textBoxCount";
             this.textBoxCount.Size = new System.Drawing.Size(218, 20);
             this.textBoxCount.TabIndex = 3;
@@ -78,7 +80,7 @@ namespace SoftwareInstallingView
             // textBoxSum
             // 
             this.textBoxSum.BackColor = System.Drawing.Color.White;
-            this.textBoxSum.Location = new System.Drawing.Point(134, 108);
+            this.textBoxSum.Location = new System.Drawing.Point(134, 155);
             this.textBoxSum.Name = "textBoxSum";
             this.textBoxSum.Size = new System.Drawing.Size(218, 20);
             this.textBoxSum.TabIndex = 4;
@@ -87,7 +89,7 @@ namespace SoftwareInstallingView
             // 
             this.comboBoxPackage.BackColor = System.Drawing.Color.White;
             this.comboBoxPackage.FormattingEnabled = true;
-            this.comboBoxPackage.Location = new System.Drawing.Point(134, 27);
+            this.comboBoxPackage.Location = new System.Drawing.Point(134, 68);
             this.comboBoxPackage.Name = "comboBoxPackage";
             this.comboBoxPackage.Size = new System.Drawing.Size(218, 21);
             this.comboBoxPackage.TabIndex = 5;
@@ -95,7 +97,7 @@ namespace SoftwareInstallingView
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(187, 157);
+            this.buttonSave.Location = new System.Drawing.Point(156, 205);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 6;
@@ -105,7 +107,7 @@ namespace SoftwareInstallingView
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(277, 157);
+            this.buttonCancel.Location = new System.Drawing.Point(268, 205);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 7;
@@ -113,11 +115,31 @@ namespace SoftwareInstallingView
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
+            // labelClient
+            // 
+            this.labelClient.AutoSize = true;
+            this.labelClient.Location = new System.Drawing.Point(26, 34);
+            this.labelClient.Name = "labelClient";
+            this.labelClient.Size = new System.Drawing.Size(43, 13);
+            this.labelClient.TabIndex = 8;
+            this.labelClient.Text = "Клиент";
+            // 
+            // comboBoxClient
+            // 
+            this.comboBoxClient.BackColor = System.Drawing.Color.White;
+            this.comboBoxClient.FormattingEnabled = true;
+            this.comboBoxClient.Location = new System.Drawing.Point(134, 31);
+            this.comboBoxClient.Name = "comboBoxClient";
+            this.comboBoxClient.Size = new System.Drawing.Size(218, 21);
+            this.comboBoxClient.TabIndex = 9;
+            // 
             // FormCreateOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(540, 330);
+            this.Controls.Add(this.comboBoxClient);
+            this.Controls.Add(this.labelClient);
             this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.comboBoxPackage);
@@ -144,5 +166,7 @@ namespace SoftwareInstallingView
         private System.Windows.Forms.ComboBox comboBoxPackage;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Label labelClient;
+        private System.Windows.Forms.ComboBox comboBoxClient;
     }
 }

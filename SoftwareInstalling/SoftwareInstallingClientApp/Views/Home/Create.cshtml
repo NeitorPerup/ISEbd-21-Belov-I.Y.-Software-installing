@@ -8,8 +8,8 @@
     <div class="row">
         <div class="col-4">Изделие:</div>
         <div class="col-8">
-            <select id="package" name="package" class="form-control" asp-
-                    items="@(new SelectList(@ViewBag.Packages,"Id", "PackageName"))"></select>
+            <select id="package" name="package" class="form-control" asp-items="@(new SelectList(@ViewBag.Packages,"Id", "PackageName"))">
+            </select>
         </div>
     </div>
     <div class="row">
@@ -23,8 +23,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-8"></div>
-        <div class="col-4">
+        <div class="col-4"></div>
+        <div class="col-8">
             <input type="submit" value="Создать" class="btn btn-primary" />
         </div>
     </div>

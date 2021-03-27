@@ -1,9 +1,11 @@
 ﻿using Microsoft.Reporting.WebForms;
 using SoftwareInstallingBuisnessLogic.BindingModels;
+using SoftwareInstallingBuisnessLogic.ViewModels;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
 using System;
 using System.Windows.Forms;
 using Unity;
+using System.Collections.Generic;
 
 namespace SoftwareInstallingView
 {
@@ -14,12 +16,15 @@ namespace SoftwareInstallingView
 
         private readonly OrderLogic _orderLogic;
 
+        private readonly ClientLogic _clientLogic;
+
         private ReportLogic report;
 
-        public FormMain(OrderLogic orderLogic, ReportLogic Report)
+        public FormMain(OrderLogic orderLogic, ReportLogic Report, ClientLogic clientLogic)
         {
             InitializeComponent();
-            this._orderLogic = orderLogic;
+            _orderLogic = orderLogic;
+            _clientLogic = clientLogic;
             report = Report;
         }
 
@@ -32,13 +37,23 @@ namespace SoftwareInstallingView
         {
             try
             {
-                var list = _orderLogic.Read(null);
+                List<OrderViewModel> list = null;
+                if (Program.Client != null && _clientLogic.Read(new ClientBindingModel { Id = Program.Client.Id})?[0] != null)
+                {
+                    list = _orderLogic.Read(new OrderBindingModel { ClientId = Program.Client.Id });
+                }
+                else
+                {
+                    list = _orderLogic.Read(null);
+                }
+                
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    dataGridView.Columns[2].Visible = false;
+                    dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
             }
@@ -158,6 +173,12 @@ namespace SoftwareInstallingView
         private void изделияПоКомпонентамToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormReportComponentPackage>();
+            form.ShowDialog();
+        }
+
+        private void клиентыToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var form = Container.Resolve<FormClients>();
             form.ShowDialog();
         }
     }

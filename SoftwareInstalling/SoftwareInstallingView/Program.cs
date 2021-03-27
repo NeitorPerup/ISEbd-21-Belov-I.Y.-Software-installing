@@ -1,4 +1,5 @@
 ﻿using SoftwareInstallingBuisnessLogic.BuisnessLogics;
+using SoftwareInstallingBuisnessLogic.ViewModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingDatabaseImplement.Implements;
 using System;
@@ -10,6 +11,8 @@ namespace SoftwareInstallingView
 {
     static class Program
     {
+        public static ClientViewModel Client { get; set; }
+
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
@@ -32,13 +35,16 @@ namespace SoftwareInstallingView
             HierarchicalLifetimeManager());
             currentContainer.RegisterType<IPackageStorage, PackageStorage>(new
             HierarchicalLifetimeManager());
-            currentContainer.RegisterType<ComponentLogic>(new
+            currentContainer.RegisterType<IClientStorage, ClientStorage>(new
             HierarchicalLifetimeManager());
+
+            currentContainer.RegisterType<ComponentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<OrderLogic>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<PackageLogic>(new
-            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<PackageLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
-            
+            currentContainer.RegisterType<ClientLogic>(new HierarchicalLifetimeManager());
+
+
             return currentContainer;
         }
     }

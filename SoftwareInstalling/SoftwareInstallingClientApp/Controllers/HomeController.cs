@@ -15,15 +15,16 @@ namespace SoftwareInstallingClientApp.Controllers
         public HomeController()
         {
         }
+
         public IActionResult Index()
         {
             if (Program.Client == null)
             {
                 return Redirect("~/Home/Enter");
             }
-            return
-            View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
+            return View(APIClient.GetRequest<List<OrderViewModel>>($"api/main/getorders?clientId={Program.Client.Id}"));
         }
+
         [HttpGet]
         public IActionResult Privacy()
         {
@@ -33,16 +34,23 @@ namespace SoftwareInstallingClientApp.Controllers
             }
             return View(Program.Client);
         }
+
         [HttpPost]
         public void Privacy(string login, string password, string fio)
         {
-            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password)
-            && !string.IsNullOrEmpty(fio))
+            if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(fio))
             {
                 //прописать запрос
                 Program.Client.ClientFIO = fio;
                 Program.Client.Email = login;
                 Program.Client.Password = password;
+                APIClient.PostRequest("api/client/updatedata", new ClientBindingModel
+                {
+                    Id = Program.Client.Id,
+                    ClientFIO = fio,
+                    Email = login,
+                    Password = password
+                });
                 Response.Redirect("Index");
                 return;
             }
@@ -54,8 +62,7 @@ namespace SoftwareInstallingClientApp.Controllers
         {
             return View(new ErrorViewModel
             {
-                RequestId = Activity.Current?.Id ??
-            HttpContext.TraceIdentifier
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
             });
         }
 
@@ -119,6 +126,13 @@ namespace SoftwareInstallingClientApp.Controllers
                 return;
             }
             //прописать запрос
+            APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel 
+            { 
+                ClientId = (int)Program.Client.Id,
+                PackageId = package,
+                Count = count,
+                Sum = sum
+            });
             Response.Redirect("Index");
         }
 

@@ -6,6 +6,7 @@ using SoftwareInstallingBuisnessLogic.ViewModels;
 using SoftwareInstallingBuisnessLogic.BindingModels;
 using System.Linq;
 using SoftwareInstallingDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SoftwareInstallingDatabaseImplement.Implements
 {
@@ -20,7 +21,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Id = rec.Id,
                     ClientFIO = rec.ClientFIO,
                     Email = rec.Email,
-                    Password = rec.Password
+                    Password = rec.Password,
                 })
                 .ToList();
             }
@@ -34,14 +35,14 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                return context.Clients
-                .Where(rec => rec.Id == model.Id)
+                return context.Clients.Include(x => x.Order)
+                .Where(rec => rec.Email == model.Email && rec.Password == rec.Password)
                 .Select(rec => new ClientViewModel
                 {
                     Id = rec.Id,
                     ClientFIO = rec.ClientFIO,
                     Email = rec.Email,
-                    Password = rec.Password
+                    Password = rec.Password,
                 })
                 .ToList();
             }
@@ -55,7 +56,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                var client = context.Clients
+                var client = context.Clients.Include(x => x.Order)
                 .FirstOrDefault(rec => rec.Email == model.Email ||
                 rec.Id == model.Id);
                 return client != null ?
@@ -64,7 +65,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Id = client.Id,
                     ClientFIO = client.ClientFIO,
                     Email = client.Email,
-                    Password = client.Password
+                    Password = client.Password,
                 } :
                 null;
             }
@@ -74,7 +75,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
         {
             using (var context = new SoftwareInstallingDatabase())
             {
-                context.Clients.Add(CreateModel(model, new Client()));
+                context.Clients.Add(CreateModel(model, new Client(), context));
                 context.SaveChanges();
             }
         }
@@ -83,13 +84,12 @@ namespace SoftwareInstallingDatabaseImplement.Implements
         {
             using (var context = new SoftwareInstallingDatabase())
             {
-                var element = context.Clients.FirstOrDefault(rec => rec.Id ==
-                model.Id);
+                var element = context.Clients.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
                     throw new Exception("Клиент не найден");
                 }
-                CreateModel(model, element);
+                CreateModel(model, element, context);
                 context.SaveChanges();
             }
         }
@@ -98,8 +98,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
         {
             using (var context = new SoftwareInstallingDatabase())
             {
-                Client element = context.Clients.FirstOrDefault(rec => rec.Id ==
-                model.Id);
+                Client element = context.Clients.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
                 {
                     context.Clients.Remove(element);
@@ -112,7 +111,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
         }
 
-        private Client CreateModel(ClientBindingModel model, Client client)
+        private Client CreateModel(ClientBindingModel model, Client client, SoftwareInstallingDatabase database)
         {
             client.ClientFIO = model.ClientFIO;
             client.Email = model.Email;
