@@ -25,8 +25,6 @@ namespace SoftwareInstallingRestApi.Controllers
         [HttpGet]
         public List<PackageViewModel> GetPackageList() => _package.Read(null)?.ToList();
 
-        // http://localhost:59739/api/main/getpackagelist
-
         [HttpGet]
         public PackageViewModel GetPackage(int packageId) => _package.Read(new PackageBindingModel { Id = packageId })?[0];
 

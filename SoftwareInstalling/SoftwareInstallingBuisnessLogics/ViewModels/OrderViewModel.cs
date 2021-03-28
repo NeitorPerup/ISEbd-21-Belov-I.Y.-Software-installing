@@ -18,6 +18,10 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
         public int PackageId { get; set; }
 
         [DataMember]
+        [DisplayName("Клиент")]
+        public string ClientFIO { get; set; }
+
+        [DataMember]
         [DisplayName("Изделие")]
         public string PackageName { get; set; }
 

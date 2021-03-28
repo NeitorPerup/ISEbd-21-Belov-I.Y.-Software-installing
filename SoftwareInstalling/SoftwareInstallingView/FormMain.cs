@@ -16,15 +16,12 @@ namespace SoftwareInstallingView
 
         private readonly OrderLogic _orderLogic;
 
-        private readonly ClientLogic _clientLogic;
-
         private ReportLogic report;
 
-        public FormMain(OrderLogic orderLogic, ReportLogic Report, ClientLogic clientLogic)
+        public FormMain(OrderLogic orderLogic, ReportLogic Report)
         {
             InitializeComponent();
             _orderLogic = orderLogic;
-            _clientLogic = clientLogic;
             report = Report;
         }
 
@@ -37,23 +34,13 @@ namespace SoftwareInstallingView
         {
             try
             {
-                List<OrderViewModel> list = null;
-                if (Program.Client != null && _clientLogic.Read(new ClientBindingModel { Id = Program.Client.Id})?[0] != null)
-                {
-                    list = _orderLogic.Read(new OrderBindingModel { ClientId = Program.Client.Id });
-                }
-                else
-                {
-                    list = _orderLogic.Read(null);
-                }
-                
+                var list = _orderLogic.Read(null);
                 if (list != null)
                 {
                     dataGridView.DataSource = list;
                     dataGridView.Columns[0].Visible = false;
                     dataGridView.Columns[1].Visible = false;
                     dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 }
 
             }

@@ -64,7 +64,6 @@ namespace SoftwareInstallingView
                     Email = textBoxEmail.Text,
                     Password = textBoxPassword.Text,
                 }) ;
-                //Program.Client = logic.Read(new ClientBindingModel { Id = id})?[0];
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

@@ -115,7 +115,6 @@ namespace SoftwareInstallingView
                     Count = Convert.ToInt32(textBoxCount.Text),
                     Sum = Convert.ToDecimal(textBoxSum.Text)
                 });
-                Program.Client = _logicC.Read(new ClientBindingModel { Id = Convert.ToInt32(comboBoxClient.SelectedValue) })?[0];
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение",
                 MessageBoxButtons.OK, MessageBoxIcon.Information);
                 DialogResult = DialogResult.OK;

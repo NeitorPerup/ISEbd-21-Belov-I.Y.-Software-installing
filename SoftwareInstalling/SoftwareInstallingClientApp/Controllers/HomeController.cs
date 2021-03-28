@@ -40,7 +40,6 @@ namespace SoftwareInstallingClientApp.Controllers
         {
             if (!string.IsNullOrEmpty(login) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(fio))
             {
-                //прописать запрос
                 Program.Client.ClientFIO = fio;
                 Program.Client.Email = login;
                 Program.Client.Password = password;
@@ -125,7 +124,6 @@ namespace SoftwareInstallingClientApp.Controllers
             {
                 return;
             }
-            //прописать запрос
             APIClient.PostRequest("api/main/createorder", new CreateOrderBindingModel 
             { 
                 ClientId = (int)Program.Client.Id,

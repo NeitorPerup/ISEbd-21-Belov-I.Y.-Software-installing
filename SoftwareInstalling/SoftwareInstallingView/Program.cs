@@ -11,8 +11,6 @@ namespace SoftwareInstallingView
 {
     static class Program
     {
-        public static ClientViewModel Client { get; set; }
-
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
