@@ -6,6 +6,7 @@ using SoftwareInstallingBuisnessLogic.ViewModels;
 using SoftwareInstallingBuisnessLogic.BindingModels;
 using System.Linq;
 using SoftwareInstallingDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace SoftwareInstallingDatabaseImplement.Implements
 {
@@ -15,10 +16,10 @@ namespace SoftwareInstallingDatabaseImplement.Implements
         {
             using (var context = new SoftwareInstallingDatabase())
             {
-                return context.Orders.Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Package).Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    PackageName = context.Packages.FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                    PackageName = rec.Package.PackageName,
                     PackageId = rec.PackageId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -38,12 +39,12 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Package)
                 .Where(rec => rec.Id.Equals(model.Id))
                 .Select(rec => new OrderViewModel
                  {
                     Id = rec.Id,
-                    PackageName = context.Packages.FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                    PackageName = rec.Package.PackageName,
                     PackageId = rec.PackageId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -63,13 +64,13 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                var order = context.Orders
+                var order = context.Orders.Include(rec => rec.Package)
                 .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
-                    PackageName = context.Packages.FirstOrDefault(r => r.Id == order.PackageId).PackageName,
+                    PackageName = order.Package.PackageName,
                     PackageId = order.PackageId,
                     Count = order.Count,
                     Sum = order.Sum,
