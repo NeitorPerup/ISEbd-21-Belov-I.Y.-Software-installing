@@ -12,17 +12,13 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 {
     public class ReportLogic
     {
-        private readonly IComponentStorage _componentStorage;
-
         private readonly IPackageStorage _packageStorage;
 
         private readonly IOrderStorage _orderStorage;
 
-        public ReportLogic(IPackageStorage packageStorage, IComponentStorage
-        componentStorage, IOrderStorage orderStorage)
+        public ReportLogic(IPackageStorage packageStorage, IOrderStorage orderStorage)
         {
             _packageStorage = packageStorage;
-            _componentStorage = componentStorage;
             _orderStorage = orderStorage;
         }
         /// <summary>
@@ -43,12 +39,8 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 };
                 foreach (var component in package.PackageComponents)
                 {
-                    if (package.PackageComponents.ContainsKey(component.Key))
-                    {
-                        record.Components.Add(new Tuple<string, int>(component.Value.Item1,
-                        package.PackageComponents[component.Key].Item2));
-                        record.TotalCount += package.PackageComponents[component.Key].Item2;
-                    }
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
                 }
                 list.Add(record);
             }
