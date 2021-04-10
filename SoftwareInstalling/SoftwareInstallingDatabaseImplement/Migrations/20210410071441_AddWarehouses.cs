@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftwareInstallingDatabaseImplement.Migrations
 {
-    public partial class Add_Warehouses : Migration
+    public partial class AddWarehouses : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

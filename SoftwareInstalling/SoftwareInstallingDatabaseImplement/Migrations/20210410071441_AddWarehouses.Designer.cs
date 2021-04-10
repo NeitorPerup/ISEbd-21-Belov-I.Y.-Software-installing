@@ -10,8 +10,8 @@ using SoftwareInstallingDatabaseImplement;
 namespace SoftwareInstallingDatabaseImplement.Migrations
 {
     [DbContext(typeof(SoftwareInstallingDatabase))]
-    [Migration("20210313111514_Add_Warehouses")]
-    partial class Add_Warehouses
+    [Migration("20210410071441_AddWarehouses")]
+    partial class AddWarehouses
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -188,7 +188,7 @@ namespace SoftwareInstallingDatabaseImplement.Migrations
             modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.WarehouseComponent", b =>
                 {
                     b.HasOne("SoftwareInstallingDatabaseImplement.Models.Component", "Component")
-                        .WithMany()
+                        .WithMany("WarehouseComponent")
                         .HasForeignKey("ComponentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
