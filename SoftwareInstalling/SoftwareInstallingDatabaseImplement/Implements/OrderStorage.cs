@@ -16,10 +16,10 @@ namespace SoftwareInstallingDatabaseImplement.Implements
         {
             using (var context = new SoftwareInstallingDatabase())
             {
-                return context.Orders.Select(rec => new OrderViewModel
+                return context.Orders.Include(rec => rec.Package).Include(rec => rec.Client).Select(rec => new OrderViewModel
                 {
                     Id = rec.Id,
-                    PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                    PackageName = rec.Package.PackageName,
                     PackageId = rec.PackageId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -27,7 +27,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
                     ClientId = rec.ClientId,
-                    ClientFIO = context.Clients.FirstOrDefault(x => x.Id == rec.ClientId).ClientFIO
+                    ClientFIO = rec.Client.ClientFIO
                 })
                 .ToList();
             }
@@ -42,21 +42,22 @@ namespace SoftwareInstallingDatabaseImplement.Implements
 
             using (var context = new SoftwareInstallingDatabase())
             {
-                return context.Orders
+                return context.Orders.Include(rec => rec.Package).Include(rec => rec.Client)
                 .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate == model.DateCreate) ||
                 (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
                 >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))         
                 .Select(rec => new OrderViewModel
                  {
                     Id = rec.Id,
-                    PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == rec.PackageId).PackageName,
+                    PackageName = rec.Package.PackageName,
                     PackageId = rec.PackageId,
                     Count = rec.Count,
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
                     DateImplement = rec.DateImplement,
-                    ClientId = rec.ClientId
+                    ClientId = rec.ClientId,
+                    ClientFIO = rec.Client.ClientFIO
                 })
                 .ToList();
             }
@@ -70,20 +71,21 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                var order = context.Orders
+                var order = context.Orders.Include(rec => rec.Package).Include(rec => rec.Client)
                 .FirstOrDefault(rec => rec.Id == model.Id);
                 return order != null ?
                 new OrderViewModel
                 {
                     Id = order.Id,
-                    PackageName = context.Packages.Include(x => x.Order).FirstOrDefault(r => r.Id == order.PackageId)?.PackageName,
+                    PackageName = order.Package.PackageName,
                     PackageId = order.PackageId,
                     Count = order.Count,
                     Sum = order.Sum,
                     Status = order.Status,
                     DateCreate = order.DateCreate,
                     DateImplement = order.DateImplement,
-                    ClientId = order.ClientId
+                    ClientId = order.ClientId,
+                    ClientFIO = order.Client.ClientFIO
                 } :
                 null;
             }

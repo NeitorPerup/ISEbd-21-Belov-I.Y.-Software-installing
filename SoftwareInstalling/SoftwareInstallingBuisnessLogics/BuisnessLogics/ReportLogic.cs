@@ -12,17 +12,13 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 {
     public class ReportLogic
     {
-        private readonly IComponentStorage _componentStorage;
-
         private readonly IPackageStorage _packageStorage;
 
         private readonly IOrderStorage _orderStorage;
 
-        public ReportLogic(IPackageStorage packageStorage, IComponentStorage
-        componentStorage, IOrderStorage orderStorage)
+        public ReportLogic(IPackageStorage packageStorage, IOrderStorage orderStorage)
         {
             _packageStorage = packageStorage;
-            _componentStorage = componentStorage;
             _orderStorage = orderStorage;
         }
         /// <summary>
@@ -31,7 +27,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         /// <returns></returns>
         public List<ReportComponentPackageViewModel> GetComponentPackage()
         {
-            var components = _componentStorage.GetFullList();
             var packages = _packageStorage.GetFullList();
             var list = new List<ReportComponentPackageViewModel>();
             foreach (var package in packages)
@@ -42,14 +37,10 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                     Components = new List<Tuple<string, int>>(),
                     TotalCount = 0
                 };
-                foreach (var component in components)
+                foreach (var component in package.PackageComponents)
                 {
-                    if (package.PackageComponents.ContainsKey(component.Id))
-                    {
-                        record.Components.Add(new Tuple<string, int>(component.ComponentName,
-                        package.PackageComponents[component.Id].Item2));
-                        record.TotalCount += package.PackageComponents[component.Id].Item2;
-                    }
+                    record.Components.Add(new Tuple<string, int>(component.Value.Item1, component.Value.Item2));
+                    record.TotalCount += component.Value.Item2;
                 }
                 list.Add(record);
             }

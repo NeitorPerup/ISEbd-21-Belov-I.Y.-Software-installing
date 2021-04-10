@@ -26,5 +26,9 @@ namespace SoftwareInstallingDatabaseImplement.Models
         public DateTime DateCreate { get; set; }
 
         public DateTime? DateImplement { get; set; }
+
+        public virtual Package Package { get; set; }
+
+        public virtual Client Client { get; set; }
     }
 }
