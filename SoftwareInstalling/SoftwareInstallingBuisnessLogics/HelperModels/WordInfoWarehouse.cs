@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using SoftwareInstallingBuisnessLogic.ViewModels;
 
 namespace SoftwareInstallingBuisnessLogic.HelperModels
 {
-    class ExcelInfo
+    public class WordInfoWarehouse
     {
         public string FileName { get; set; }
 
         public string Title { get; set; }
 
-        public List<ReportComponentPackageViewModel> ComponentPackages { get; set; }
-
-        public List<ReportComponentWarehouseViewModel> ComponentWarehouses { get; set; }
+        public List<WarehouseViewModel> Warehouses { get; set; }
     }
 }
