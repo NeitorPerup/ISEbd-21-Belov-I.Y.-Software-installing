@@ -13,6 +13,8 @@ namespace SoftwareInstallingDatabaseImplement.Models
 
         public int PackageId { get; set; }
 
+        public int? ImplementerId { get; set; }
+
         [Required]
         public int Count { get; set; }
 
@@ -30,5 +32,7 @@ namespace SoftwareInstallingDatabaseImplement.Models
         public virtual Package Package { get; set; }
 
         public virtual Client Client { get; set; }
+
+        public virtual Implementer Implementer { get; set; }
     }
 }
