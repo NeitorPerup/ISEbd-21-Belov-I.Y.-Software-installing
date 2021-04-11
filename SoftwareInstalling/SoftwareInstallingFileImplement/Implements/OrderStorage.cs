@@ -79,7 +79,7 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private Order CreateModel(OrderBindingModel model, Order order)
         {
-            order.ClientId = (int)model.ClientId;
+            order.ClientId = model.ClientId.Value;
             order.PackageId = model.PackageId;
             order.Status = model.Status;
             order.Sum = model.Sum;
@@ -91,8 +91,6 @@ namespace SoftwareInstallingFileImplement.Implements
 
         private OrderViewModel CreateModel(Order order)
         {
-            Package package = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId);
-
             return new OrderViewModel
             {
                 Id = order.Id,
@@ -103,7 +101,8 @@ namespace SoftwareInstallingFileImplement.Implements
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
                 Count = order.Count,
-                PackageName = package.PackageName             
+                PackageName = source.Packages.FirstOrDefault(rec => rec.Id == order.PackageId)?.PackageName,
+                ClientFIO = source.Clients.FirstOrDefault(rec => rec.Id == order.ClientId)?.ClientFIO
             };
         }
     }
