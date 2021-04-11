@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftwareInstallingDatabaseImplement;
 
 namespace SoftwareInstallingDatabaseImplement.Migrations
 {
     [DbContext(typeof(SoftwareInstallingDatabase))]
-    partial class SoftwareInstallingDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210410071441_AddWarehouses")]
+    partial class AddWarehouses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -161,7 +163,7 @@ namespace SoftwareInstallingDatabaseImplement.Migrations
 
             modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Package", "Package")
+                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Package", null)
                         .WithMany("Order")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
