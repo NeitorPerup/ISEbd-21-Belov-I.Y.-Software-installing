@@ -52,7 +52,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Sum = rec.Sum,
                     Status = rec.Status,
                     DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement,
+                    DateImplement = rec.DateImplement
                 })
                 .ToList();
             }
