@@ -121,7 +121,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 Sum = order.Sum,
                 DateCreate = order.DateCreate,
                 DateImplement = order.DateImplement,
-                Status = OrderStatus.Оплачен
+                Status = OrderStatus.Оплачен,                
             });
         }
     }
