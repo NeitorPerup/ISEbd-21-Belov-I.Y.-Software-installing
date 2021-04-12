@@ -84,10 +84,5 @@ namespace SoftwareInstallingView
                 }
             }
         }
-
-        private void FormReportOrders_Load(object sender, EventArgs e)
-        {
-
-        }
     }
 }
