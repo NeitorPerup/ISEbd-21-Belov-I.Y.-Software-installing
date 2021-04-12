@@ -33,21 +33,15 @@ namespace SoftwareInstallingListImplements.Implements
             {
                 return null;
             }
+
             List<OrderViewModel> result = new List<OrderViewModel>();
-            if (model.DateTo != null && model.DateFrom != null)
-            {
-                foreach (var order in source.Orders)
-                {
-                    if (order.DateCreate >= model.DateTo && order.DateCreate <= model.DateFrom)
-                    {
-                        result.Add(CreateModel(order));
-                    }
-                }
-                return result;
-            }
             foreach (var order in source.Orders)
             {
-                if (order.PackageId.ToString().Contains(model.PackageId.ToString()))
+                if ((!model.DateFrom.HasValue && !model.DateTo.HasValue &&
+                    order.DateCreate.Date == model.DateCreate.Date) ||
+                    (model.DateFrom.HasValue && model.DateTo.HasValue &&
+                    order.DateCreate.Date >= model.DateFrom.Value.Date && order.DateCreate.Date <=
+                    model.DateTo.Value.Date))
                 {
                     result.Add(CreateModel(order));
                 }
