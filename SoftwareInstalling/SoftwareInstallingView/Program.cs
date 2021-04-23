@@ -17,10 +17,11 @@ namespace SoftwareInstallingView
         /// <summary>
         /// Главная точка входа для приложения.
         /// </summary>
-        static IUnityContainer container = BuildUnityContainer();
+        
         [STAThread]
         static void Main()
         {
+            var container = BuildUnityContainer();
             MailLogic.MailConfig(new MailConfig
             {
                 SmtpClientHost = ConfigurationManager.AppSettings["SmtpClientHost"],
@@ -35,7 +36,8 @@ namespace SoftwareInstallingView
             {
                 PopHost = ConfigurationManager.AppSettings["PopHost"],
                 PopPort = Convert.ToInt32(ConfigurationManager.AppSettings["PopPort"]),
-                Storage = container.Resolve<IMessageInfoStorage>()
+                MessageStorage = container.Resolve<IMessageInfoStorage>(),
+                ClientStorage = container.Resolve<IClientStorage>()
             }, 0, 100000);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -71,9 +73,8 @@ namespace SoftwareInstallingView
         }
 
         private static void MailCheck(object obj)
-        {
-            var logic = container.Resolve<MailLogic>();            
-            logic.MailCheck((MailCheckInfo)obj);
+        {        
+            MailLogic.MailCheck((MailCheckInfo)obj);
         }
     }
 }

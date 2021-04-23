@@ -104,7 +104,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             }
         }
 
-        public async void MailCheck(MailCheckInfo info)
+        public static async void MailCheck(MailCheckInfo info)
         {
             if (string.IsNullOrEmpty(info.PopHost) || info.PopPort == 0)
             {
@@ -114,7 +114,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             {
                 return;
             }
-            if (info.Storage == null)
+            if (info.MessageStorage == null || info.ClientStorage == null)
             {
                 return;
             }
@@ -132,13 +132,17 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                             var message = client.GetMessage(i);
                             foreach (var mail in message.From.Mailboxes)
                             {
-                                CreateOrder(new MessageInfoBindingModel
+                                info.MessageStorage.Insert(new MessageInfoBindingModel
                                 {
                                     DateDelivery = message.Date.DateTime,
                                     MessageId = message.MessageId,
                                     FromMailAddress = mail.Address,
                                     Subject = message.Subject,
-                                    Body = message.TextBody
+                                    Body = message.TextBody,
+                                    ClientId = info.ClientStorage.GetElement(new ClientBindingModel 
+                                    { 
+                                        Email = mail.Address
+                                    })?.Id
                                 });
                             }
                         }
