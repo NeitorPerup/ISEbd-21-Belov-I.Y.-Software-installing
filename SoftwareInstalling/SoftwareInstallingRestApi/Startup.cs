@@ -37,6 +37,13 @@ namespace SoftwareInstallingRestApi
             services.AddTransient<ClientLogic>();
             services.AddTransient<PackageLogic>();
             services.AddTransient<MailLogic>();
+            MailLogic.MailConfig(new MailConfig
+            {
+                SmtpClientHost = "smtp.gmail.com",
+                SmtpClientPort = 587,
+                MailLogin = "randomnameforlab@gmail.com",
+                MailPassword = "nepassword123",
+            });
             services.AddControllers().AddNewtonsoftJson();
         }
 
