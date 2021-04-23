@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftwareInstallingDatabaseImplement;
 
 namespace SoftwareInstallingDatabaseImplement.Migrations
 {
     [DbContext(typeof(SoftwareInstallingDatabase))]
-    partial class SoftwareInstallingDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210422094015_EmailMessage")]
+    partial class EmailMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
