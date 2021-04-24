@@ -1,7 +1,7 @@
 ﻿using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
-using SoftwareInstallingFileImplements.Models;
+using SoftwareInstallingFileImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

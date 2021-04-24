@@ -1,7 +1,7 @@
 ﻿using SoftwareInstallingBuisnessLogic.Enums;
 using System;
 
-namespace SoftwareInstallingFileImplements.Models
+namespace SoftwareInstallingFileImplement.Models
 {
     public class Order
     {

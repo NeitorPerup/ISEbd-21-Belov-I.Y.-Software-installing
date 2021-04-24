@@ -232,11 +232,23 @@
     <Compile Include="FormCreateOrder.Designer.cs">
       <DependentUpon>FormCreateOrder.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReportAllOrders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportAllOrders.Designer.cs">
+      <DependentUpon>FormReportAllOrders.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormReportComponentPackage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FormReportComponentPackage.Designer.cs">
       <DependentUpon>FormReportComponentPackage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormReportComponentWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReportComponentWarehouse.Designer.cs">
+      <DependentUpon>FormReportComponentWarehouse.cs</DependentUpon>
     </Compile>
     <Compile Include="FormReportOrders.cs">
       <SubType>Form</SubType>
@@ -268,6 +280,24 @@
     <Compile Include="FormPackages.Designer.cs">
       <DependentUpon>FormPackages.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormWarehouse.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouse.Designer.cs">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouseRestocking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouseRestocking.Designer.cs">
+      <DependentUpon>FormWarehouseRestocking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FormWarehouses.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormWarehouses.Designer.cs">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerTypes\Loader.cs" />
@@ -283,8 +313,14 @@
     <EmbeddedResource Include="FormCreateOrder.resx">
       <DependentUpon>FormCreateOrder.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReportAllOrders.resx">
+      <DependentUpon>FormReportAllOrders.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormReportComponentPackage.resx">
       <DependentUpon>FormReportComponentPackage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormReportComponentWarehouse.resx">
+      <DependentUpon>FormReportComponentWarehouse.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormReportOrders.resx">
       <DependentUpon>FormReportOrders.cs</DependentUpon>
@@ -301,6 +337,15 @@
     <EmbeddedResource Include="FormPackages.resx">
       <DependentUpon>FormPackages.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouse.resx">
+      <DependentUpon>FormWarehouse.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouseRestocking.resx">
+      <DependentUpon>FormWarehouseRestocking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormWarehouses.resx">
+      <DependentUpon>FormWarehouses.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -311,7 +356,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Report.rdlc" />
+    <EmbeddedResource Include="ReportAllOrders.rdlc" />
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\SoftwareInstallingBuisnessLogic.ViewModels.ReportAllOrdersViewModel.datasource" />
     <None Include="Properties\DataSources\SoftwareInstallingBuisnessLogic.ViewModels.ReportOrdersViewModel.datasource" />
     <None Include="Properties\DataSources\SoftwareInstallingBuisnessLogic.ViewModels.ReportPackageComponentViewModel.datasource" />
     <None Include="Properties\DataSources\SoftwareInstallingDatabaseImplement.Models.Order.datasource" />
