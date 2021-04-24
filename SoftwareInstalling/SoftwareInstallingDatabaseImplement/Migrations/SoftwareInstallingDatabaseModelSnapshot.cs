@@ -142,13 +142,13 @@ namespace SoftwareInstallingDatabaseImplement.Migrations
 
             modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.Order", b =>
                 {
-                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Client", null)
+                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Client", "Client")
                         .WithMany("Order")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Package", null)
+                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Package", "Package")
                         .WithMany("Order")
                         .HasForeignKey("PackageId")
                         .OnDelete(DeleteBehavior.Cascade)
