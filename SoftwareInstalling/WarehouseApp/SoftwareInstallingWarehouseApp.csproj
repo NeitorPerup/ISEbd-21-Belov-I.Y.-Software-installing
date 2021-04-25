@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SoftwareInstallingBuisnessLogics\SoftwareInstallingBuisnessLogic.csproj" />
+    <ProjectReference Include="..\SoftwareInstallingDatabaseImplement\SoftwareInstallingDatabaseImplement.csproj" />
+    <ProjectReference Include="..\SoftwareInstallingRestApi\SoftwareInstallingRestApi.csproj" />
+  </ItemGroup>
+
+</Project>

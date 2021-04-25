@@ -66,16 +66,16 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             _warehouseStorage.Delete(model);
         }
 
-        public void Restocking(WarehouseBindingModel model, int WarehouseId, int ComponentId, int Count)
+        public void Restocking(WarehouseRestokingBindingModel model)
         {
             WarehouseViewModel warehouse = _warehouseStorage.GetElement(new WarehouseBindingModel
             {
-                Id = WarehouseId
+                Id = model.WarehouseId
             });
 
             ComponentViewModel component = _componentStorage.GetElement(new ComponentBindingModel
             {
-                Id = ComponentId
+                Id = model.ComponentId
             });
 
             if (warehouse == null)
@@ -90,14 +90,14 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
             Dictionary<int, (string, int)> warehouseComponents = warehouse.WarehouseComponents;
 
-            if (warehouseComponents.ContainsKey(ComponentId))
+            if (warehouseComponents.ContainsKey(model.ComponentId))
             {
-                int count = warehouseComponents[ComponentId].Item2;
-                warehouseComponents[ComponentId] = (component.ComponentName, count + Count);
+                int count = warehouseComponents[model.ComponentId].Item2;
+                warehouseComponents[model.ComponentId] = (component.ComponentName, count + model.Count);
             }
             else
             {
-                warehouseComponents.Add(ComponentId, (component.ComponentName, Count));
+                warehouseComponents.Add(model.ComponentId, (component.ComponentName, model.Count));
             }
 
             _warehouseStorage.Update(new WarehouseBindingModel

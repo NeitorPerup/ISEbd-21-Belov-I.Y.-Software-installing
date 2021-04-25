@@ -12,8 +12,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 {
     public class ReportLogic
     {
-        private readonly IComponentStorage _componentStorage;
-
         private readonly IPackageStorage _packageStorage;
 
         private readonly IOrderStorage _orderStorage;
@@ -23,7 +21,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         public ReportLogic(IPackageStorage packageStorage, IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _packageStorage = packageStorage;
-            _componentStorage = componentStorage;
             _orderStorage = orderStorage;
             _warehouseStorage = warehouseStorage;
         }
@@ -33,7 +30,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         /// <returns></returns>
         public List<ReportComponentPackageViewModel> GetComponentPackage()
         {
-            var components = _componentStorage.GetFullList();
             var packages = _packageStorage.GetFullList();
             var list = new List<ReportComponentPackageViewModel>();
             foreach (var package in packages)

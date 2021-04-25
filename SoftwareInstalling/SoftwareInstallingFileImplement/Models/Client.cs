@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SoftwareInstallingFileImplements.Models
+namespace SoftwareInstallingFileImplement.Models
 {
     public class Client
     {

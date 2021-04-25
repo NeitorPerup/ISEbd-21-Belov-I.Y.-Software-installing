@@ -80,10 +80,12 @@ namespace SoftwareInstallingView
                 return;
             }
 
-            _warehouseLogic.Restocking(new WarehouseBindingModel
-            {
-                Id = WarehouseId
-            }, WarehouseId, ComponentId, Count);
+            _warehouseLogic.Restocking(new WarehouseRestokingBindingModel 
+            { 
+                WarehouseId = WarehouseId,
+                ComponentId = ComponentId,
+                Count = Count
+            });
 
             DialogResult = DialogResult.OK;
             Close();
