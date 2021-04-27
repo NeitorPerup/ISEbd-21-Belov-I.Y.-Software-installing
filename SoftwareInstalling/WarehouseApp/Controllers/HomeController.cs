@@ -152,6 +152,7 @@ namespace SoftwareInstallingWarehouseApp.Controllers
                 ComponentId = componentId,
                 Count = count
             });
+            Response.Redirect("Restoking");
         }
     }
 }
