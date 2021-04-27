@@ -34,7 +34,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                return context.Implementers.Include(x => x.Order)
+                return context.Implementers
                 .Where(rec => rec.ImplementerFIO == model.ImplementerFIO)
                 .Select(rec => new ImplementerViewModel
                 {
@@ -55,7 +55,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             }
             using (var context = new SoftwareInstallingDatabase())
             {
-                var implementer = context.Implementers.Include(x => x.Order)
+                var implementer = context.Implementers
                 .FirstOrDefault(rec => rec.Id == model.Id);
                 return implementer != null ?
                 new ImplementerViewModel
