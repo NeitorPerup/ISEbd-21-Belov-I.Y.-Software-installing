@@ -39,7 +39,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             {
                 return null;
             }
-
+            
             using (var context = new SoftwareInstallingDatabase())
             {
                 return context.Orders.Include(rec => rec.Package).Include(rec => rec.Client)
@@ -47,7 +47,7 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                 (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
                 >= model.DateFrom.Value.Date && rec.DateCreate.Date <= model.DateTo.Value.Date))         
                 .Select(rec => new OrderViewModel
-                 {
+                {
                     Id = rec.Id,
                     PackageName = rec.Package.PackageName,
                     PackageId = rec.PackageId,

@@ -28,7 +28,6 @@ namespace SoftwareInstallingFileImplement.Implements
             {
                 return null;
             }
-
             return source.Orders
                  .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) || (!model.DateFrom.HasValue && !model.DateTo.HasValue && rec.DateCreate == model.DateCreate) ||
                  (model.DateFrom.HasValue && model.DateTo.HasValue && rec.DateCreate.Date
