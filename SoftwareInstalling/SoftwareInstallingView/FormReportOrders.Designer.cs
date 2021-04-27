@@ -122,8 +122,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.reportViewer);
             this.Controls.Add(this.panel);
             this.Name = "FormReportOrders";
-            this.Text = "FormReportOrders";
-            this.Load += new System.EventHandler(this.FormReportOrders_Load);
+            this.Text = "Отчёт о заказах";
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             this.ResumeLayout(false);
