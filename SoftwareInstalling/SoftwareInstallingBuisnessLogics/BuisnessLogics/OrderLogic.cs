@@ -13,7 +13,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
         private readonly object locker = new object();
 
-        public OrderLogic(IOrderStorage orderStorage)
         private readonly IWarehouseStorage _warehouseStorage;
 
         public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
@@ -60,15 +59,15 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 {
                     throw new Exception("Не найден заказ");
                 }
-                if (order.Status != OrderStatus.Принят)
+                if (order.Status != OrderStatus.Принят && order.Status != OrderStatus.Требуются_материалы)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\"");
+                    throw new Exception("Заказ не в статусе \"Принят\" или \"Требуются материалы\"");
                 }
-                if (order.ImplementerId.HasValue)
+                if (order.ImplementerId.HasValue && order.Status != OrderStatus.Требуются_материалы)
                 {
                     throw new Exception("У заказа уже есть исполнитель");
                 }
-                _orderStorage.Update(new OrderBindingModel
+                OrderBindingModel orderModel = new OrderBindingModel
                 {
                     Id = order.Id,
                     PackageId = order.PackageId,
@@ -79,7 +78,12 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                     DateImplement = DateTime.Now,
                     Status = OrderStatus.Выполняется,
                     ClientId = order.ClientId
-                });
+                };
+                if (!_warehouseStorage.Unrestocking(order.PackageId, order.Count))
+                {
+                    orderModel.Status = OrderStatus.Требуются_материалы;
+                }
+                _orderStorage.Update(orderModel);
             }
         }
 
