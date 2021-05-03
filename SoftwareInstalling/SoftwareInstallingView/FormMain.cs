@@ -20,12 +20,15 @@ namespace SoftwareInstallingView
 
         private ReportLogic report;
 
-        public FormMain(OrderLogic orderLogic, ReportLogic Report, WorkModeling modeling)
+        private BackUpAbstractLogic _backUpAbstractLogic;
+
+        public FormMain(OrderLogic orderLogic, ReportLogic Report, WorkModeling modeling, BackUpAbstractLogic backUp)
         {
             InitializeComponent();
             _orderLogic = orderLogic;
             workModeling = modeling;
             report = Report;
+            _backUpAbstractLogic = backUp;
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -37,16 +40,7 @@ namespace SoftwareInstallingView
         {
             try
             {
-                var list = _orderLogic.Read(null);
-                if (list != null)
-                {
-                    dataGridView.DataSource = list;
-                    dataGridView.Columns[0].Visible = false;
-                    dataGridView.Columns[1].Visible = false;
-                    dataGridView.Columns[2].Visible = false;
-                    dataGridView.Columns[3].Visible = false;
-                }
-
+                Program.ConfigGrid(_orderLogic.Read(null), dataGridView);
             }
             catch (Exception ex)
             {
@@ -140,13 +134,34 @@ namespace SoftwareInstallingView
         private void запускРаботToolStripMenuItem_Click(object sender, EventArgs e)
         {
             workModeling.DoWork();
-            LoadData();
         }
 
         private void письмаToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var form = Container.Resolve<FormMails>();
             form.ShowDialog();
+        }
+
+        private void создатьБекапToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_backUpAbstractLogic != null)
+                {
+                    var fbd = new FolderBrowserDialog();
+                    if (fbd.ShowDialog() == DialogResult.OK)
+                    {
+                        _backUpAbstractLogic.CreateArchive(fbd.SelectedPath);
+                        MessageBox.Show("Бекап создан", "Сообщение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButtons.OK,
+                MessageBoxIcon.Error);
+            }
         }
     }
 }

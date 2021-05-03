@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.Serialization;
+using SoftwareInstallingBuisnessLogic.Attributes;
 
 namespace SoftwareInstallingBuisnessLogic.ViewModels
 {
@@ -8,14 +9,15 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
     public class PackageViewModel
     {
         [DataMember]
+        [Column(title: "Номер", width: 100, visible: false)]
         public int Id { get; set; }
 
         [DataMember]
-        [DisplayName("Название изделия")]
+        [Column(title: "Название изделия", gridViewAutoSize: GridViewAutoSize.Fill)]
         public string PackageName { get; set; }
 
         [DataMember]
-        [DisplayName("Цена")]
+        [Column(title: "Цена", width: 100)]
         public decimal Price { get; set; }
 
         [DataMember]
