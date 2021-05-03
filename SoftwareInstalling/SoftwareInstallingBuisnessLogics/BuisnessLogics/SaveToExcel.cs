@@ -62,45 +62,48 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                     CellFromName = "A1",
                     CellToName = "C1"
                 });
-                uint rowIndex = 2;
+                
+                if (info.ComponentPackages != null)
+                {
+                    CreatePackageBody(info, worksheetPart, shareStringPart);
+                }
+                else if (info.ComponentWarehouses != null)
+                {
+                    CreateWarehouseBody(info, worksheetPart, shareStringPart);
+                }
 
-                foreach (var pc in info.ComponentPackages)
+                workbookpart.Workbook.Save();
+            }
+        }
+
+        private static void CreatePackageBody(ExcelInfo info, WorksheetPart worksheetPart, SharedStringTablePart shareStringPart)
+        {
+            uint rowIndex = 2;
+
+            foreach (var pc in info.ComponentPackages)
+            {
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    ShareStringPart = shareStringPart,
+                    ColumnName = "A",
+                    RowIndex = rowIndex,
+                    Text = pc.PackageName,
+                    StyleIndex = 0U
+                });
+                rowIndex++;
+
+                foreach (var component in pc.Components)
                 {
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
                         Worksheet = worksheetPart.Worksheet,
                         ShareStringPart = shareStringPart,
-                        ColumnName = "A",
+                        ColumnName = "B",
                         RowIndex = rowIndex,
-                        Text = pc.PackageName,
-                        StyleIndex = 0U
+                        Text = component.Item1,
+                        StyleIndex = 1U
                     });
-                    rowIndex++;
-
-                    foreach (var component in pc.Components)
-                    {
-                        InsertCellInWorksheet(new ExcelCellParameters
-                        {
-                            Worksheet = worksheetPart.Worksheet,
-                            ShareStringPart = shareStringPart,
-                            ColumnName = "B",
-                            RowIndex = rowIndex,
-                            Text = component.Item1,
-                            StyleIndex = 1U
-                        });
-
-                        InsertCellInWorksheet(new ExcelCellParameters
-                        {
-                            Worksheet = worksheetPart.Worksheet,
-                            ShareStringPart = shareStringPart,
-                            ColumnName = "C",
-                            RowIndex = rowIndex,
-                            Text = component.Item2.ToString(),
-                            StyleIndex = 1U
-                        });
-
-                        rowIndex++;
-                    }
 
                     InsertCellInWorksheet(new ExcelCellParameters
                     {
@@ -108,15 +111,81 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                         ShareStringPart = shareStringPart,
                         ColumnName = "C",
                         RowIndex = rowIndex,
-                        Text = pc.TotalCount.ToString(),
-                        StyleIndex = 0U
+                        Text = component.Item2.ToString(),
+                        StyleIndex = 1U
                     });
+
                     rowIndex++;
                 }
 
-                workbookpart.Workbook.Save();
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    ShareStringPart = shareStringPart,
+                    ColumnName = "C",
+                    RowIndex = rowIndex,
+                    Text = pc.TotalCount.ToString(),
+                    StyleIndex = 0U
+                });
+                rowIndex++;
             }
         }
+
+        private static void CreateWarehouseBody(ExcelInfo info, WorksheetPart worksheetPart, SharedStringTablePart shareStringPart)
+        {
+            uint rowIndex = 2;
+
+            foreach (var pc in info.ComponentWarehouses)
+            {
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    ShareStringPart = shareStringPart,
+                    ColumnName = "A",
+                    RowIndex = rowIndex,
+                    Text = pc.WarehouseName,
+                    StyleIndex = 0U
+                });
+                rowIndex++;
+
+                foreach (var component in pc.Components)
+                {
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "B",
+                        RowIndex = rowIndex,
+                        Text = component.Item1,
+                        StyleIndex = 1U
+                    });
+
+                    InsertCellInWorksheet(new ExcelCellParameters
+                    {
+                        Worksheet = worksheetPart.Worksheet,
+                        ShareStringPart = shareStringPart,
+                        ColumnName = "C",
+                        RowIndex = rowIndex,
+                        Text = component.Item2.ToString(),
+                        StyleIndex = 1U
+                    });
+
+                    rowIndex++;
+                }
+
+                InsertCellInWorksheet(new ExcelCellParameters
+                {
+                    Worksheet = worksheetPart.Worksheet,
+                    ShareStringPart = shareStringPart,
+                    ColumnName = "C",
+                    RowIndex = rowIndex,
+                    Text = pc.TotalCount.ToString(),
+                    StyleIndex = 0U
+                });
+                rowIndex++;
+            }
+        }
+
         /// <summary>
         /// Настройка стилей для файла
         /// </summary>

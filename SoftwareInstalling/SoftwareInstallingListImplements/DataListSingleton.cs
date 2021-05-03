@@ -13,6 +13,8 @@ namespace SoftwareInstallingListImplements
 
         public List<Package> Packages { get; set; }
 
+        public List<Warehouse> Warehouses { get; set; }
+
         public List<Client> Clients { get; set; }
 
         public List<Implementer> Implementers { get; set; }
@@ -22,6 +24,7 @@ namespace SoftwareInstallingListImplements
             Components = new List<Component>();
             Orders = new List<Order>();
             Packages = new List<Package>();
+            Warehouses = new List<Warehouse>();
             Clients = new List<Client>();
             Implementers = new List<Implementer>();
         }

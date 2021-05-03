@@ -14,8 +14,12 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         private readonly object locker = new object();
 
         public OrderLogic(IOrderStorage orderStorage)
+        private readonly IWarehouseStorage _warehouseStorage;
+
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
         {
             _orderStorage = orderStorage;
+            _warehouseStorage = warehouseStorage;
         }
 
         public List<OrderViewModel> Read(OrderBindingModel model)
@@ -32,7 +36,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
         }
 
         public void CreateOrder(CreateOrderBindingModel model)
-        {
+        {           
             _orderStorage.Insert(new OrderBindingModel
             {
                 PackageId = model.PackageId,

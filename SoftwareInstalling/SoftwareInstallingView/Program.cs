@@ -40,7 +40,12 @@ namespace SoftwareInstallingView
 
             currentContainer.RegisterType<ComponentLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<OrderLogic>(new HierarchicalLifetimeManager());
-            currentContainer.RegisterType<PackageLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<PackageLogic>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<IWarehouseStorage, WarehouseStorage>(new
+            HierarchicalLifetimeManager());
+            currentContainer.RegisterType<WarehouseLogic>(new
+            HierarchicalLifetimeManager());
             currentContainer.RegisterType<ReportLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<ClientLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<WorkModeling>(new HierarchicalLifetimeManager());
