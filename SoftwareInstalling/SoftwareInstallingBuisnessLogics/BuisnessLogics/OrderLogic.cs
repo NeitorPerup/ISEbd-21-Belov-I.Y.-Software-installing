@@ -63,7 +63,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 {
                     throw new Exception("Заказ не в статусе \"Принят\"");
                 }
-                if (order.ImplementerId.HasValue && order.Status != OrderStatus.Требуются_материалы)
+                if (order.ImplementerId.HasValue)
                 {
                     throw new Exception("У заказа уже есть исполнитель");
                 }
