@@ -59,9 +59,9 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 {
                     throw new Exception("Не найден заказ");
                 }
-                if (order.Status != OrderStatus.Принят && order.Status != OrderStatus.Требуются_материалы)
+                if (order.Status != OrderStatus.Принят)
                 {
-                    throw new Exception("Заказ не в статусе \"Принят\" или \"Требуются материалы\"");
+                    throw new Exception("Заказ не в статусе \"Принят\"");
                 }
                 if (order.ImplementerId.HasValue && order.Status != OrderStatus.Требуются_материалы)
                 {
@@ -97,10 +97,15 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             {
                 throw new Exception("Не найден заказ");
             }
-            if (order.Status != OrderStatus.Выполняется)
+            if (order.Status != OrderStatus.Выполняется && order.Status != OrderStatus.Требуются_материалы)
             {
-                throw new Exception("Заказ не в статусе \"Выполняется\"");
+                throw new Exception("Заказ не в статусе \"Выполняется\" или \"Требуются материалы\"");
             }
+            if (!_warehouseStorage.Unrestocking(order.PackageId, order.Count))
+            {
+                return;
+            }
+
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,
