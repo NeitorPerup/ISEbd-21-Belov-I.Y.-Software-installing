@@ -4,7 +4,7 @@ using SoftwareInstallingBuisnessLogic.BindingModels;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.ViewModels;
 using System.Linq;
-using SoftwareInstallingFileImplements.Models;
+using SoftwareInstallingFileImplement.Models;
 
 namespace SoftwareInstallingFileImplement.Implements
 {

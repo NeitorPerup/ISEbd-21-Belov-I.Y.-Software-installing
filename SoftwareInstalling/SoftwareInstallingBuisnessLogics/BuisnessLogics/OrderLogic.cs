@@ -18,7 +18,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
         private readonly IWarehouseStorage _warehouseStorage;
 
-        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage)
+        public OrderLogic(IOrderStorage orderStorage, IWarehouseStorage warehouseStorage, IClientStorage clientStorage)
         {
             _orderStorage = orderStorage;
             _clientStorage = clientStorage;
@@ -98,7 +98,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                     orderModel.Status = OrderStatus.Требуются_материалы;
                 }
                 _orderStorage.Update(orderModel);
-                });
 
                 MailLogic.MailSendAsync(new MailSendInfo
                 {
@@ -126,6 +125,11 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             {
                 throw new Exception("Заказ не в статусе \"Выполняется\"");
             }
+            if (!_warehouseStorage.Unrestocking(order.PackageId, order.Count))
+            {
+                return;
+            }
+
             _orderStorage.Update(new OrderBindingModel
             {
                 Id = order.Id,

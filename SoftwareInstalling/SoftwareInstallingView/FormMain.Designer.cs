@@ -113,8 +113,7 @@ namespace SoftwareInstallingView
             this.компонентыToolStripMenuItem,
             this.изделияToolStripMenuItem,
             this.клиентыToolStripMenuItem,
-            this.исполнителиToolStripMenuItem,
-            this.складыToolStripMenuItem});
+            this.складыToolStripMenuItem,
             this.исполнителиToolStripMenuItem,
             this.письмаToolStripMenuItem});
             this.справочникиToolStripMenuItem.Name = "справочникиToolStripMenuItem";
