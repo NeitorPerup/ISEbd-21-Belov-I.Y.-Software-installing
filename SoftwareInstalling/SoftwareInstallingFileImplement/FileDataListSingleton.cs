@@ -25,6 +25,8 @@ namespace SoftwareInstallingFileImplement
 
         private readonly string WarehouseFileName = "Warehouse.xml";
 
+        private readonly string MessageInfoFileName = "MessageInfo.xml";
+
         public List<Component> Components { get; set; }
 
         public List<Order> Orders { get; set; }
@@ -37,6 +39,8 @@ namespace SoftwareInstallingFileImplement
 
         public List<Warehouse> Warehouses { get; set; }
 
+        public List<MessageInfo> MessageInfoes { get; set; }
+
         private FileDataListSingleton()
         {
             Components = LoadComponents();
@@ -45,6 +49,7 @@ namespace SoftwareInstallingFileImplement
             Warehouses = LoadWarehouses();
             Clients = LoadClients();
             Implementers = LoadImplementers();
+            MessageInfoes = LoadMessageInfoes();
         }
 
         public static FileDataListSingleton GetInstance()
@@ -64,6 +69,7 @@ namespace SoftwareInstallingFileImplement
             SaveWarehouses();
             SaveClients();
             SaveImplementers();
+            SaveMessageInfoes();
         }
 
         private List<Component> LoadComponents()
@@ -80,6 +86,30 @@ namespace SoftwareInstallingFileImplement
                     {
                         Id = Convert.ToInt32(elem.Attribute("Id").Value),
                         ComponentName = elem.Element("ComponentName").Value
+                    });
+                }
+            }
+            return list;
+        }
+
+        private List<MessageInfo> LoadMessageInfoes()
+        {
+            var list = new List<MessageInfo>();
+            if (File.Exists(MessageInfoFileName))
+            {
+                XDocument xDocument = XDocument.Load(MessageInfoFileName);
+                var xElements = xDocument.Root.Elements("MessageInfo").ToList();
+
+                foreach (var elem in xElements)
+                {
+                    list.Add(new MessageInfo
+                    {
+                        MessageId = elem.Attribute("Id").Value,
+                        ClientId = Convert.ToInt32(elem.Element("ClientId").Value),
+                        SenderName = elem.Element("ClientId").Value,
+                        Subject = elem.Element("Subject").Value,
+                        Body = elem.Element("Body").Value,
+                        DateDelivery = Convert.ToDateTime(elem.Element("DateDelivery").Value)
                     });
                 }
             }
@@ -247,6 +277,26 @@ namespace SoftwareInstallingFileImplement
                 }
                 XDocument xDocument = new XDocument(xElement);
                 xDocument.Save(ComponentFileName);
+            }
+        }
+
+        private void SaveMessageInfoes()
+        {
+            if (MessageInfoes != null)
+            {
+                var xElement = new XElement("MessageInfo");
+                foreach (var messageInfo in MessageInfoes)
+                {
+                    xElement.Add(new XElement("MessageInfo",
+                    new XAttribute("MessageId", messageInfo.MessageId),
+                    new XElement("Subject", messageInfo.Subject),
+                    new XElement("SenderName", messageInfo.SenderName),
+                    new XElement("Body", messageInfo.Body),
+                    new XElement("ClientId", messageInfo.ClientId),
+                    new XElement("DateDelivery", messageInfo.DateDelivery)));
+                }
+                XDocument xDocument = new XDocument(xElement);
+                xDocument.Save(MessageInfoFileName);
             }
         }
 

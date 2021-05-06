@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SoftwareInstallingDatabaseImplement;
 
 namespace SoftwareInstallingDatabaseImplement.Migrations
 {
     [DbContext(typeof(SoftwareInstallingDatabase))]
-    partial class SoftwareInstallingDatabaseModelSnapshot : ModelSnapshot
+    [Migration("20210422094015_EmailMessage")]
+    partial class EmailMessage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,52 +196,11 @@ namespace SoftwareInstallingDatabaseImplement.Migrations
                     b.ToTable("PackageComponents");
                 });
 
-            modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.Warehouse", b =>
+            modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.MessageInfo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Responsible")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("WarehouseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Warehouses");
-                });
-
-            modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.WarehouseComponent", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ComponentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ComponentId");
-
-                    b.HasIndex("WarehouseId");
-
-                    b.ToTable("WarehouseComponents");
+                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Client", "Client")
+                        .WithMany("MessageInfo")
+                        .HasForeignKey("ClientId");
                 });
 
             modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.Order", b =>
@@ -272,21 +233,6 @@ namespace SoftwareInstallingDatabaseImplement.Migrations
                     b.HasOne("SoftwareInstallingDatabaseImplement.Models.Package", "Package")
                         .WithMany("PackageComponent")
                         .HasForeignKey("PackageId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("SoftwareInstallingDatabaseImplement.Models.WarehouseComponent", b =>
-                {
-                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Component", "Component")
-                        .WithMany("WarehouseComponent")
-                        .HasForeignKey("ComponentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("SoftwareInstallingDatabaseImplement.Models.Warehouse", "Warehouse")
-                        .WithMany("WarehouseComponent")
-                        .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

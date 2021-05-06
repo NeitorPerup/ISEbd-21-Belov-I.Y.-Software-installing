@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using SoftwareInstallingBuisnessLogic.HelperModels;
 
 namespace SoftwareInstallingRestApi
 {
@@ -33,9 +34,18 @@ namespace SoftwareInstallingRestApi
             services.AddTransient<IPackageStorage, PackageStorage>();
             services.AddTransient<IWarehouseStorage, WarehouseStorage>();
             services.AddTransient<IComponentStorage, ComponentStorage>();
+            services.AddTransient<IMessageInfoStorage, MessageInfoStorage>();
             services.AddTransient<OrderLogic>();
             services.AddTransient<ClientLogic>();
             services.AddTransient<PackageLogic>();
+            services.AddTransient<MailLogic>();
+            MailLogic.MailConfig(new MailConfig
+            {
+                SmtpClientHost = "smtp.gmail.com",
+                SmtpClientPort = 587,
+                MailLogin = "randomnameforlab@gmail.com",
+                MailPassword = "nepassword123",
+            });
             services.AddTransient<WarehouseLogic>();
             services.AddTransient<ComponentLogic>();
             services.AddControllers().AddNewtonsoftJson();
