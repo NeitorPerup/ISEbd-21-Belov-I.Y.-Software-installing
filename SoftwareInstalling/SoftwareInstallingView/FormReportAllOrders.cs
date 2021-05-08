@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
-using Unity;
+using SoftwareInstallingBuisnessLogic.ViewModels;
 using Microsoft.Reporting.WinForms;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
 using SoftwareInstallingBuisnessLogic.BindingModels;
+using System.Reflection;
+
 namespace SoftwareInstallingView
 {
     public partial class FormReportAllOrders : Form
@@ -22,7 +24,8 @@ namespace SoftwareInstallingView
         {
             try
             {
-                var dataSource = logic.GetOrdersGroupByDate();
+                MethodInfo method = logic.GetType().GetMethod("GetOrdersGroupByDate");
+                List<ReportOrdersViewModel> dataSource = (List<ReportOrdersViewModel>)method.Invoke(logic, new object[] { });
                 ReportDataSource source = new ReportDataSource("DataSetOrders",
                 dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
@@ -42,10 +45,12 @@ namespace SoftwareInstallingView
                 {
                     try
                     {
-                        logic.SaveAllOrdersToPdfFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveAllOrdersToPdfFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
-                            FileName = dialog.FileName,
-                        });
+                            FileName = dialog.FileName
+                        } });
+
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }

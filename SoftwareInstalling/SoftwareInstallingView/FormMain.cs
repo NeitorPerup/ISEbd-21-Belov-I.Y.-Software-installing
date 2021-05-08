@@ -6,6 +6,7 @@ using System;
 using System.Windows.Forms;
 using Unity;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace SoftwareInstallingView
 {
@@ -114,10 +115,11 @@ namespace SoftwareInstallingView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    report.SavePackagesToWordFile(new ReportBindingModel
+                    MethodInfo method = report.GetType().GetMethod("SavePackagesToWordFile");
+                    method.Invoke(report, new object[] {new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
+                    } });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 }
@@ -148,10 +150,11 @@ namespace SoftwareInstallingView
             {
                 if (dialog.ShowDialog() == DialogResult.OK)
                 {
-                    report.SaveWarehousesToWordFile(new ReportBindingModel
+                    MethodInfo method = report.GetType().GetMethod("SaveWarehousesToWordFile");
+                    method.Invoke(report, new object[] {new ReportBindingModel
                     {
                         FileName = dialog.FileName
-                    });
+                    } });
                     MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                     MessageBoxIcon.Information);
                 }

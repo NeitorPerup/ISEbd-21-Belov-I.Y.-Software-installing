@@ -47,11 +47,11 @@ namespace SoftwareInstallingBuisnessLogic.ViewModels
         public OrderStatus Status { get; set; }
 
         [DataMember]
-        [Column(title: "Дата создания", width: 100)]
+        [Column(title: "Дата создания", width: 100, dateFormat: "d")]
         public DateTime DateCreate { get; set; }
 
         [DataMember]
-        [Column(title: "Дата выполнения", width: 100)]
+        [Column(title: "Дата выполнения", width: 100, dateFormat: "d")]
         public DateTime? DateImplement { get; set; }
     }
 }
