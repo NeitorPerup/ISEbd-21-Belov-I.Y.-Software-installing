@@ -73,7 +73,7 @@ namespace SoftwareInstallingView
             this.Controls.Add(this.buttonPrev);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormMails";
-            this.Text = "FormMails";
+            this.Text = "Письма";
             this.Load += new System.EventHandler(this.FormMails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);

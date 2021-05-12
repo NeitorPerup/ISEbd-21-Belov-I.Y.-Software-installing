@@ -36,10 +36,11 @@ namespace SoftwareInstallingDatabaseImplement.Implements
             using (var context = new SoftwareInstallingDatabase())
             {
                 return context.MessageInfoes
-                .Where(rec => (model.ClientId.HasValue && rec.ClientId ==
-                model.ClientId) ||
+                    // письма клиента
+                .Where(rec => (model.ClientId.HasValue && rec.ClientId == model.ClientId) ||
+                // по дате
                 (!model.ClientId.HasValue && rec.DateDelivery.Date ==
-                model.DateDelivery.Date))
+                model.DateDelivery.Date)) 
                 .Select(rec => new MessageInfoViewModel
                 {
                     MessageId = rec.MessageId,
@@ -72,6 +73,32 @@ namespace SoftwareInstallingDatabaseImplement.Implements
                     Body = model.Body
                 });
                 context.SaveChanges();
+            }
+        }
+
+        public int Count()
+        {
+            using (var context = new SoftwareInstallingDatabase())
+            {
+                return context.MessageInfoes.Count();
+            }
+        }
+        
+        public List<MessageInfoViewModel> GetMessagesForPage(MessageInfoBindingModel model)
+        {
+            using (var context = new SoftwareInstallingDatabase())
+            {
+                return context.MessageInfoes.Where(rec => (model.ClientId.HasValue &&
+                model.ClientId.Value == rec.ClientId) || !model.ClientId.HasValue)
+                    .Skip((model.Page.Value - 1) * model.PageSize.Value).Take(model.PageSize.Value)
+                    .ToList().Select(rec => new MessageInfoViewModel
+                    {
+                        MessageId = rec.MessageId,
+                        SenderName = rec.SenderName,
+                        DateDelivery = rec.DateDelivery,
+                        Subject = rec.Subject,
+                        Body = rec.Body
+                    }).ToList();
             }
         }
     }
