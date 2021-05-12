@@ -46,8 +46,8 @@ namespace SoftwareInstallingListImplements.Implements
                     (model.ClientId.HasValue && order.ClientId == model.ClientId) ||
                     (model.FreeOrders.HasValue && model.FreeOrders.Value && order.Status == OrderStatus.Принят) ||
                     (model.ImplementerId.HasValue && order.ImplementerId ==
-                    model.ImplementerId && (order.Status == OrderStatus.Выполняется || 
-                    (model.NeedComponentOrders.HasValue && model.NeedComponentOrders.Value && order.Status == OrderStatus.Требуются_материалы))))
+                    model.ImplementerId && order.Status == OrderStatus.Выполняется) || 
+                    (model.NeedComponentOrders.HasValue && model.NeedComponentOrders.Value && order.Status == OrderStatus.Требуются_материалы))
                 {
                     result.Add(CreateModel(order));
                 }                    
