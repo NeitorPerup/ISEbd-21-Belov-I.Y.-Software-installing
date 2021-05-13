@@ -74,18 +74,18 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
             foreach (var order in needComponentOrders)
             {
-                RubOrder(order, implementer);
+                RunOrder(order, implementer);
             }
             await Task.Run(() =>
             {
                 foreach (var order in orders)
                 {
-                    RubOrder(order, implementer);
+                    RunOrder(order, implementer);
                 }
             });
         }
 
-        private void RubOrder(OrderViewModel order, ImplementerViewModel implementer)
+        private void RunOrder(OrderViewModel order, ImplementerViewModel implementer)
         {
             // пытаемся назначить заказ на исполнителя
             try
