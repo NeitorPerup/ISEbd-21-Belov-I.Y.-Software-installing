@@ -142,9 +142,8 @@ namespace SoftwareInstallingClientApp.Controllers
                 return Redirect("~/Home/Enter");
             }
             int pageSize = 7;   // количество элементов на странице            
-            PageViewModel index = APIClient.GetRequest<PageViewModel>($"api/client/GetPage?pageSize={pageSize}" +
-                $"&page={page}&ClientId={Program.Client.Id}");
-            return View(index);
+            return View(APIClient.GetRequest<PageViewModel>($"api/client/GetPage?pageSize={pageSize}" +
+                $"&page={page}&ClientId={Program.Client.Id}"));
         }
 
         [HttpPost]

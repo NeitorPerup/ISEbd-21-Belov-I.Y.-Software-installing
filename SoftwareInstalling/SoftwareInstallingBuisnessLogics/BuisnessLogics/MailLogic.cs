@@ -162,7 +162,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
         public List<MessageInfoViewModel> GetMessagesForPage(MessageInfoBindingModel model)
         {
-            if (model == null || !model.Page.HasValue || !model.Page.HasValue)
+            if (model == null || !model.Page.HasValue || !model.PageSize.HasValue)
             {
                 return null;
             }
