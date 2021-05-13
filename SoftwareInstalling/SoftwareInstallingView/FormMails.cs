@@ -39,12 +39,11 @@ namespace SoftwareInstallingView
             if (list != null)
             {
                 pageViewModel = new PageViewModel(logic.Count(), page, pageSize, list);
-
-                dataGridView.DataSource = pageViewModel.Messages;
+                dataGridView.DataSource = list;
                 dataGridView.Columns[0].Visible = false;
                 dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
-
+            // отображаем +- 2 страницы
             int pageStart = page < 3 ? 1 : page - 2;
             Button[] buttons = { buttonPage1, buttonPage2, buttonPage3, buttonPage4, buttonPage5 };
             for (int i = 0; i < buttons.Length; ++i)
