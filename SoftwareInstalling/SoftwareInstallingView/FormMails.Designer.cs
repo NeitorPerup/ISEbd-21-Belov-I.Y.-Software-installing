@@ -49,7 +49,7 @@ namespace SoftwareInstallingView
             this.ClientSize = new System.Drawing.Size(636, 419);
             this.Controls.Add(this.dataGridView);
             this.Name = "FormMails";
-            this.Text = "FormMails";
+            this.Text = "Письма";
             this.Load += new System.EventHandler(this.FormMails_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView)).EndInit();
             this.ResumeLayout(false);
