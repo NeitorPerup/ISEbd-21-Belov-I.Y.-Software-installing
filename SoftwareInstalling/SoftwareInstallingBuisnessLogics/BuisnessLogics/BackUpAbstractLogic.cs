@@ -72,7 +72,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             {
                 serialiser.Serialize(fs, records);
             }
-
         }
 
         protected abstract Assembly GetAssembly();
