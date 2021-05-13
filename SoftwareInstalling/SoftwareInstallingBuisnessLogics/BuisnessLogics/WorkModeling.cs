@@ -57,7 +57,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             OrderBindingModel 
             { 
                 NeedComponentOrders = true,
-                ImplementerId = implementer.Id
             })) ;
 
             foreach (var order in runOrders)
@@ -75,7 +74,30 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
 
             foreach (var order in needComponentOrders)
             {
-                Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) * order.Count);
+                RubOrder(order, implementer);
+            }
+            await Task.Run(() =>
+            {
+                foreach (var order in orders)
+                {
+                    RubOrder(order, implementer);
+                }
+            });
+        }
+
+        private void RubOrder(OrderViewModel order, ImplementerViewModel implementer)
+        {
+            // пытаемся назначить заказ на исполнителя
+            try
+            {
+                _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
+                {
+                    OrderId = order.Id,
+                    ImplementerId = implementer.Id
+                });
+                // делаем работу
+                Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) *
+                order.Count);
                 _orderLogic.FinishOrder(new ChangeStatusBindingModel
                 {
                     OrderId = order.Id,
@@ -84,32 +106,7 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
                 // отдыхаем
                 Thread.Sleep(implementer.PauseTime);
             }
-            await Task.Run(() =>
-            {
-                foreach (var order in orders)
-                {
-                    // пытаемся назначить заказ на исполнителя
-                    try
-                    {
-                        _orderLogic.TakeOrderInWork(new ChangeStatusBindingModel
-                        {
-                            OrderId = order.Id,
-                            ImplementerId = implementer.Id
-                        });
-                        // делаем работу
-                        Thread.Sleep(implementer.WorkingTime * rnd.Next(1, 5) *
-                        order.Count);
-                        _orderLogic.FinishOrder(new ChangeStatusBindingModel
-                        {
-                            OrderId = order.Id,
-                            ImplementerId = implementer.Id
-                        });
-                        // отдыхаем
-                        Thread.Sleep(implementer.PauseTime);
-                    }
-                    catch (Exception) { }
-                }
-            });
+            catch (Exception) { }
         }
     }
 }

@@ -29,7 +29,7 @@ namespace SoftwareInstallingView
 
         private void LoadData(int page = 1)
         {
-            int pageSize = 17; // Количество элементов на странице
+            int pageSize = 10; // Количество элементов на странице
 
             var list = logic.GetMessagesForPage(new MessageInfoBindingModel 
             {
@@ -43,6 +43,26 @@ namespace SoftwareInstallingView
                 dataGridView.DataSource = pageViewModel.Messages;
                 dataGridView.Columns[0].Visible = false;
                 dataGridView.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            int pageStart = page < 3 ? 1 : page - 2;
+            Button[] buttons = { buttonPage1, buttonPage2, buttonPage3, buttonPage4, buttonPage5 };
+            for (int i = 0; i < buttons.Length; ++i)
+            {
+                buttons[i].Show();
+                SetButtonPagetext(buttons[i], pageStart + i, pageViewModel.TotalPages);
+            }
+        }
+
+        private void SetButtonPagetext(Button button, int pageNumber, int totalPages)
+        {
+            if (pageNumber <= totalPages)
+            {
+                button.Text = pageNumber.ToString();
+            }
+            else
+            {
+                button.Hide();
             }
         }
 
@@ -68,6 +88,11 @@ namespace SoftwareInstallingView
             {
                 MessageBox.Show("Это первая страница", "Упс", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void buttonPage_Click(object sender, EventArgs e)
+        {
+            LoadData(Convert.ToInt32(((Button)sender).Text));
         }
     }
 }
