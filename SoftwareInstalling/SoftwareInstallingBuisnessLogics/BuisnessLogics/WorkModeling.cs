@@ -57,7 +57,6 @@ namespace SoftwareInstallingBuisnessLogic.BuisnessLogics
             OrderBindingModel 
             { 
                 NeedComponentOrders = true,
-                ImplementerId = implementer.Id
             })) ;
 
             foreach (var order in runOrders)
