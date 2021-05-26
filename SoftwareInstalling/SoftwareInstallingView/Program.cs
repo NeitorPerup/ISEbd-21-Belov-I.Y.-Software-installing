@@ -108,7 +108,6 @@ namespace SoftwareInstallingView
                                 HeaderText = columnAttr.Title,
                                 Visible = columnAttr.Visible,
                                 Width = columnAttr.Width,
-                               // DefaultCellStyle = columnAttr.DateFormat;
                             };
                             column.DefaultCellStyle.Format = columnAttr.DateFormat;
                             if (columnAttr.GridViewAutoSize !=
