@@ -6,6 +6,8 @@ using Unity;
 using Microsoft.Reporting.WinForms;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
 using SoftwareInstallingBuisnessLogic.BindingModels;
+using System.Reflection;
+using SoftwareInstallingBuisnessLogic.ViewModels;
 
 namespace SoftwareInstallingView
 {
@@ -33,11 +35,14 @@ namespace SoftwareInstallingView
                 dateTimePickerFrom.Value.ToShortDateString() + " по " +
                 dateTimePickerTo.Value.ToShortDateString());
                 reportViewer.LocalReport.SetParameters(parameter);
-                var dataSource = logic.GetOrders(new ReportBindingModel
+
+                MethodInfo method = logic.GetType().GetMethod("GetOrders");
+                List<ReportOrdersViewModel> dataSource = (List<ReportOrdersViewModel>)method.Invoke(logic, new object[] {new ReportBindingModel
                 {
                     DateFrom = dateTimePickerFrom.Value,
                     DateTo = dateTimePickerTo.Value
-                });
+                } });
+
                 ReportDataSource source = new ReportDataSource("DataSetOrders",
                 dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
@@ -64,12 +69,13 @@ namespace SoftwareInstallingView
                 {
                     try
                     {
-                        logic.SaveOrdersToPdfFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveOrdersToPdfFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName,
                             DateFrom = dateTimePickerFrom.Value,
                             DateTo = dateTimePickerTo.Value
-                        });
+                        }});
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }

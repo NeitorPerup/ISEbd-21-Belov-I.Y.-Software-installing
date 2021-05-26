@@ -1,5 +1,5 @@
 ﻿using SoftwareInstallingBuisnessLogic.BuisnessLogics;
-using SoftwareInstallingBuisnessLogic.ViewModels;
+using System.Collections.Generic;
 using SoftwareInstallingBuisnessLogic.Interfaces;
 using SoftwareInstallingBuisnessLogic.HelperModels;
 using SoftwareInstallingDatabaseImplement.Implements;
@@ -9,6 +9,7 @@ using Unity;
 using Unity.Lifetime;
 using System.Threading;
 using System.Configuration;
+using SoftwareInstallingBuisnessLogic.Attributes;
 
 namespace SoftwareInstallingView
 {
@@ -73,6 +74,7 @@ namespace SoftwareInstallingView
             currentContainer.RegisterType<ClientLogic>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<WorkModeling>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<MailLogic>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<BackUpAbstractLogic, BackUpLogic>(new HierarchicalLifetimeManager());
 
             return currentContainer;
         }
@@ -80,6 +82,58 @@ namespace SoftwareInstallingView
         private static void MailCheck(object obj)
         {        
             MailLogic.MailCheck((MailCheckInfo)obj);
+        }
+
+        public static void ConfigGrid<T>(List<T> data, DataGridView grid)
+        {
+            var type = typeof(T);
+            var config = new List<string>();
+            grid.Columns.Clear();
+            foreach (var prop in type.GetProperties())
+            {
+                // получаем список атрибутов
+                var attributes = prop.GetCustomAttributes(typeof(ColumnAttribute), true);
+                if (attributes != null && attributes.Length > 0)
+                {
+                    foreach (var attr in attributes)
+                    {
+                        // ищем нужный нам атрибут
+                        if (attr is ColumnAttribute columnAttr)
+                        {
+                            config.Add(prop.Name);
+                            var column = new DataGridViewTextBoxColumn
+                            {
+                                Name = prop.Name,
+                                ReadOnly = true,
+                                HeaderText = columnAttr.Title,
+                                Visible = columnAttr.Visible,
+                                Width = columnAttr.Width,
+                            };
+                            column.DefaultCellStyle.Format = columnAttr.DateFormat;
+                            if (columnAttr.GridViewAutoSize !=
+                            GridViewAutoSize.None)
+                            {
+                                column.AutoSizeMode =
+                                (DataGridViewAutoSizeColumnMode)Enum.Parse(typeof(DataGridViewAutoSizeColumnMode),
+                                columnAttr.GridViewAutoSize.ToString());
+                            }
+                            grid.Columns.Add(column);
+                        }
+                    }
+                }
+            }
+            // добавляем строки
+            foreach (var elem in data)
+            {
+                List<object> objs = new List<object>();
+                foreach (var conf in config)
+                {
+                    var value =
+                    elem.GetType().GetProperty(conf).GetValue(elem);
+                    objs.Add(value);
+                }
+                grid.Rows.Add(objs.ToArray());
+            }
         }
     }
 }

@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Windows.Forms;
-using Unity;
 using SoftwareInstallingBuisnessLogic.BuisnessLogics;
 using SoftwareInstallingBuisnessLogic.BindingModels;
+using SoftwareInstallingBuisnessLogic.ViewModels;
+using System.Reflection;
+using System.Collections.Generic;
 
 namespace SoftwareInstallingView
 {
     public partial class FormReportComponentPackage : Form
     {
-        [Dependency]
-        public new IUnityContainer Container { get; set; }
 
         private readonly ReportLogic logic;
 
@@ -23,7 +23,9 @@ namespace SoftwareInstallingView
         {
             try
             {
-                var dict = logic.GetComponentPackage();
+                MethodInfo method = logic.GetType().GetMethod("GetComponentPackage");
+                List<ReportComponentPackageViewModel> dict = (List<ReportComponentPackageViewModel>)
+                    method.Invoke(logic, new object[] { });
                 if (dict != null)
                 {
                     dataGridView.Rows.Clear();
@@ -54,10 +56,11 @@ namespace SoftwareInstallingView
                 {
                     try
                     {
-                        logic.SaveComponentPackageToExcelFile(new ReportBindingModel
+                        MethodInfo method = logic.GetType().GetMethod("SaveComponentPackageToExcelFile");
+                        method.Invoke(logic, new object[] { new ReportBindingModel
                         {
                             FileName = dialog.FileName
-                        });
+                        }});
                         MessageBox.Show("Выполнено", "Успех", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
                     }
